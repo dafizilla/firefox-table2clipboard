@@ -1,0 +1,7 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+.link {
+  color: #0000FF;
+  text-decoration: underline !important;
+  cursor: pointer;
+}

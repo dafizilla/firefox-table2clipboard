@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "Copy table elements">
+<!ENTITY cmd.editMenu-copyselection.label "Copy table elements">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

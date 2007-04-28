@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "复制表格中的元素">
+<!ENTITY cmd.editMenu-copyselection.label "复制表格中的元素">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

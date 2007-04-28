@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://t2c/locale/t2c.dtd" >
+
+<overlay id="t2cOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/common.js"/>
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/t2cOverlay.js" />
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/prefs.js" />
+
+    <!-- Command set Firefox-->
+    <commandset id="mainCommandSet"
+                commandupdater="true"
+                events="focus,select"
+                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
+        <command id="cmd_copyT2C"
+                 oncommand="gTable2Clip.doCommand('cmd_copyT2C');"
+                 disabled="true"/>
+    </commandset>
+
+    <!-- Command set Thunderbird-->
+    <commandset id="mailCommands"
+                commandupdater="true"
+                events="focus,select"
+                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
+        <command id="cmd_copyT2C"
+                 oncommand="gTable2Clip.doCommand('cmd_copyT2C');"
+                 disabled="true"/>
+    </commandset>
+
+    <!-- Command set Mozilla-->
+    <commandset id="commands"
+                commandupdater="true"
+                events="focus,select"
+                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
+        <command id="cmd_copyT2C"
+                 oncommand="gTable2Clip.doCommand('cmd_copyT2C');"
+                 disabled="true"/>
+    </commandset>
+
+    <!-- Context Menu Firefox, Mozilla, NS8, Flock -->
+    <popup id="contentAreaContextMenu">
+        <menuitem id="context-t2c:Copy"
+                    label="&cmd.ctx-copyselection.label;"
+                    accesskey="&editMenu-t2c-copy.accesskey;"
+                    insertbefore="context-sep-paste"
+                    command="cmd_copyT2C"
+                    hidden="true"/>
+    </popup>
+
+    <!-- Context Menu Thunderbird -->
+    <popup id="messagePaneContext">
+        <menuitem id="context-t2c:Copy"
+                    label="&cmd.ctx-copyselection.label;"
+                    accesskey="&editMenu-t2c-copy.accesskey;"
+                    insertbefore="context-sep-selectall"
+                    command="cmd_copyT2C"
+                    hidden="true"/>
+    </popup>
+
+    <!-- Edit Menu Firefox -->
+    <menupopup id="menu_EditPopup">
+        <menuitem   id="editMenu-t2c:Copy"
+                    label="&cmd.editMenu-copyselection.label;"
+                    accesskey="&editMenu-t2c-copy.accesskey;"
+                    key="key_t2c"
+                    command="cmd_copyT2C"
+                    position="6">
+        </menuitem>
+    </menupopup>
+
+    <!-- This item goes to edit Menu Mozilla, Thunderbird using a workaround -->
+    <menupopup id="menu_View_Popup">
+        <menuitem   id="fake-editMenu-t2c:Copy"
+                    label="&cmd.editMenu-copyselection.label;"
+                    accesskey="&editMenu-t2c-copy.accesskey;"
+                    key="key_t2c"
+                    command="cmd_copyT2C"
+                    hidden="true"
+                    disabled="true">
+        </menuitem>
+    </menupopup>
+
+    <!-- Shortcuts Element Firefox -->
+    <keyset id="mainKeyset">
+        <key id="key_t2c"
+             key="&t2c.commandkey;"
+             command="cmd_copyT2C"
+             modifiers="accel,shift"/>
+    </keyset>
+
+    <!-- Shortcuts Element Thunderbird -->
+    <keyset id="mailKeys">
+        <key id="key_t2c"
+             key="&t2c.commandkey;"
+             command="cmd_copyT2C"
+             modifiers="accel,shift"/>
+    </keyset>
+
+    <!-- Shortcuts Element Mozilla -->
+    <keyset id="navKeys">
+        <key id="key_t2c"
+             key="&t2c.commandkey;"
+             command="cmd_copyT2C"
+             modifiers="accel,shift"/>
+    </keyset>
+</overlay>

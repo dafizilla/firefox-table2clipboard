@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Dopisz separator na końcu kopiowanego tekstu">
+<!ENTITY colSeparator.label "Łańcuch znaków używany jako separator kolumn">
+<!ENTITY menu.special.label "Znaki specjalne">
+<!ENTITY menu.special.newline "Znak nowej lini">
+<!ENTITY menu.special.tab "Tabulator">
+<!ENTITY rowSeparator.label "Łańcuch znaków używany jako separator wierszy">
+<!ENTITY settings.title "Opcje Table2Clipboard">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Idź do Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Stworzony przez">

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://t2c/skin/settings.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://t2c/locale/settings.dtd" >
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        id="t2cSettingsDialog"
+        minwidth="400"
+        onload="return gTable2ClipSettings.onLoad();"
+        ondialogaccept="return gTable2ClipSettings.onAccept();"
+        buttons="accept,cancel"
+        title="&settings.title;">
+
+    <script type="application/x-javascript" src="chrome://t2c/content/common.js"/>
+    <script type="application/x-javascript" src="chrome://t2c/content/prefs.js"/>
+    <script type="application/x-javascript" src="chrome://t2c/content/settings/settings.js"/>
+
+    <groupbox orient="horizontal" align="center">
+        <caption label="&rowSeparator.label;"/>
+            <vbox flex="1">
+            <hbox flex="1">
+                <textbox flex="1" id="rowSep" />
+                <menu id="rowSpecialCharsMenu" label="&menu.special.label;">
+                    <menupopup id="rowSpecialCharsPopup">
+                        <menuitem label="&menu.special.tab;"
+                                  oncommand="gTable2ClipSettings.insertSpecial('rowSep', 'tab');"/>
+                        <menuitem label="&menu.special.newline;"
+                                  oncommand="gTable2ClipSettings.insertSpecial('rowSep', 'newline');"/>
+                    </menupopup>
+                </menu>
+            </hbox>
+            <separator class="groove"/>
+              <checkbox id="appendRowSep"
+                        label="&appendRowSep.label;"
+                        />
+            </vbox>
+    </groupbox>
+    <groupbox orient="horizontal" align="center">
+        <caption label="&colSeparator.label;"/>
+            <hbox flex="1">
+                <textbox flex="1" id="columnSep" />
+                <menu id="columnSpecialCharsMenu" label="&menu.special.label;">
+                    <menupopup id="columnSpecialCharsPopup">
+                        <menuitem label="&menu.special.tab;"
+                                  oncommand="gTable2ClipSettings.insertSpecial('columnSep', 'tab');"/>
+                        <menuitem label="&menu.special.newline;"
+                                  oncommand="gTable2ClipSettings.insertSpecial('columnSep', 'newline');"/>
+                    </menupopup>
+                </menu>
+            </hbox>
+    </groupbox>
+  <separator class="groove"/>
+
+  <vbox>
+    <hbox align="right" pack="center" flex="1">
+      <label value="&writtenBy.label;"/>
+      <label value="&site.label;"
+             id="table2ClipLink"
+             tooltiptext="&table2Clip.home.tooltip;"
+             class="link"
+             url="&table2Clip.url;"
+             onclick="gTable2ClipSettings.openUrl(event);"/>
+    </hbox>
+  </vbox>
+</dialog>

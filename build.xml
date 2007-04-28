@@ -1,0 +1,154 @@
+<project name="table2clipboard" default="umo">
+    <property file="extension.properties"/>
+
+    <property name="dist.dir"           value="dist"/>
+    <property name="bin.dist.dir"       value="${dist.dir}/bin"/>
+    <property name="src.dist.dir"       value="${dist.dir}/src"/>
+    <property name="tmp.dir"            value="tmp"/>
+    
+    <property name="src.dir"            value="src"/>
+    <property name="src.main.dir"       value="${src.dir}/main"/>
+    <property name="src.install.dir"    value="${src.dir}/install"/>
+    <property name="src.update.dir"     value="${src.dir}/update"/>
+    <property name="jar.name"           value="${ext.name}.jar"/>
+    <property name="dist.name"          value="${ext.name}-${version}"/>
+
+    <property name="profile.root.dir"        value="profile"/>
+    
+    <property name="profile.dir"        value="${profile.root.dir}/ff"/>
+    <property name="profile-tb.dir"     value="${profile.root.dir}/tb"/>
+    <property name="profile-nvu.dir"     value="${profile.root.dir}/nvu"/>
+    
+    <property name="profile.name"       value="profile-bck"/>
+    <property name="extensions.dir"     value="${profile.dir}/extensions/${uuid}/chrome"/>
+    <property name="extensions-tb.dir"  value="${profile-tb.dir}/extensions/${uuid}/chrome"/>
+    <property name="extensions-nvu.dir" value="${profile-nvu.dir}/extensions/${uuid}/chrome"/>
+
+    <property name="site.src.dir"       value="sourceforge.site"/>
+    <property name="site.dist.dir"      value="${tmp.dir}"/>
+
+    <target name="bin-dist" depends="jar, apply-replacement" description="Build distribution XPI">
+        <mkdir dir="${bin.dist.dir}" />
+        <zip destfile="${bin.dist.dir}/${dist.name}.xpi">
+            <zipfileset dir="${tmp.dir}/${ext.name}/main" includes="${jar.name}" prefix="chrome"/>
+            <zipfileset dir="${tmp.dir}/${ext.name}/install"/>
+        </zip>
+    </target>
+
+    <target name="umo" description="Build distribution XPI for UMO (leave updateURL blank) and dafizilla">
+        <delete dir="${tmp.dir}/${ext.name}"/>
+
+        <antcall target="bin-dist"/>
+
+        <antcall target="bin-dist">
+            <param name="bin.dist.dir" value="${bin.dist.dir}/umo"/>
+            <param name="update.url" value=""/>
+        </antcall>
+    </target>
+
+    <target name="bin-dist-debug" description="Build debug XPI">
+        <mkdir dir="${bin.dist.dir}" />
+        <delete dir="${tmp.dir}/${ext.name}"/>
+        
+        <copy todir="${tmp.dir}/${ext.name}/chrome/plainfiles">
+            <fileset dir="${src.main.dir}"/>
+        </copy>
+
+        <antcall target="apply-replacement">
+            <param name="src.install.dir" value="${src.dir}/install-debug"/>
+        </antcall>
+
+        <zip destfile="${bin.dist.dir}/${dist.name}-debug.xpi">
+            <zipfileset dir="${tmp.dir}/${ext.name}/chrome"  prefix="chrome"/>
+            <zipfileset dir="${tmp.dir}/${ext.name}/install"/>
+        </zip>
+    </target>
+
+    <target name="apply-replacement">
+        <copy todir="${tmp.dir}/${ext.name}/install" overwrite="true">
+            <fileset dir="${src.install.dir}"/>
+            <filterset>
+                <filter token="VERSION"         value="${version}"/>
+                <filter token="UUID"            value="${uuid}"/>
+                <filter token="EXT_TITLE_NAME"  value="${ext.title.name}"/>
+                <filter token="EXT_NAME"        value="${ext.name}"/>
+                <filter token="UPDATE_URL"      value="${update.url}"/>
+            </filterset>
+        </copy>    
+    </target>
+
+    <target name="src-dist">
+        <delete dir="${src.dist.dir}"/>
+        <mkdir dir="${src.dist.dir}"/>
+
+        <copy todir="${src.dist.dir}/${dist.name}">
+            <fileset dir=".">
+                <include name="build.xml"/>
+                <include name="src/**"/>
+            </fileset>
+        </copy>
+
+        <tar longfile="gnu" tarfile="${dist.dir}/${dist.name}-src.tar" basedir="${src.dist.dir}"/>
+        <gzip zipfile="${dist.dir}/${dist.name}-src.tar.gz"
+              src="${dist.dir}/${dist.name}-src.tar"/>
+
+        <delete file="${dist.dir}/${dist.name}-src.tar"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="${tmp.dir}/${ext.name}/main"/>
+        <zip destfile="${tmp.dir}/${ext.name}/main/${jar.name}" basedir="${src.main.dir}" compress="false"/>
+    </target>
+    
+    <target name="clean" description="Clean dist and tmp" >
+        <delete dir="${dist.dir}"/>
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="rebuild" depends="clean,bin-dist" description="Clean and build dist"/>
+
+    <target name="update" depends="jar">
+        <copy todir="${extensions.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
+    </target>
+
+    <target name="update-tb" depends="jar" >
+        <copy todir="${extensions-tb.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
+    </target>
+
+    <target name="update-nvu" depends="jar">
+        <copy todir="${extensions-nvu.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
+    </target>
+
+    <target name="restore-profile">
+        <delete dir="${profile.dir}"/>
+        <unzip src="${profile.name}.zip" dest="${profile.dir}"/>
+    </target>
+
+    <target name="backup-profile">
+        <zip destfile="${profile.name}.zip" basedir="${profile.dir}"/>
+    </target>
+
+    <target name="site-dist" description="Copy dist file on site directory used for ftp" depends="bin-dist">
+        <property name="site.tmp.dir" value="sf1.tmp"/>
+        <delete dir="${tmp.dir}/${site.tmp.dir}"/>
+        <mkdir dir="${tmp.dir}/${site.tmp.dir}"/>
+
+        <copy todir="${tmp.dir}/${site.tmp.dir}">
+            <fileset dir="${site.src.dir}"/>
+        </copy>
+        <echo message="${src.update.dir}/update.php"/>
+        <copy todir="${tmp.dir}/${site.tmp.dir}/viewsourcewith" overwrite="true">
+            <fileset file="${src.update.dir}/update.php"/>
+            <filterset>
+                <filter token="VERSION"         value="${version}"/>
+                <filter token="UUID"            value="${uuid}"/>
+                <filter token="EXT_TITLE_NAME"  value="${ext.title.name}"/>
+                <filter token="EXT_NAME"        value="${ext.name}"/>
+            </filterset>
+        </copy>
+        <copy todir="${tmp.dir}/${site.tmp.dir}/viewsourcewith" file="${bin.dist.dir}/${dist.name}.xpi"/>
+
+        <tar longfile="gnu" tarfile="${site.dist.dir}/dafizilla.tgz" basedir="${tmp.dir}/${site.tmp.dir}" compression="gzip"/>
+    </target>
+
+</project>

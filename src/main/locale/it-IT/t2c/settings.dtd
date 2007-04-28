@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Aggiunge il separatore alla fine">
+<!ENTITY colSeparator.label "Stringa da usare come separatore di colonne">
+<!ENTITY menu.special.label "Speciale">
+<!ENTITY menu.special.newline "A capo">
+<!ENTITY menu.special.tab "Tabulazione">
+<!ENTITY rowSeparator.label "Stringa da usare come separatore di righe">
+<!ENTITY settings.title "Impostazioni di Table2Clipboard">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Vai a Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Scritto da">

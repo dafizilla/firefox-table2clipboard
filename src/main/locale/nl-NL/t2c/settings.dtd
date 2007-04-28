@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Scheidingsteken aan einde toevoegen">
+<!ENTITY colSeparator.label "Als scheidingsteken gebruiken:">
+<!ENTITY menu.special.label "Speciaal">
+<!ENTITY menu.special.newline "Regeleinde">
+<!ENTITY menu.special.tab "Tab-karakter">
+<!ENTITY rowSeparator.label "Als rij-scheiding gebruiken:">
+<!ENTITY settings.title "Opties voor Table2Clipboard">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Ga naar Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Geschreven door">

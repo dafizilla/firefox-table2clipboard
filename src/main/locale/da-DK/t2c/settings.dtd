@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Tilføj separator i slutningen">
+<!ENTITY colSeparator.label "Streng der skal bruges som kolonneadskiller">
+<!ENTITY menu.special.label "Speciel">
+<!ENTITY menu.special.newline "Ny linieombrydning">
+<!ENTITY menu.special.tab "Tabulering">
+<!ENTITY rowSeparator.label "Streng der skal bruges som rækkeadskiller">
+<!ENTITY settings.title "Tabel2Klippebord indstillinger">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Gå til Tabel2Klippebord">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Skrevet af">

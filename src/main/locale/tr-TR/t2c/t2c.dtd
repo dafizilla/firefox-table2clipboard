@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "Tablo ögelerini kopyala">
+<!ENTITY cmd.editMenu-copyselection.label "Tablo ögelerini kopyala">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

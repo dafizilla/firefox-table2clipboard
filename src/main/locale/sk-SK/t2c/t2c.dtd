@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "Kopírovať prvky tabuľky">
+<!ENTITY cmd.editMenu-copyselection.label "Kopírovať prvky tabuľky">
+<!ENTITY editMenu-t2c-copy.accesskey "t">
+<!ENTITY t2c.commandkey "c">

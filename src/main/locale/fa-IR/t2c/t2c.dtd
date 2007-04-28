@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "کپی کردن عناصر جدول">
+<!ENTITY cmd.editMenu-copyselection.label "کپی کردن عناصر جدول">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

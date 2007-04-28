@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Добавить разделитель строк в конце таблицы">
+<!ENTITY colSeparator.label "Разделитель столбцов">
+<!ENTITY menu.special.label "Спец.символы">
+<!ENTITY menu.special.newline "Знак абзаца">
+<!ENTITY menu.special.tab "Знак табуляции">
+<!ENTITY rowSeparator.label "Разделитель строк">
+<!ENTITY settings.title "Настройки Table2Clipboard">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Перейти на страницу Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Автор:">

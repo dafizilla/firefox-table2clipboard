@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>@UUID@</em:id>
+    <em:name>@EXT_TITLE_NAME@</em:name>
+    <em:version>@VERSION@</em:version>
+    <em:description>Allow to copy to clipboard an HTML table rows/columns selection correctly formatted</em:description>
+    <em:creator>Davide Ficano</em:creator>
+
+    <em:contributor>nirwana (Dutch translation)</em:contributor>
+    <em:contributor>La Luciole (French translation)</em:contributor>
+    <em:contributor>urko (Spanish translation)</em:contributor>
+    <em:contributor>Oliver Roth "ReinekeFux" (German translation)</em:contributor>
+    <em:contributor>Batuhan &#199;etin (Turkish translation)</em:contributor>
+    <em:contributor>TLemur (Russian translation)</em:contributor>
+
+    <em:homepageURL>http://dafizilla.sourceforge.net/table2clip</em:homepageURL>
+
+    <!-- Front End Integration Hooks (used by Extension Manager)-->
+    <em:optionsURL>chrome://@EXT_NAME@/content/settings/settings.xul</em:optionsURL>
+    <em:iconURL>chrome://@EXT_NAME@/skin/appicon.png</em:iconURL>
+
+    <em:updateURL>@UPDATE_URL@</em:updateURL>
+
+    <em:file>
+      <Description about="urn:mozilla:extension:file:plainfiles">
+        <em:package>content/@EXT_NAME@/</em:package>
+        <em:locale>locale/en-US/@EXT_NAME@/</em:locale>
+        <em:locale>locale/it-IT/@EXT_NAME@/</em:locale>
+        <em:locale>locale/de-DE/@EXT_NAME@/</em:locale>
+        <em:locale>locale/es-ES/@EXT_NAME@/</em:locale>
+        <em:locale>locale/fr-FR/@EXT_NAME@/</em:locale>
+        <em:locale>locale/nl-NL/@EXT_NAME@/</em:locale>
+        <em:locale>locale/tr-TR/@EXT_NAME@/</em:locale>
+        <em:locale>locale/ru-RU/@EXT_NAME@/</em:locale>
+        <em:skin>skin/classic/@EXT_NAME@/</em:skin>
+      </Description>
+    </em:file>
+
+    <!-- FireFox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>2.0</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+   <!-- Mozilla -->
+   <em:targetApplication>
+      <Description>
+        <em:id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</em:id>
+        <em:minVersion>1.7</em:minVersion>
+        <em:maxVersion>1.8</em:maxVersion>
+      </Description>
+   </em:targetApplication>
+
+   <!-- Thunderbird -->
+   <em:targetApplication>
+      <Description>
+         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+         <em:minVersion>0.5</em:minVersion>
+         <em:maxVersion>1.6</em:maxVersion>
+      </Description>
+   </em:targetApplication>
+
+    <!-- Netscape -->
+    <em:targetApplication>
+      <Description>
+         <em:id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</em:id>
+         <em:minVersion>8.0</em:minVersion>
+         <em:maxVersion>8.0.3</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Flock -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
+        <em:maxVersion>1.0+</em:maxVersion>
+        <em:minVersion>1.0+</em:minVersion>
+      </Description>
+    </em:targetApplication>
+
+  </Description>
+</RDF>

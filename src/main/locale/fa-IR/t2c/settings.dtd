@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "جدا کننده در انتها">
+<!ENTITY colSeparator.label "رشته جدا کننده ستون ها">
+<!ENTITY menu.special.label "ویژه">
+<!ENTITY menu.special.newline "شکستن خط جدید">
+<!ENTITY menu.special.tab "جدول بندی">
+<!ENTITY rowSeparator.label "رشته جدا کننده ردیف ها">
+<!ENTITY settings.title "Table2Clipboard تنظیمات">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Table2Clipboard رفتن به">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "نویسنده:">

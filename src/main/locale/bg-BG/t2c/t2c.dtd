@@ -1,0 +1,4 @@
+<!ENTITY cmd.ctx-copyselection.label "Копирай елементите от таблицата">
+<!ENTITY cmd.editMenu-copyselection.label "Копирай елементите от таблицата">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

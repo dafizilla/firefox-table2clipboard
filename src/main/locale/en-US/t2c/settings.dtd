@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Append separator at end">
+<!ENTITY colSeparator.label "String to use as columns separator">
+<!ENTITY menu.special.label "Special">
+<!ENTITY menu.special.newline "New line break">
+<!ENTITY menu.special.tab "Tabulation">
+<!ENTITY rowSeparator.label "String to use as rows separator">
+<!ENTITY settings.title "Table2Clipboard settings">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Go to Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Written by">

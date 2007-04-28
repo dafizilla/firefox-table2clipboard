@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Sonuna ayraç ekle">
+<!ENTITY colSeparator.label "Sütun ayracı olarak kullanılacak dize">
+<!ENTITY menu.special.label "Özel">
+<!ENTITY menu.special.newline "Yeni satır ayracı">
+<!ENTITY menu.special.tab "Çizelgele">
+<!ENTITY rowSeparator.label "Satır ayracı olarak kullanılacak dize">
+<!ENTITY settings.title "Table2Clipboard ayarları">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Table2Clipboard&apos;a git">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Hazırlayan">
