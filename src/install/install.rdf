@@ -23,6 +23,7 @@
     <em:translator>Emil Stanchev (Bulgarian translation)</em:translator>
     <em:translator>AlleyKat (Danish translation)</em:translator>
     <em:translator>Pedram Veisi (Persian translation)</em:translator>
+    <em:translator>Jan Bruusgaard (Norwegian translation)</em:translator>
 
     <em:homepageURL>http://dafizilla.sourceforge.net/table2clip</em:homepageURL>
 
@@ -30,9 +31,7 @@
     <em:optionsURL>chrome://@EXT_NAME@/content/settings/settings.xul</em:optionsURL>
     <em:iconURL>chrome://@EXT_NAME@/skin/appicon.png</em:iconURL>
 
-    <!--
     <em:updateURL>@UPDATE_URL@</em:updateURL>
-    -->
 
     <em:file>
       <Description about="urn:mozilla:extension:file:@EXT_NAME@.jar">
@@ -52,6 +51,7 @@
         <em:locale>locale/bg-BG/@EXT_NAME@/</em:locale>
         <em:locale>locale/da-DK/@EXT_NAME@/</em:locale>
         <em:locale>locale/fa-IR/@EXT_NAME@/</em:locale>
+        <em:locale>locale/nb-NO/@EXT_NAME@/</em:locale>
         <em:skin>skin/classic/@EXT_NAME@/</em:skin>
       </Description>
     </em:file>
@@ -61,7 +61,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>1.0</em:minVersion>
-        <em:maxVersion>2.0.0.*</em:maxVersion>
+        <em:maxVersion>3.0a7</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -79,7 +79,7 @@
       <Description>
          <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
          <em:minVersion>0.5</em:minVersion>
-         <em:maxVersion>1.6a1</em:maxVersion>
+         <em:maxVersion>2.0.0.*</em:maxVersion>
       </Description>
    </em:targetApplication>
 
@@ -88,7 +88,7 @@
       <Description>
          <em:id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</em:id>
          <em:minVersion>8.0</em:minVersion>
-         <em:maxVersion>8.1</em:maxVersion>
+         <em:maxVersion>9.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 

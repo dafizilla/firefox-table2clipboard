@@ -9,11 +9,14 @@
 
   <RDF:Description RDF:about="urn:mozilla:package:t2c"
                    chrome:author="Davide Ficano"
-                   chrome:authorURL="mailto:davide.ficano@gmail.com"
+                   chrome:authorURL="http://dafizilla.sourceforge.net/table2clip/"
                    chrome:description="Allow to copy to clipboard a HTML table rows/columns selection correctly formatted"
-                   chrome:displayName="t2c"
+                   chrome:displayName="Table2Clipboard"
                    chrome:extension="true"
-                   chrome:name="t2c">
+                   chrome:name="t2c"
+                   chrome:settingsURL="chrome://t2c/content/settings/settings.xul"
+                   chrome:iconURL="chrome://t2c/skin/appicon.png">
+                   >
   </RDF:Description>
 
   <RDF:Seq RDF:about="urn:mozilla:overlays">

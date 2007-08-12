@@ -20,6 +20,14 @@ var gTable2Clip = {
         thiz.workaroundEditMenu();
     },
 
+    onUnLoad : function() {
+        var thiz = gTable2Clip;
+
+        var obs = Table2ClipCommon.getObserverService();
+        obs.removeObserver(thiz, "t2clip:update-config");
+        thiz.removeListeners();
+    },
+
     observe : function(subject, topic, state) {
         var thiz = gTable2Clip;
 
@@ -38,6 +46,20 @@ var gTable2Clip = {
 
             if (n) {
                 n.addEventListener("popupshowing",
+                                   thiz.onPopupShowingContextMenu, false);
+            }
+        }
+    },
+
+    removeListeners : function() {
+        var thiz = gTable2Clip;
+
+        var menuItem = document.getElementById("context-t2c:Copy");
+        if (menuItem) {
+            var n = menuItem.parentNode;
+
+            if (n) {
+                n.removeEventListener("popupshowing",
                                    thiz.onPopupShowingContextMenu, false);
             }
         }
@@ -286,3 +308,4 @@ var gTable2Clip = {
 }
 
 window.addEventListener("load", gTable2Clip.onLoad, false);
+window.addEventListener("unload", gTable2Clip.onUnLoad, false);
