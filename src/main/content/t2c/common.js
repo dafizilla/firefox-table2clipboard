@@ -48,3 +48,23 @@ Table2ClipCommon.log = function(message) {
             .logStringMessage(message);
 }
 
+Table2ClipCommon.htmlEncode = function(txt) {
+    return txt.replace(/[<>&"]/g, Table2ClipCommon.getEntity);
+}
+    
+Table2ClipCommon.getEntity = function(ch)
+{
+    switch (ch) {
+        case "<":
+            return "&lt;";
+        case ">":
+            return "&gt;";
+        case "&":
+            return "&amp;";
+        case "\"":
+            return "&quot;";
+        default:
+            return ch;
+    }
+}
+

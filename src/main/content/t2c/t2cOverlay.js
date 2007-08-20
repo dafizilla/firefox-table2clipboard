@@ -125,7 +125,8 @@ var gTable2Clip = {
         for (var i = 0; i < rc; i++) {
             str += "<tr>";
             for (var j = 0; j < cc; j++) {
-                var cellText = arr[i][j] ? arr[i][j] : "&nbsp;"
+                var cellText = arr[i][j] 
+                    ? Table2ClipCommon.htmlEncode(arr[i][j]) : "&nbsp;"
                 str += "<td>" + cellText + "</td>";
             }
             str += "</tr>";
