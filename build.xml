@@ -38,7 +38,9 @@
     <target name="umo" description="Build distribution XPI for UMO (leave updateURL blank) and dafizilla">
         <delete dir="${tmp.dir}/${ext.name}"/>
 
-        <antcall target="bin-dist"/>
+        <antcall target="bin-dist">
+            <param name="update.url"      value="&lt;em:updateURL&gt;${update.url}&lt;/em:updateURL&gt;"/>
+        </antcall>
 
         <antcall target="bin-dist">
             <param name="bin.dist.dir" value="${bin.dist.dir}/umo"/>
