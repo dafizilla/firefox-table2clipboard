@@ -23,7 +23,7 @@
     <em:optionsURL>chrome://@EXT_NAME@/content/settings/settings.xul</em:optionsURL>
     <em:iconURL>chrome://@EXT_NAME@/skin/appicon.png</em:iconURL>
 
-    <em:updateURL>@UPDATE_URL@</em:updateURL>
+    @UPDATE_URL@
 
     <em:file>
       <Description about="urn:mozilla:extension:file:plainfiles">

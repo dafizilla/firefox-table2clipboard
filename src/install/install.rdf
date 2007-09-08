@@ -31,7 +31,7 @@
     <em:optionsURL>chrome://@EXT_NAME@/content/settings/settings.xul</em:optionsURL>
     <em:iconURL>chrome://@EXT_NAME@/skin/appicon.png</em:iconURL>
 
-    <em:updateURL>@UPDATE_URL@</em:updateURL>
+    @UPDATE_URL@
 
     <em:file>
       <Description about="urn:mozilla:extension:file:@EXT_NAME@.jar">
@@ -52,6 +52,8 @@
         <em:locale>locale/da-DK/@EXT_NAME@/</em:locale>
         <em:locale>locale/fa-IR/@EXT_NAME@/</em:locale>
         <em:locale>locale/nb-NO/@EXT_NAME@/</em:locale>
+        <em:locale>locale/ja-JP/@EXT_NAME@/</em:locale>
+        <em:locale>locale/sv-SE/@EXT_NAME@/</em:locale>
         <em:skin>skin/classic/@EXT_NAME@/</em:skin>
       </Description>
     </em:file>

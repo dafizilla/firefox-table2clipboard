@@ -24,7 +24,8 @@ var localeDir           = "/" + name + "/"
 var locales             = new Array("en-US", "it-IT" ,"de-DE", "es-ES",
                                     "fr-FR", "nl-NL" ,"pl-PL", "tr-TR",
                                     "ru-RU", "zh-CN", "sk-SK", "pt-BR",
-                                    "bg-BG", "da-DK", "fa-IR", "nb-NO");
+                                    "bg-BG", "da-DK", "fa-IR", "nb-NO",
+                                    "ja-JP", "sv-SE");
 var skins               = new Array( "classic" ); // "modern"
 var prefs               = new Array( "t2c.js" );
 var components          = new Array(  );

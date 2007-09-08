@@ -1,4 +1,6 @@
-<!ENTITY cmd.ctx-copyselection.label "Copier les éléments du tableau">
-<!ENTITY cmd.editMenu-copyselection.label "Copier les éléments du tableau">
+<!ENTITY cmd.ctx-copyselection.label "Copier les cellules sélectionnées">
+<!ENTITY cmd.editMenu-copyselection.label "Copier les cellules sélectionnées">
+<!ENTITY cmd.ctx-selecttable.label "Sélectionner le tableau">
+<!ENTITY cmd.ctx-copy-whole-table.label "Copier l&apos;intégralité du tableau">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">

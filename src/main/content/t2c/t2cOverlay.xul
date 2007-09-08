@@ -50,6 +50,18 @@
                     insertbefore="context-sep-paste"
                     command="cmd_copyT2C"
                     hidden="true"/>
+
+        <menuitem id="context-t2c:CopyWholeTable"
+                    label="&cmd.ctx-copy-whole-table.label;"
+                    insertbefore="context-sep-paste"
+                    oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
+                    hidden="true"/>
+
+        <menuitem id="context-t2c:SelectTable"
+                    label="&cmd.ctx-selecttable.label;"
+                    insertbefore="context-sep-selectall"
+                    oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
+                    hidden="true"/>
     </popup>
 
     <!-- Context Menu Thunderbird -->
@@ -59,6 +71,18 @@
                     accesskey="&editMenu-t2c-copy.accesskey;"
                     insertbefore="context-sep-selectall"
                     command="cmd_copyT2C"
+                    hidden="true"/>
+
+        <menuitem id="context-t2c:CopyWholeTable"
+                    label="&cmd.ctx-copy-whole-table.label;"
+                    insertbefore="context-sep-selectall"
+                    oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
+                    hidden="true"/>
+
+        <menuitem id="context-t2c:SelectTable"
+                    label="&cmd.ctx-selecttable.label;"
+                    insertbefore="context-sep-selectall"
+                    oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
                     hidden="true"/>
     </popup>
 
