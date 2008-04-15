@@ -1,0 +1,51 @@
+<applications>
+        <application>
+            <description>FireFox</description>
+            <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
+        </application>
+        
+        <application>
+            <description>Mozilla</description>
+            <id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</id>
+        </application>
+        
+        <application>
+            <description>Thunderbird</description>
+            <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id>
+        </application>
+        
+        <application>
+            <description>NVU</description>
+            <id>{136c295a-4a5a-41cf-bf24-5cee526720d5}</id>
+        </application>
+        
+        <application>
+            <description>Netscape</description>
+            <id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</id>
+        </application>
+        
+        <application>
+            <description>Flock</description>
+            <id>{a463f10c-3994-11da-9945-000d60ca027b}</id>
+        </application>
+
+        <application>
+            <description>SeaMonkey</description>
+            <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
+        </application>
+
+        <application>
+            <description>Komodo IDE's</description>
+            <id>{36E66FA0-F259-11D9-850E-000D935D3368}</id>
+        </application>
+
+        <application>
+            <description> Komodo Edit's</description>
+            <id>{b1042fb5-9e9c-11db-b107-000d935d3368}</id>
+        </application>
+
+        <application>
+            <description>OpenKomodo Snapdragon</description>
+            <id>{2cb9d397-8ec9-4211-bd89-7fea34120af6}</id>
+        </application>
+</applications>

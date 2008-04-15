@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Додавати роздільник у кінець копійованого тексту">
+<!ENTITY colSeparator.label "Послідовність символів, що використовується як роздільник стовпчиків">
+<!ENTITY menu.special.label "Спеціальні символи">
+<!ENTITY menu.special.newline "Символ нового рядка">
+<!ENTITY menu.special.tab "Табуляція">
+<!ENTITY rowSeparator.label "Послідовність символів, що використовується як роздільник рядків">
+<!ENTITY settings.title "Налаштування Table2Clipboard">
+<!ENTITY site.label "avide Ficano">
+<!ENTITY table2Clip.home.tooltip "Перехід на сторінку Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Автор:">

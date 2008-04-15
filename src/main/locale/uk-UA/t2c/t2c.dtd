@@ -1,0 +1,6 @@
+<!ENTITY cmd.ctx-copyselection.label "Скопіювати вибрані комірки">
+<!ENTITY cmd.editMenu-copyselection.label "Скопіювати вибрані комірки">
+<!ENTITY cmd.ctx-selecttable.label "Вибрати таблицю">
+<!ENTITY cmd.ctx-copy-whole-table.label "Скопіювати таблицю повністю">
+<!ENTITY editMenu-t2c-copy.accesskey "п">
+<!ENTITY t2c.commandkey "c">

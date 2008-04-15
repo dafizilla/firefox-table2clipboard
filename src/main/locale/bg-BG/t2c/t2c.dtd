@@ -1,6 +1,6 @@
-<!ENTITY cmd.ctx-copyselection.label "Copy selected cells">
-<!ENTITY cmd.editMenu-copyselection.label "Copy selected cells">
-<!ENTITY cmd.ctx-selecttable.label "Select table">
-<!ENTITY cmd.ctx-copy-whole-table.label "Copy whole table">
+<!ENTITY cmd.ctx-copyselection.label "Копиране на избраните клетки">
+<!ENTITY cmd.editMenu-copyselection.label "Копиране на избраните клетки">
+<!ENTITY cmd.ctx-selecttable.label "Избор на таблица">
+<!ENTITY cmd.ctx-copy-whole-table.label "Копиране на цялата таблица">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">

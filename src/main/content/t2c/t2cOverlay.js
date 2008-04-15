@@ -235,7 +235,8 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length && rangeIndexStart < rangeIndexEnd; cc++) {
                 var theCell = cells.item(cc);
                 if (sel.containsNode(theCell, false))  {
-                    arrCol[cc] = sel.getRangeAt(rangeIndexStart++).toString();
+                    var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
+                    arrCol[cc] = gTable2Clip.getTextNodeContent(selNode);
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
@@ -265,7 +266,9 @@ var gTable2Clip = {
         var nl = node.childNodes;
 
         for (var i = 0; i < nl.length; i++) {
-            if (nl[i].nodeType == Node.TEXT_NODE) {
+            if (this.skipNode(nl[i])) {
+                continue;
+            } else if (nl[i].nodeType == Node.TEXT_NODE) {
                 str += nl[i].nodeValue;
             }
             if (nl[i].hasChildNodes()) {
@@ -273,6 +276,16 @@ var gTable2Clip = {
             }
         }
         return str;
+    },
+
+    skipNode : function(node) {
+        if (node.nodeType == Node.ELEMENT_NODE) {
+            var style = node.ownerDocument.defaultView.getComputedStyle(node, null);
+            if (style.getPropertyValue("display") == "none") {
+                return true;
+            }
+        }
+        return false;
     },
 
     getColumnsPerRow : function(sel, startPos) {

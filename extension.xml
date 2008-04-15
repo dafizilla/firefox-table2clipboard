@@ -1,0 +1,139 @@
+<!DOCTYPE extension [
+<!ENTITY extension.version "0.1">
+]>
+
+<extension name="t2c">
+    <title-name>Table2Clipboard</title-name>
+    <uuid>{9ab67d74-ec41-4cb2-b417-df5d93ba1beb}</uuid>
+    <version>&extension.version;</version>
+    <description>Allow to copy to clipboard an HTML table rows/columns selection correctly formatted</description>
+    <homepage>http://dafizilla.sourceforge.net/table2clip</homepage>
+    <updateurl>http://dafizilla.sourceforge.net/table2clip/update.php?item_id=%ITEM_ID%&amp;item_version=%ITEM_VERSION%&amp;app_id=%APP_ID%&amp;app_version=%APP_VERSION%</updateurl>
+    <iconurl-path>skin/appicon.png</iconurl-path>
+
+    <optionurl-path>/content/settings/settings.xul</optionurl-path>
+
+    <author>Davide Ficano</author>
+
+    <exclude-installjs>false</exclude-installjs>
+    <exclude.installrdf>false</exclude.installrdf>
+    <exclude.chromemanifest>false</exclude.chromemanifest>
+    <exclude.prefsjs>false</exclude.prefsjs>
+    <exclude.updaterdf>false</exclude.updaterdf>
+    <exclude.contentrdf>false</exclude.contentrdf>
+
+    <!-- Point to directory containing content, locales and skins. -->
+    <!-- If present must start with / (slash) -->
+    <chrome-extension-directory>/t2c</chrome-extension-directory>
+
+    <!-- Used by web site update.rdf -->
+    <updateLink>http://dafizilla.sourceforge.net/table2clip/t2c-&extension.version;.xpi</updateLink>
+
+    <!-- used by install.js -->
+    <skins>
+        <skin>classic</skin>
+    </skins>
+    
+    <!-- used by install.js and build process to set the prefs.js.xsl destination file name -->
+    <prefs>
+        <pref>t2c.js</pref>
+    </prefs>
+
+    <locales>
+        <locale pos="1" code="en-US" />
+        <locale pos="2" code="it-IT" />
+        <locale pos="3" code="de-DE" />
+        <locale pos="4" code="es-ES" />
+        <locale pos="5" code="fr-FR" />
+        <locale pos="6" code="nl-NL" />
+        <locale pos="7" code="pl-PL" />
+        <locale pos="8" code="tr-TR" />
+        <locale pos="9" code="ru-RU" />
+        <locale pos="10" code="zh-CN" />
+        <locale pos="11" code="sk-SK" />
+        <locale pos="12" code="pt-BR" />
+        <locale pos="13" code="bg-BG" />
+        <locale pos="14" code="da-DK" />
+        <locale pos="15" code="fa-IR" />
+        <locale pos="16" code="nb-NO" />
+        <locale pos="17" code="ja-JP" />
+        <locale pos="18" code="sv-SE" />
+        <locale pos="19" code="uk-UA" />
+    </locales>
+
+    <styles>
+    </styles>
+
+    <overlays>
+        <overlay description="Firefox - Main window" uri="chrome://browser/content/browser.xul" value="chrome://t2c/content/t2cOverlay.xul" />
+        <overlay description="Mozilla - Main window" uri="chrome://navigator/content/navigator.xul" value="chrome://t2c/content/t2cOverlay.xul" />
+        <overlay description="Thunderbird - Main window" uri="chrome://messenger/content/messenger.xul" value="chrome://t2c/content/t2cOverlay.xul" />
+        <overlay description="Thunderbird - Message window" uri="chrome://messenger/content/messageWindow.xul" value="chrome://t2c/content/t2cOverlay.xul" />
+    </overlays>
+
+    <compatibility>
+        <application>
+            <description>Firefox</description>
+            <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
+            <minVersion>1.5</minVersion>
+            <maxVersion>3.0pre</maxVersion>
+        </application>
+
+        <application>
+            <description>Mozilla</description>
+            <id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</id>
+            <minVersion>1.7</minVersion>
+            <maxVersion>1.8</maxVersion>
+        </application>
+        
+        <application>
+            <description>Thunderbird</description>
+            <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id>
+            <minVersion>0.5</minVersion>
+            <maxVersion>2.0.0.*</maxVersion>
+        </application>
+        
+        <application>
+            <description>Netscape</description>
+            <id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</id>
+            <minVersion>8.0</minVersion>
+            <maxVersion>9.0</maxVersion>
+        </application>
+        
+        <application>
+            <description>Flock</description>
+            <id>{a463f10c-3994-11da-9945-000d60ca027b}</id>
+            <minVersion>1.0+</minVersion>
+            <maxVersion>1.0+</maxVersion>
+        </application>
+
+        <application>
+            <description>SeaMonkey</description>
+            <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
+            <minVersion>1.0</minVersion>
+            <maxVersion>1.0.*</maxVersion>
+        </application>
+    </compatibility>
+
+    <contributors>
+        <contributor>Savaden (Graphics)</contributor>
+    </contributors>
+
+    <translators>
+        <translator>nirwana (Dutch translation)</translator>
+        <translator>La Luciole (French translation)</translator>
+        <translator>urko (Spanish translation)</translator>
+        <translator>Oliver Roth "ReinekeFux" (German translation)</translator>
+        <translator>damian (Polish translation)</translator>
+        <translator>Batuhan &#199;etin (Turkish translation)</translator>
+        <translator>TLemur (Russian translation)</translator>
+        <translator>rickcart (Chinese translation)</translator>
+        <translator>SlovakSoft (Slovak translation)</translator>
+        <translator>teboga (Brazilian translation)</translator>
+        <translator>Emil Stanchev (Bulgarian translation)</translator>
+        <translator>AlleyKat (Danish translation)</translator>
+        <translator>Pedram Veisi (Persian translation)</translator>
+        <translator>Jan Bruusgaard (Norwegian translation)</translator>
+    </translators>
+
+</extension>

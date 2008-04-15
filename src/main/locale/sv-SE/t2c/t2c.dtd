@@ -1,0 +1,6 @@
+<!ENTITY cmd.ctx-copyselection.label "Kopiera markerad text">
+<!ENTITY cmd.editMenu-copyselection.label "Kopiera markerade celler">
+<!ENTITY cmd.ctx-selecttable.label "Välj tabell">
+<!ENTITY cmd.ctx-copy-whole-table.label "Kopiera hela tabellen">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

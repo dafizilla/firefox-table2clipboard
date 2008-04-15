@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "Bifoga avskiljare vid slutet">
+<!ENTITY colSeparator.label "Sträng att använda som kolumnavskiljare">
+<!ENTITY menu.special.label "Special">
+<!ENTITY menu.special.newline "Nyradsbrytning">
+<!ENTITY menu.special.tab "Tabulation">
+<!ENTITY rowSeparator.label "String att använda som radavskiljare">
+<!ENTITY settings.title "Table2Clipboard-inställningar">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Gå till Table2Clipboard">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "Skriven av">

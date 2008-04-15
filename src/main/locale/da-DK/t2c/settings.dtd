@@ -1,7 +1,7 @@
 <!ENTITY appendRowSep.label "Tilføj separator i slutningen">
 <!ENTITY colSeparator.label "Streng der skal bruges som kolonneadskiller">
 <!ENTITY menu.special.label "Speciel">
-<!ENTITY menu.special.newline "Ny linieombrydning">
+<!ENTITY menu.special.newline "Ny linjeombrydning">
 <!ENTITY menu.special.tab "Tabulering">
 <!ENTITY rowSeparator.label "Streng der skal bruges som rækkeadskiller">
 <!ENTITY settings.title "Tabel2Klippebord indstillinger">

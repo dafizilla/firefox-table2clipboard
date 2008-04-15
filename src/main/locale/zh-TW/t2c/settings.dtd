@@ -1,0 +1,11 @@
+<!ENTITY appendRowSep.label "在列末補上分隔符號">
+<!ENTITY colSeparator.label "用以當作行分隔符號的字串">
+<!ENTITY menu.special.label "特殊字元">
+<!ENTITY menu.special.newline "斷行至新的一行">
+<!ENTITY menu.special.tab "表格">
+<!ENTITY rowSeparator.label "用以當作列分隔符號的字串">
+<!ENTITY settings.title "Table2Clipboard 設定">
+<!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "前往 Table2Clipboard 首頁">
+<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
+<!ENTITY writtenBy.label "作者：">

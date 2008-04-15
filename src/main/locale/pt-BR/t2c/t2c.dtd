@@ -1,6 +1,6 @@
-<!ENTITY cmd.ctx-copyselection.label "Copy selected cells">
-<!ENTITY cmd.editMenu-copyselection.label "Copy selected cells">
-<!ENTITY cmd.ctx-selecttable.label "Select table">
-<!ENTITY cmd.ctx-copy-whole-table.label "Copy whole table">
+<!ENTITY cmd.ctx-copyselection.label "Copiar células selecionadas">
+<!ENTITY cmd.editMenu-copyselection.label "Copiar células selecionadas">
+<!ENTITY cmd.ctx-selecttable.label "Selecionar tabela">
+<!ENTITY cmd.ctx-copy-whole-table.label "Copiar a tabela inteira">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">

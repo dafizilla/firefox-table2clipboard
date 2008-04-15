@@ -1,0 +1,6 @@
+<!ENTITY cmd.ctx-copyselection.label "選択したセルをコピー">
+<!ENTITY cmd.editMenu-copyselection.label "選択したセルをコピー">
+<!ENTITY cmd.ctx-selecttable.label "表を選択">
+<!ENTITY cmd.ctx-copy-whole-table.label "表全体をコピー">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

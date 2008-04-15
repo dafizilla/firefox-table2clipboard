@@ -1,6 +1,6 @@
-<!ENTITY cmd.ctx-copyselection.label "Copy selected cells">
-<!ENTITY cmd.editMenu-copyselection.label "Copy selected cells">
-<!ENTITY cmd.ctx-selecttable.label "Select table">
-<!ENTITY cmd.ctx-copy-whole-table.label "Copy whole table">
+<!ENTITY cmd.ctx-copyselection.label "复制选中的单元">
+<!ENTITY cmd.editMenu-copyselection.label "复制选中的单元">
+<!ENTITY cmd.ctx-selecttable.label "选择列表">
+<!ENTITY cmd.ctx-copy-whole-table.label "复制整个列表">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">

@@ -1,0 +1,6 @@
+<!ENTITY cmd.ctx-copyselection.label "複製所選的欄位">
+<!ENTITY cmd.editMenu-copyselection.label "複製所選的欄位">
+<!ENTITY cmd.ctx-selecttable.label "選擇表格">
+<!ENTITY cmd.ctx-copy-whole-table.label "複製整個表格">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">

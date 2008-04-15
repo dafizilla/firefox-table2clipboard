@@ -1,5 +1,6 @@
-<project name="table2clipboard" default="umo">
+<project name="mozilla-extension" default="umo">
     <property file="extension.properties"/>
+    <xmlproperty file="extension.xml" semanticAttributes="true" />
 
     <property name="dist.dir"           value="dist"/>
     <property name="bin.dist.dir"       value="${dist.dir}/bin"/>
@@ -10,98 +11,140 @@
     <property name="src.main.dir"       value="${src.dir}/main"/>
     <property name="src.install.dir"    value="${src.dir}/install"/>
     <property name="src.update.dir"     value="${src.dir}/update"/>
-    <property name="jar.name"           value="${ext.name}.jar"/>
-    <property name="dist.name"          value="${ext.name}-${version}"/>
-
-    <property name="profile.root.dir"        value="profile"/>
-    
-    <property name="profile.dir"        value="${profile.root.dir}/ff"/>
-    <property name="profile-tb.dir"     value="${profile.root.dir}/tb"/>
-    <property name="profile-nvu.dir"     value="${profile.root.dir}/nvu"/>
-    
-    <property name="profile.name"       value="profile-bck"/>
-    <property name="extensions.dir"     value="${profile.dir}/extensions/${uuid}/chrome"/>
-    <property name="extensions-tb.dir"  value="${profile-tb.dir}/extensions/${uuid}/chrome"/>
-    <property name="extensions-nvu.dir" value="${profile-nvu.dir}/extensions/${uuid}/chrome"/>
+    <property name="jar.name"           value="${extension.name}.jar"/>
+    <property name="dist.name"          value="${extension.name}-${extension.version}"/>
 
     <property name="site.src.dir"       value="sourceforge.site"/>
     <property name="site.dist.dir"      value="${tmp.dir}"/>
+    
+    <property name="replacement.output.dir"      value="${tmp.dir}/${extension.name}/install"/>
+
+    <property name="migrate.exclude.files" value="profile/** tmp/** svn/** dist/**" />
+    <property name="style.dir" value="xsl/install" />
 
     <target name="bin-dist" depends="jar, apply-replacement" description="Build distribution XPI">
         <mkdir dir="${bin.dist.dir}" />
         <zip destfile="${bin.dist.dir}/${dist.name}.xpi">
-            <zipfileset dir="${tmp.dir}/${ext.name}/main" includes="${jar.name}" prefix="chrome"/>
-            <zipfileset dir="${tmp.dir}/${ext.name}/install"/>
+            <zipfileset dir="${tmp.dir}/${extension.name}/main" includes="${jar.name}" prefix="chrome"/>
+            <zipfileset dir="${tmp.dir}/${extension.name}/install"/>
         </zip>
     </target>
 
     <target name="umo" description="Build distribution XPI for UMO (leave updateURL blank) and dafizilla">
-        <delete dir="${tmp.dir}/${ext.name}"/>
+        <delete dir="${tmp.dir}/${extension.name}"/>
 
         <antcall target="bin-dist">
-            <param name="update.url"      value="&lt;em:updateURL&gt;${update.url}&lt;/em:updateURL&gt;"/>
+            <param name="generate.updateurl" value="true"/>
         </antcall>
+
+        <antcall target="sign-update-rdf" />
+        <copy todir="${website.dest.dir}" file="${bin.dist.dir}/${dist.name}.xpi" />
 
         <antcall target="bin-dist">
             <param name="bin.dist.dir" value="${bin.dist.dir}/umo"/>
-            <param name="update.url" value=""/>
+            <param name="generate.updateurl" value=""/>
         </antcall>
     </target>
 
     <target name="bin-dist-debug" description="Build debug XPI">
         <mkdir dir="${bin.dist.dir}" />
-        <delete dir="${tmp.dir}/${ext.name}"/>
+        <delete dir="${tmp.dir}/${extension.name}"/>
         
-        <copy todir="${tmp.dir}/${ext.name}/chrome/plainfiles">
+        <copy todir="${tmp.dir}/${extension.name}/chrome/plainfiles">
             <fileset dir="${src.main.dir}"/>
         </copy>
 
         <antcall target="apply-replacement">
-            <param name="src.install.dir" value="${src.dir}/install-debug"/>
+            <param name="use.exploded.chrome" value="true"/>
+            <param name="exclude-updaterdf" value="true"/>
         </antcall>
 
         <zip destfile="${bin.dist.dir}/${dist.name}-debug.xpi">
-            <zipfileset dir="${tmp.dir}/${ext.name}/chrome"  prefix="chrome"/>
-            <zipfileset dir="${tmp.dir}/${ext.name}/install"/>
+            <zipfileset dir="${tmp.dir}/${extension.name}/chrome"  prefix="chrome"/>
+            <zipfileset dir="${tmp.dir}/${extension.name}/install"/>
         </zip>
     </target>
 
-    <target name="apply-replacement">
-        <copy todir="${tmp.dir}/${ext.name}/install" overwrite="true">
-            <fileset dir="${src.install.dir}"/>
-            <filterset>
-                <filter token="VERSION"         value="${version}"/>
-                <filter token="UUID"            value="${uuid}"/>
-                <filter token="EXT_TITLE_NAME"  value="${ext.title.name}"/>
-                <filter token="EXT_NAME"        value="${ext.name}"/>
-                <filter token="UPDATE_URL"      value="${update.url}"/>
-            </filterset>
-        </copy>    
+    <target name="apply-replacement" depends="apply-install-js, apply-install-rdf, apply-chrome-manifest, apply-prefs-js, apply-update-rdf, apply-content-rdf">
+
     </target>
 
-    <target name="src-dist">
-        <delete dir="${src.dist.dir}"/>
-        <mkdir dir="${src.dist.dir}"/>
+    <target name="apply-install-js" unless="exclude.installjs">
+        <xslt in="extension.xml"
+              out="${replacement.output.dir}/install.js"
+              force="true"
+              style="${style.dir}/install.js.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
 
-        <copy todir="${src.dist.dir}/${dist.name}">
-            <fileset dir=".">
-                <include name="build.xml"/>
-                <include name="src/**"/>
-            </fileset>
-        </copy>
+    <target name="apply-install-rdf" unless="exclude.installrdf">
+        <xslt in="extension.xml"
+              out="${replacement.output.dir}/install.rdf"
+              force="true"
+              style="${style.dir}/install.rdf.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
 
-        <tar longfile="gnu" tarfile="${dist.dir}/${dist.name}-src.tar" basedir="${src.dist.dir}"/>
-        <gzip zipfile="${dist.dir}/${dist.name}-src.tar.gz"
-              src="${dist.dir}/${dist.name}-src.tar"/>
+    <target name="apply-chrome-manifest" unless="exclude.chromemanifest">
+        <xslt in="extension.xml"
+              out="${replacement.output.dir}/chrome.manifest"
+              force="true"
+              style="${style.dir}/chrome.manifest.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
 
-        <delete file="${dist.dir}/${dist.name}-src.tar"/>
+    <target name="apply-prefs-js" unless="exclude.prefsjs">
+        <xslt in="extension.xml"
+              out="${replacement.output.dir}/defaults/preferences/${extension.prefs.pref}"
+              force="true"
+              style="${style.dir}/defaults/preferences/prefs.js.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
+
+    <target name="apply-update-rdf" unless="exclude.updaterdf">
+        <xslt in="extension.xml"
+              out="${tmp.dir}/update/update.rdf"
+              force="true"
+              style="${style.dir}/../update/update.rdf.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
+
+    <target name="apply-content-rdf" unless="exclude.contentrdf">
+        <xslt in="extension.xml"
+              out="src/main/content/${extension.chrome-extension-directory}/contents.rdf"
+              force="true"
+              style="${style.dir}/contents.rdf.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
     </target>
 
     <target name="jar">
-        <mkdir dir="${tmp.dir}/${ext.name}/main"/>
-        <zip destfile="${tmp.dir}/${ext.name}/main/${jar.name}" basedir="${src.main.dir}" compress="false"/>
+        <mkdir dir="${tmp.dir}/${extension.name}/main"/>
+        <zip destfile="${tmp.dir}/${extension.name}/main/${jar.name}" basedir="${src.main.dir}" compress="false"/>
     </target>
     
+    <target name="sign-update-rdf" description="Sign the update.rdf">
+        <exec executable="${spock.executable}">
+          <arg value="${src.update.rdf.path}"/>
+          <arg value="${mccoy.path}"/>
+          <arg value="${extension.uuid}"/>
+          <arg value="${extension.version}"/>
+          <arg value="${dest.update.rdf.path}"/>
+          <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
+        </exec>
+    </target>
+
     <target name="clean" description="Clean dist and tmp" >
         <delete dir="${dist.dir}"/>
         <delete dir="${tmp.dir}"/>
@@ -109,48 +152,29 @@
 
     <target name="rebuild" depends="clean,bin-dist" description="Clean and build dist"/>
 
-    <target name="update" depends="jar">
-        <copy todir="${extensions.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
-    </target>
-
-    <target name="update-tb" depends="jar" >
-        <copy todir="${extensions-tb.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
-    </target>
-
-    <target name="update-nvu" depends="jar">
-        <copy todir="${extensions-nvu.dir}" file="${tmp.dir}/${ext.name}/main/${jar.name}"/>
-    </target>
-
-    <target name="restore-profile">
-        <delete dir="${profile.dir}"/>
-        <unzip src="${profile.name}.zip" dest="${profile.dir}"/>
-    </target>
-
-    <target name="backup-profile">
-        <zip destfile="${profile.name}.zip" basedir="${profile.dir}"/>
-    </target>
-
-    <target name="site-dist" description="Copy dist file on site directory used for ftp" depends="bin-dist">
-        <property name="site.tmp.dir" value="sf1.tmp"/>
-        <delete dir="${tmp.dir}/${site.tmp.dir}"/>
-        <mkdir dir="${tmp.dir}/${site.tmp.dir}"/>
-
-        <copy todir="${tmp.dir}/${site.tmp.dir}">
-            <fileset dir="${site.src.dir}"/>
+    <target name="migrate" description="Migrate to new directory">
+        <input
+           message="Migration version"
+           addproperty="migrate.version"
+         />
+        <condition property="do.abort">
+            <equals arg1="" arg2="${migrate.version}"/>
+        </condition>
+        <fail if="do.abort">Invalid version</fail>
+        <property name="migrate.dir" value="../${extension.name}-${migrate.version}" />
+        
+        <copy todir="${migrate.dir}">
+            <fileset dir="." excludes="${migrate.exclude.files}" />
         </copy>
-        <echo message="${src.update.dir}/update.php"/>
-        <copy todir="${tmp.dir}/${site.tmp.dir}/viewsourcewith" overwrite="true">
-            <fileset file="${src.update.dir}/update.php"/>
-            <filterset>
-                <filter token="VERSION"         value="${version}"/>
-                <filter token="UUID"            value="${uuid}"/>
-                <filter token="EXT_TITLE_NAME"  value="${ext.title.name}"/>
-                <filter token="EXT_NAME"        value="${ext.name}"/>
+
+        <copy tofile="${migrate.dir}/extension.properties" overwrite="true">
+            <fileset file="extension.properties" />
+            <filterset begintoken="version" endtoken="${extension.version}">
+                <filter token="=" value="version=${migrate.version}"/>
             </filterset>
-        </copy>
-        <copy todir="${tmp.dir}/${site.tmp.dir}/viewsourcewith" file="${bin.dist.dir}/${dist.name}.xpi"/>
+        </copy>    
 
-        <tar longfile="gnu" tarfile="${site.dist.dir}/dafizilla.tgz" basedir="${tmp.dir}/${site.tmp.dir}" compression="gzip"/>
+        <mkdir dir="${migrate.dir}/profile" />
     </target>
 
 </project>
