@@ -68,3 +68,28 @@ Table2ClipCommon.getEntity = function(ch)
     }
 }
 
+Table2ClipCommon.isTargetATextBox = function(node) {
+    if (!node || node.nodeType != Node.ELEMENT_NODE)
+        return false;
+
+    if (node.localName.toUpperCase() == "INPUT") {
+        var attrib = "";
+        var type = node.getAttribute("type");
+
+        if (type)
+            attrib = type.toUpperCase();
+
+        return( (attrib != "IMAGE") &&
+                (attrib != "CHECKBOX") &&
+                (attrib != "RADIO") &&
+                (attrib != "SUBMIT") &&
+                (attrib != "RESET") &&
+                (attrib != "FILE") &&
+                (attrib != "HIDDEN") &&
+                (attrib != "RESET") &&
+                (attrib != "BUTTON") &&
+                (attrib != "PASSWORD") );
+    } else  {
+        return(node.localName.toUpperCase() == "TEXTAREA");
+    }
+}

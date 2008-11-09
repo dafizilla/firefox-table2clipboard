@@ -270,6 +270,11 @@ var gTable2Clip = {
                 continue;
             } else if (nl[i].nodeType == Node.TEXT_NODE) {
                 str += nl[i].nodeValue;
+            } else if (Table2ClipCommon.isTargetATextBox(nl[i])) {
+                str += nl[i].value;
+                // ignore children
+                // textareas can contain initial text as node
+                continue;
             }
             if (nl[i].hasChildNodes()) {
                 str += gTable2Clip.getTextNodeContent(nl[i]);
