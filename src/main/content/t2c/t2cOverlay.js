@@ -271,7 +271,8 @@ var gTable2Clip = {
             } else if (nl[i].nodeType == Node.TEXT_NODE) {
                 str += nl[i].nodeValue;
             } else if (Table2ClipCommon.isTargetATextBox(nl[i])) {
-                str += nl[i].value;
+                // replace all new lines/carriage returns with a single blank space
+                str += nl[i].value.replace(/(\r\n|\r|\n)+/g, " ");
                 // ignore children
                 // textareas can contain initial text as node
                 continue;
