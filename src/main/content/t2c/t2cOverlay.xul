@@ -132,4 +132,21 @@
              command="cmd_copyT2C"
              modifiers="accel,shift"/>
     </keyset>
+
+    <!-- Tools menu Firefox, Thunderbird -->
+    <menupopup id="menu_ToolsPopup">
+        <menuitem id="toolsMenu-t2c:Settings"
+                insertafter="devToolsSeparator,javascriptConsole" />
+    </menupopup>
+
+    <menupopup id="taskPopup">
+        <menuitem id="toolsMenu-t2c:Settings"
+                insertafter="devToolsSeparator,downloadmgr" />
+    </menupopup>
+
+    <menuitem id="toolsMenu-t2c:Settings"
+            label="&table2Clip.tool.menu.label;"
+            accesskey="&table2Clip.tool.menu.accesskey;"
+            oncommand="gTable2Clip.onOpenSettings()" />
+
 </overlay>
