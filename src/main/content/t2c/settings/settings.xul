@@ -11,7 +11,8 @@
         onload="return gTable2ClipSettings.onLoad();"
         ondialogaccept="return gTable2ClipSettings.onAccept();"
         buttons="accept,cancel"
-        title="&settings.title;">
+        title="&settings.title;"
+        persist="width height screenX screenY">
 
     <script type="application/x-javascript" src="chrome://t2c/content/common.js"/>
     <script type="application/x-javascript" src="chrome://t2c/content/prefs.js"/>
