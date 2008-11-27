@@ -144,9 +144,18 @@ var gTable2Clip = {
         for (var i = 0; i < rc; i++) {
             str += "<tr>";
             for (var j = 0; j < cc; j++) {
-                var cellText = arr[i][j]
-                    ? Table2ClipCommon.htmlEncode(arr[i][j]) : "&nbsp;"
-                str += "<td>" + cellText + "</td>";
+                // arr[i][j] should be a string object
+                var cellInfo = arr[i][j];
+                if (typeof(cellInfo) == "object") {
+                    var cellText = cellInfo.content
+                        ? Table2ClipCommon.htmlEncode(cellInfo.content) : "&nbsp;"
+                    if (cellInfo.colspan) {
+                        str += "<td colspan='" + cellInfo.colspan + "'>";
+                    } else {
+                        str += "<td>";
+                    }
+                    str += cellText + "</td>";
+                }
             }
             str += "</tr>";
         }
@@ -164,12 +173,20 @@ var gTable2Clip = {
 
         for (var i = 0; i < rc; i++) {
             for (var j = 0; j < cc; j++) {
-                var cellText = arr[i][j]
-                        ? gTable2Clip.handleSpecials(gTable2Clip.trim(arr[i][j]))
-                        : ""
-                str += cellText;
-                if (j < lastCol) {
-                    str += format.columnSep;
+                var cellInfo = arr[i][j];
+                if (typeof(cellInfo) == "object") {
+                    var cellText = cellInfo.content
+                            ? gTable2Clip.handleSpecials(gTable2Clip.trim(cellInfo.content))
+                            : ""
+                    str += cellText;
+                    if (cellInfo.colspan) {
+                        for (var cs = 1; cs < cellInfo.colspan; cs++) {
+                            str += format.columnSep;
+                        }
+                    }
+                    if (j < lastCol) {
+                        str += format.columnSep;
+                    }
                 }
             }
             if (i < lastRow || format.appendRowSepAtEnd) {
@@ -195,7 +212,9 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                arrCol[cc] = gTable2Clip.getTextNodeContent(theCell);
+                arrCol[cc] = { content : gTable2Clip.getTextNodeContent(theCell),
+                                colspan : theCell.getAttribute("colspan")};
+
             }
 
             // Adjust the value if row contains a colspan
@@ -234,12 +253,17 @@ var gTable2Clip = {
             var rangeIndexEnd = i + columnCount;
             for (var cc = 0; cc < cells.length && rangeIndexStart < rangeIndexEnd; cc++) {
                 var theCell = cells.item(cc);
+                
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
-                    arrCol[cc] = gTable2Clip.getTextNodeContent(selNode);
+                    arrCol[cc] = { content : gTable2Clip.getTextNodeContent(selNode),
+                                    colspan : theCell.getAttribute("colspan")};
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
+                } else {
+                    arrCol[cc] = { content : "",
+                                    colspan : null};
                 }
             }
 
@@ -472,6 +496,12 @@ var gTable2Clip = {
 
     supportsCommand : function(command) {
         return command == "cmd_copyT2C";
+    },
+    
+    onOpenSettings : function(event) {
+        window.openDialog("chrome://t2c/content/settings/settings.xul",
+                          "_blank",
+                          "chrome,modal,resizable=yes,dependent=yes");
     }
 }
 
