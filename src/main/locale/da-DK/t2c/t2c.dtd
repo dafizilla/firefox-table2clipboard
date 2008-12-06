@@ -4,3 +4,5 @@
 <!ENTITY cmd.ctx-copy-whole-table.label "Kopier hel tabel">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "e">
+<!ENTITY table2Clip.tool.menu.label "Tabel2Udklipsholder...">
+<!ENTITY table2Clip.tool.menu.accesskey "2">

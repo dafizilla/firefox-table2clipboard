@@ -1,9 +1,9 @@
-<!ENTITY appendRowSep.label "最後にセパレータを付け足す">
-<!ENTITY colSeparator.label "列のセパレータとして用いる文字列">
+<!ENTITY appendRowSep.label "最後に区切りを付け足す">
+<!ENTITY colSeparator.label "列の区切りとして用いる文字列">
 <!ENTITY menu.special.label "特別">
 <!ENTITY menu.special.newline "改行">
 <!ENTITY menu.special.tab "表にする">
-<!ENTITY rowSeparator.label "行のセパレータとして用いる文字列">
+<!ENTITY rowSeparator.label "行の区切りとして用いる文字列">
 <!ENTITY settings.title "Table2Clipboard 設定">
 <!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Table2Clipboard に移動">

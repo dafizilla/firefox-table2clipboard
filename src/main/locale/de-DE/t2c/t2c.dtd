@@ -4,3 +4,5 @@
 <!ENTITY cmd.ctx-copy-whole-table.label "Gesamte Tabelle kopieren">
 <!ENTITY editMenu-t2c-copy.accesskey "T">
 <!ENTITY t2c.commandkey "c">
+<!ENTITY table2Clip.tool.menu.label "Table2Clipboard - Einstellungen">
+<!ENTITY table2Clip.tool.menu.accesskey "2">

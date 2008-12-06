@@ -1,9 +1,9 @@
 <!ENTITY appendRowSep.label "Añadir separador al final">
-<!ENTITY colSeparator.label "Cadena de separación de columnas">
+<!ENTITY colSeparator.label "Cadena para separar columnas">
 <!ENTITY menu.special.label "Especial">
 <!ENTITY menu.special.newline "Cambio línea">
 <!ENTITY menu.special.tab "Tabulador">
-<!ENTITY rowSeparator.label "Cadena de separación de filas">
+<!ENTITY rowSeparator.label "Cadena para separar filas">
 <!ENTITY settings.title "Predisposiciones de Table2Clipboard">
 <!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Ir a Table2Clipboard">

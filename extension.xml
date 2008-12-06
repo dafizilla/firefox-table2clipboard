@@ -1,9 +1,9 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "0.1">
+<!ENTITY extension.version "0.2">
 ]>
 
 <extension name="t2c">
-    <title-name>Table2Clipboard</title-name>
+    <title-name>Dafizilla Table2Clipboard</title-name>
     <uuid>{9ab67d74-ec41-4cb2-b417-df5d93ba1beb}</uuid>
     <version>&extension.version;</version>
     <description>Allow to copy to clipboard an HTML table rows/columns selection correctly formatted</description>
@@ -76,7 +76,7 @@
             <description>Firefox</description>
             <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
             <minVersion>1.5</minVersion>
-            <maxVersion>3.0pre</maxVersion>
+            <maxVersion>3.2a1pre</maxVersion>
         </application>
 
         <application>
@@ -90,7 +90,7 @@
             <description>Thunderbird</description>
             <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id>
             <minVersion>0.5</minVersion>
-            <maxVersion>2.0.0.*</maxVersion>
+            <maxVersion>3.0b2pre</maxVersion>
         </application>
         
         <application>
@@ -111,7 +111,7 @@
             <description>SeaMonkey</description>
             <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
             <minVersion>1.0</minVersion>
-            <maxVersion>1.0.*</maxVersion>
+            <maxVersion>2.0a1</maxVersion>
         </application>
     </compatibility>
 
@@ -134,6 +134,7 @@
         <translator>AlleyKat (Danish translation)</translator>
         <translator>Pedram Veisi (Persian translation)</translator>
         <translator>Jan Bruusgaard (Norwegian translation)</translator>
+        <translator code="ja-JP">drry (Japanese)</translator>
     </translators>
 
 </extension>

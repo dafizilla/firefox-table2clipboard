@@ -149,12 +149,14 @@ var gTable2Clip = {
                 if (typeof(cellInfo) == "object") {
                     var cellText = cellInfo.content
                         ? Table2ClipCommon.htmlEncode(cellInfo.content) : "&nbsp;"
+                    var attributes = "";
                     if (cellInfo.colspan) {
-                        str += "<td colspan='" + cellInfo.colspan + "'>";
-                    } else {
-                        str += "<td>";
+                        attributes += " colspan='" + cellInfo.colspan + "'";
                     }
-                    str += cellText + "</td>";
+                    if (cellInfo.rowspan) {
+                        attributes += " rowspan='" + cellInfo.rowspan + "'";
+                    }
+                    str += "<td" + attributes + ">" + cellText + "</td>";
                 }
             }
             str += "</tr>";
@@ -213,7 +215,8 @@ var gTable2Clip = {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
                 arrCol[cc] = { content : gTable2Clip.getTextNodeContent(theCell),
-                                colspan : theCell.getAttribute("colspan")};
+                                colspan : theCell.getAttribute("colspan"),
+                                rowspan : theCell.getAttribute("rowspan")};
 
             }
 
@@ -257,13 +260,15 @@ var gTable2Clip = {
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
                     arrCol[cc] = { content : gTable2Clip.getTextNodeContent(selNode),
-                                    colspan : theCell.getAttribute("colspan")};
+                                    colspan : theCell.getAttribute("colspan"),
+                                    rowspan : theCell.getAttribute("rowspan") };
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
                 } else {
                     arrCol[cc] = { content : "",
-                                    colspan : null};
+                                    colspan : null,
+                                    rowspan : null};
                 }
             }
 

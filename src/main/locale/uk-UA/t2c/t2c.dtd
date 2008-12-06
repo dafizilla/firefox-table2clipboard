@@ -4,3 +4,5 @@
 <!ENTITY cmd.ctx-copy-whole-table.label "Скопіювати таблицю повністю">
 <!ENTITY editMenu-t2c-copy.accesskey "п">
 <!ENTITY t2c.commandkey "c">
+<!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
+<!ENTITY table2Clip.tool.menu.accesskey "2">
