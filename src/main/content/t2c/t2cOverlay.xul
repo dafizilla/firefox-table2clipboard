@@ -86,7 +86,7 @@
                     hidden="true"/>
     </popup>
 
-    <!-- Edit Menu Firefox -->
+    <!-- Edit Menu Firefox, available in Thunderbird since version 2.0.0.16 -->
     <menupopup id="menu_EditPopup">
         <menuitem   id="editMenu-t2c:Copy"
                     label="&cmd.editMenu-copyselection.label;"

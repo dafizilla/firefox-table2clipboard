@@ -400,6 +400,11 @@ var gTable2Clip = {
     },
 
     workaroundEditMenu : function() {
+        // Since Thunderbird 2.0.0.16 the menu_EditPopup element exists
+        // so It isn't necessary to add by hand
+        if (document.getElementById("editMenu-t2c:Copy")) {
+            return;
+        }
         // TB and MZ don't contain a popup for edit menu so I move from view
         var fakeMenu = document.getElementById("fake-editMenu-t2c:Copy");
         if (fakeMenu) {
