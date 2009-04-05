@@ -10,6 +10,7 @@
     <homepage>http://dafizilla.sourceforge.net/table2clip</homepage>
     <updateurl>http://dafizilla.sourceforge.net/table2clip/update.php?item_id=%ITEM_ID%&amp;item_version=%ITEM_VERSION%&amp;app_id=%APP_ID%&amp;app_version=%APP_VERSION%</updateurl>
     <iconurl-path>skin/appicon.png</iconurl-path>
+    <ohloh-project-name>table2clipboard</ohloh-project-name>
 
     <optionurl-path>/content/settings/settings.xul</optionurl-path>
 
