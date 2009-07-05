@@ -6,7 +6,7 @@ var gTable2ClipSettings = {
     onLoad : function() {
         gTable2ClipSettings.prefs = new Table2ClipPrefs();
         gTable2ClipSettings.initControls();
-        sizeToContent();
+        window.sizeToContent();
     },
 
     onAccept : function() {
@@ -81,7 +81,7 @@ var gTable2ClipSettings = {
         var format = thiz.prefs.getClipFormat();
 
         thiz.oRowSep.value = thiz.unescape(format.rowSep);
-        thiz.oColumnSep.value = thiz.unescape(format.columnSep)
+        thiz.oColumnSep.value = thiz.unescape(format.columnSep);
         thiz.oAppendSep.checked = format.appendRowSepAtEnd;
     },
 
@@ -106,6 +106,7 @@ var gTable2ClipSettings = {
                     break;
                 default:
                     str += ch;
+                    break;
             }
         }
 

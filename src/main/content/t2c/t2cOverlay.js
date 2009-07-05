@@ -148,7 +148,7 @@ var gTable2Clip = {
                 var cellInfo = arr[i][j];
                 if (typeof(cellInfo) == "object") {
                     var cellText = cellInfo.content
-                        ? Table2ClipCommon.htmlEncode(cellInfo.content) : "&nbsp;"
+                        ? Table2ClipCommon.htmlEncode(cellInfo.content) : "&nbsp;";
                     var attributes = "";
                     if (cellInfo.colspan) {
                         attributes += " colspan='" + cellInfo.colspan + "'";
@@ -179,7 +179,7 @@ var gTable2Clip = {
                 if (typeof(cellInfo) == "object") {
                     var cellText = cellInfo.content
                             ? gTable2Clip.handleSpecials(gTable2Clip.trim(cellInfo.content))
-                            : ""
+                            : "";
                     str += cellText;
                     if (cellInfo.colspan) {
                         for (var cs = 1; cs < cellInfo.colspan; cs++) {
