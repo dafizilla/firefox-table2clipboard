@@ -138,30 +138,24 @@ var gTable2Clip = {
     getHtml : function(arr, format) {
         var rc = arr.length;
         var cc = arr[0].length;
-        var str = "";
+        var str = "<HTML><BODY>";
 
-        str += "<table>";
+        str += "<TABLE><TBODY>";
         for (var i = 0; i < rc; i++) {
-            str += "<tr>";
+            str += "<TR>";
             for (var j = 0; j < cc; j++) {
                 // arr[i][j] should be a string object
                 var cellInfo = arr[i][j];
                 if (typeof(cellInfo) == "object") {
-                    var cellText = cellInfo.content
-                        ? Table2ClipCommon.htmlEncode(cellInfo.content) : "&nbsp;";
-                    var attributes = "";
-                    if (cellInfo.colspan) {
-                        attributes += " colspan='" + cellInfo.colspan + "'";
-                    }
-                    if (cellInfo.rowspan) {
-                        attributes += " rowspan='" + cellInfo.rowspan + "'";
-                    }
-                    str += "<td" + attributes + ">" + cellText + "</td>";
+                    var cellText = cellInfo.htmlContent
+                        ? cellInfo.htmlContent : "<TD>&nbsp;</TD>";
+                    str += cellText;
                 }
             }
-            str += "</tr>";
+            str += "</TR>";
         }
-        str += "</table>";
+        str += "</TBODY></TABLE>";
+        str += "</BODY></HTML>";
 
         return str;
     },
@@ -214,7 +208,10 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
+                var walker = new Table2ClipHtmlWalker();
+                walker.walk(theCell);
                 arrCol[cc] = { content : gTable2Clip.getTextNodeContent(theCell),
+                                htmlContent : walker.toHtml(),
                                 colspan : theCell.getAttribute("colspan"),
                                 rowspan : theCell.getAttribute("rowspan")};
 
@@ -259,7 +256,10 @@ var gTable2Clip = {
                 
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
+                    var walker = new Table2ClipHtmlWalker();
+                    walker.walk(theCell);
                     arrCol[cc] = { content : gTable2Clip.getTextNodeContent(selNode),
+                                    htmlContent : walker.toHtml(),
                                     colspan : theCell.getAttribute("colspan"),
                                     rowspan : theCell.getAttribute("rowspan") };
                     if (minColumn > cc) {
@@ -267,6 +267,7 @@ var gTable2Clip = {
                     }
                 } else {
                     arrCol[cc] = { content : "",
+                                    htmlContent : null,
                                     colspan : null,
                                     rowspan : null};
                 }
