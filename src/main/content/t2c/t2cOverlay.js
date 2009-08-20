@@ -208,7 +208,7 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                var walker = new Table2ClipHtmlWalker();
+                var walker = new Table2ClipHtmlWalker(thiz.prefs);
                 walker.walk(theCell);
                 arrCol[cc] = { content : gTable2Clip.getTextNodeContent(theCell),
                                 htmlContent : walker.toHtml(),
@@ -256,7 +256,7 @@ var gTable2Clip = {
                 
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
-                    var walker = new Table2ClipHtmlWalker();
+                    var walker = new Table2ClipHtmlWalker(thiz.prefs);
                     walker.walk(theCell);
                     arrCol[cc] = { content : gTable2Clip.getTextNodeContent(selNode),
                                     htmlContent : walker.toHtml(),
