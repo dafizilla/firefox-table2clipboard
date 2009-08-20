@@ -65,8 +65,16 @@
         </zip>
     </target>
 
-    <target name="apply-replacement" depends="apply-install-js, apply-install-rdf, apply-chrome-manifest, apply-prefs-js, apply-update-rdf, apply-content-rdf">
-
+    <target name="apply-replacement" depends="apply-install-js, apply-install-rdf, apply-chrome-manifest, apply-prefs-js, apply-update-rdf, apply-content-rdf, apply-instruct-xml">
+        <copy todir="${tmp.dir}/${extension.name}/install/components" failonerror="false">
+            <fileset dir="${src.dir}/components" />
+        </copy>
+        <copy todir="${tmp.dir}/${extension.name}/install/platform" failonerror="false">
+            <fileset dir="${src.dir}/platform" />
+        </copy>
+        <copy todir="${replacement.output.dir}/defaults" failonerror="false" overwrite="true">
+            <fileset dir="${src.dir}/defaults" />
+        </copy>
     </target>
 
     <target name="apply-install-js" unless="exclude.installjs">
@@ -129,11 +137,36 @@
        </xslt>
     </target>
 
+    <target name="apply-instruct-xml" unless="exclude.instructxml">
+        <xslt in="extension.xml"
+              out="${tmp.dir}/instruct.xml"
+              force="true"
+              style="${style.dir}/../ohloh/instruct.xsl">
+            <param name="generate-updateurl" expression="${generate.updateurl}"/>
+            <param name="use-exploded-chrome" expression="${use.exploded.chrome}"/>
+       </xslt>
+    </target>
+
     <target name="jar">
         <mkdir dir="${tmp.dir}/${extension.name}/main"/>
-        <zip destfile="${tmp.dir}/${extension.name}/main/${jar.name}" basedir="${src.main.dir}" compress="false"/>
+
+        <!-- Generates a locale path list containing the 'all files' pattern '/**'
+            (ie 'it-IT' became 'it-IT/**') -->
+        <script language="javascript">
+            propname = project.getProperty("extension.locales.locale.code");
+            project.setNewProperty("locales", propname.replace(",", "/**,") + "/**");
+        </script>
+
+        <!-- Include only locales specified in config file -->
+        <copy todir="${tmp.dir}/${extension.name}/jarfiles">
+            <fileset dir="${src.main.dir}" excludes="locale/**" />
+        </copy>
+        <copy todir="${tmp.dir}/${extension.name}/jarfiles/locale">
+            <fileset dir="${src.main.dir}/locale/" includes="${locales}" />
+        </copy>
+        <zip destfile="${tmp.dir}/${extension.name}/main/${jar.name}" basedir="${tmp.dir}/${extension.name}/jarfiles" compress="false"/>
     </target>
-    
+
     <target name="sign-update-rdf" description="Sign the update.rdf">
         <exec executable="${spock.executable}">
           <arg value="${src.update.rdf.path}"/>
@@ -175,6 +208,38 @@
         </copy>    
 
         <mkdir dir="${migrate.dir}/profile" />
+    </target>
+
+    <target name="upload" depends="bin-dist, upload-ohloh, upload-sfnet">
+    </target>
+
+    <target name="upload-sfnet" if="upload.sfnet">
+        <echo message="Uploading ${dist.name}.xpi to frs.sourceforge.net" />
+        <echo message="Creating directory ${extension.name}/${extension.version}"/>
+        <exec executable="ssh">
+          <arg value="frs@172.16.124.129"/>
+          <arg value="mkdir -p /home/frs/project/d/da/dafizilla/${extension.name}/${extension.version}"/>
+        </exec>
+
+        <echo message="Uploading ${bin.dist.dir}/${dist.name}.xpi"/>
+        <exec executable="scp">
+          <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
+          <arg value="frs@172.16.124.129:/home/frs/project/d/da/dafizilla/${extension.name}/${extension.version}"/>
+        </exec>
+    </target>
+
+    <target name="upload-ohloh" if="upload.ohloh">
+        <echo message="Uploading ${dist.name}.xpi to upload.ohloh.net" />
+        <!--<exec executable="scp">-->
+        <!--  <arg value="${bin.dist.dir}/${dist.name}.xpi"/>-->
+        <!--  <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/files"/>-->
+        <!--</exec>-->
+
+        <echo message="Uploading instruct.xml to upload.ohloh.net" />
+        <!--<exec executable="scp">-->
+        <!--  <arg value="${tmp.dir}/instruct.xml"/>-->
+        <!--  <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/instructs"/>-->
+        <!--</exec>-->
     </target>
 
 </project>
