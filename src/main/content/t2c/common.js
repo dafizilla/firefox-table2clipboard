@@ -93,3 +93,30 @@ Table2ClipCommon.isTargetATextBox = function(node) {
         return(node.localName.toUpperCase() == "TEXTAREA");
     }
 }
+
+Table2ClipCommon.getTextNodeContent = function(node) {
+    var str = "";
+    var nl = node.childNodes;
+
+    for (var i = 0; i < nl.length; i++) {
+        if (nl[i].nodeType == Node.ELEMENT_NODE) {
+            var style = nl[i].ownerDocument.defaultView.getComputedStyle(nl[i], null);
+            if (style.getPropertyValue("display") == "none") {
+                continue;
+            }
+        }
+        if (nl[i].nodeType == Node.TEXT_NODE) {
+            str += nl[i].nodeValue;
+        } else if (Table2ClipCommon.isTargetATextBox(nl[i])) {
+            // replace all new lines/carriage returns with a single blank space
+            str += nl[i].value.replace(/(\r\n|\r|\n)+/g, " ");
+            // ignore children
+            // textareas can contain initial text as node
+            continue;
+        }
+        if (nl[i].hasChildNodes()) {
+            str += Table2ClipCommon.getTextNodeContent(nl[i]);
+        }
+    }
+    return str;
+}

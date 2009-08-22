@@ -8,7 +8,7 @@
     <script type="application/x-javascript"
             src="chrome://t2c/content/common.js"/>
     <script type="application/x-javascript"
-            src="chrome://t2c/content/htmlWalker.js" />
+            src="chrome://t2c/content/htmlBuilder.js" />
     <script type="application/x-javascript"
             src="chrome://t2c/content/t2cOverlay.js" />
     <script type="application/x-javascript"

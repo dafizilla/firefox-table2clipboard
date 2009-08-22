@@ -6,7 +6,8 @@
 const T2CLIP_ROW_SEP        = "dafi.table2clip.rowSep";
 const T2CLIP_COL_SEP        = "dafi.table2clip.colSep";
 const T2CLIP_ROW_SEP_ATEND  = "dafi.table2clip.rowSepAtEnd";
-const T2CLIP_COPY_STYLE     = "dafi.table2clip.copyStyle";
+const T2CLIP_COPY_STYLES    = "dafi.table2clip.copyStyles";
+const T2CLIP_COPY_LINKS     = "dafi.table2clip.copyLinks";
 
 function Table2ClipFormat() {
 }

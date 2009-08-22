@@ -208,10 +208,10 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                var walker = new Table2ClipHtmlWalker(thiz.prefs);
-                walker.walk(theCell);
-                arrCol[cc] = { content : gTable2Clip.getTextNodeContent(theCell),
-                                htmlContent : walker.toHtml(),
+                var builder = new Table2ClipBuilder(thiz.prefs);
+                builder.build(theCell);
+                arrCol[cc] = { content : Table2ClipCommon.getTextNodeContent(theCell),
+                                htmlContent : builder.toHtml(),
                                 colspan : theCell.getAttribute("colspan"),
                                 rowspan : theCell.getAttribute("rowspan")};
 
@@ -256,10 +256,10 @@ var gTable2Clip = {
                 
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
-                    var walker = new Table2ClipHtmlWalker(thiz.prefs);
-                    walker.walk(theCell);
-                    arrCol[cc] = { content : gTable2Clip.getTextNodeContent(selNode),
-                                    htmlContent : walker.toHtml(),
+                    var builder = new Table2ClipBuilder(thiz.prefs);
+                    builder.build(theCell);
+                    arrCol[cc] = { content : Table2ClipCommon.getTextNodeContent(selNode),
+                                    htmlContent : builder.toHtml(),
                                     colspan : theCell.getAttribute("colspan"),
                                     rowspan : theCell.getAttribute("rowspan") };
                     if (minColumn > cc) {
@@ -289,39 +289,6 @@ var gTable2Clip = {
             arrRow[i] = arrRow[i].slice(minColumn);
         }
         return arrRow;
-    },
-
-    getTextNodeContent : function(node) {
-        var str = "";
-        var nl = node.childNodes;
-
-        for (var i = 0; i < nl.length; i++) {
-            if (this.skipNode(nl[i])) {
-                continue;
-            } else if (nl[i].nodeType == Node.TEXT_NODE) {
-                str += nl[i].nodeValue;
-            } else if (Table2ClipCommon.isTargetATextBox(nl[i])) {
-                // replace all new lines/carriage returns with a single blank space
-                str += nl[i].value.replace(/(\r\n|\r|\n)+/g, " ");
-                // ignore children
-                // textareas can contain initial text as node
-                continue;
-            }
-            if (nl[i].hasChildNodes()) {
-                str += gTable2Clip.getTextNodeContent(nl[i]);
-            }
-        }
-        return str;
-    },
-
-    skipNode : function(node) {
-        if (node.nodeType == Node.ELEMENT_NODE) {
-            var style = node.ownerDocument.defaultView.getComputedStyle(node, null);
-            if (style.getPropertyValue("display") == "none") {
-                return true;
-            }
-        }
-        return false;
     },
 
     getColumnsPerRow : function(sel, startPos) {
@@ -355,7 +322,6 @@ var gTable2Clip = {
         }
         return retStr;
     },
-
 
     // str must be surronded with quotes if contains new lines
     // if contains new lines and inside str there are quotes
