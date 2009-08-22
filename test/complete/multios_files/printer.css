@@ -1,0 +1,218 @@
+/* MultiOS Browser Test Printer CSS File
+ *
+ * Date: August 12, 2007
+ *
+ * Printer CSS File to remove the navigation
+ * from the printed page.
+ *
+ */
+
+acronym {
+  border-bottom: none;
+}
+
+abbr {
+  border-bottom: none;
+}
+
+.none { position: absolute; left:-1999px; }
+
+#changelanguage {
+  display: none;
+}
+
+h1 {
+  display: none;
+}
+
+#mainnavigation { 
+  display: none;
+}
+
+#breadcrumbs { 
+  display: none;
+}
+
+#csstabnavi {
+  display: none;
+}
+
+#sidebar { 
+  display: none;
+}
+
+.totop {
+  display: none;
+}
+
+.nonvisible {
+  display: none;
+}
+
+#footer {
+  display: none;
+}
+
+/* Position text on the paper
+ *
+ */
+
+.byfar {
+  font-size: 1em;
+  color: #333333;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0em 0em 2em;
+}
+
+.clearfloat {
+  clear: both;
+}
+
+/* Position images on the paper
+ *
+ */
+ 
+.right-content {
+  float: right;
+  width: 49%;
+  font-size: 0.8em;
+  text-align:center;
+  padding-top: 2em;  
+  padding-bottom: 2em;
+}
+
+.left-content {
+  font-size: 0.8em;
+  float: left; 
+  width: 49%;
+  text-align: center;
+  padding-top: 2em;  
+  padding-bottom: 2em;
+}
+
+.right-withbackground {
+  font-size: 0.8em;
+  float: right;
+  width: 48%;
+  text-align:center;
+  color: #333333;
+  background-color: #ffffcd;
+  margin-top: 0;
+  margin-bottom: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em; 
+}
+
+.left-withbackground {
+  font-size: 0.8em;
+  color: #333333;
+  background-color: #ffffcd;
+  float: left; 
+  width:48%;
+  text-align: center;
+  margin-bottom: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+ 
+/* Used for printing the
+ * screenshots
+ */
+ 
+img.thumbnail {
+  clear: both; 
+  float: left; 
+  margin: 0 3em 0 0.5em; 
+  padding: 1px;
+  border: 1px #ffffff solid;
+} 
+
+img.left {
+  clear: both; 
+  float: left; 
+  margin: 0 0.7em 0 0; 
+  padding: 1px; 
+}
+
+img.right {
+  clear: both; 
+  float: right; 
+  margin: 0 0 0 0.7em; 
+  /* padding: 1px; */ 
+  background: #fff;
+  padding: 4px;
+  border: 1px solid #cccccc;
+}
+
+/* Used for printing the
+ * sitemap and history
+ */
+ 
+.historie {
+  list-style-image: url(../images/haken.png);
+}
+
+.sitemaplinks {
+  display: block;
+  font-size: 1em;
+  line-height: 1.4em;
+  text-align: left;
+  text-decoration: none;
+  list-style-image: url(../images/pfeil.png);
+}  
+
+/*
+ * CSS for data tables
+ * 
+ */
+
+.thheader {
+  text-align: left;
+  color: #333333;
+  background-color: #99ccff;
+  padding-left: 0.4em;
+}
+
+.thyear {
+  text-align: center;
+  color: #333333;
+  background-color: #99ccff;
+}
+
+.tblinename {
+  font-size: 0.85em;
+  color: #333333;
+  background-color: #eeeeee;
+  padding-left: 0.4em;
+}
+
+.tbline {
+  font-size: 0.85em;
+  text-align: center;
+  color: #333333;
+  background-color: #eeeeee;
+}
+
+.tblblankname {
+  font-size: 0.85em;
+  text-align: left;
+  color: #333333;
+  background-color: transparent;
+  padding-left: 0.4em;
+}
+
+.tblblank {
+  font-size: 0.85em;
+  text-align: center;
+  color: #333333;
+  background-color: transparent;
+}
+
+.tbldates {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #333333;
+  background-color: transparent;
+  padding: 0em 0em 2em;
+}

@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <style>
+            .invisible {
+                display : none;
+                color: red;
+            }
+            
+            a#colored {
+                color: #FFaa99;
+            }
+        </style>
+    </head>
+<body>
+    <table>
+        <tr>
+            <td colspan="3">Test table, the simple cell contain an display:none span</td>
+        </tr>
+        <tr>
+            <td>1</td><td>2</td><td>3 <span class="invisible">**invisible text**</span></td>
+        </tr>
+        <tr>
+            <td>a</td><td><span id="hdn_value" style="display:none"><b>this text is hidden</b></span><i>:-) <b>Bold and</b> simple</i></td><td>test</td>
+        </tr>
+        <tr>
+            <td>hello</td><td>&nbsp;</td><td>world</td>
+        </tr>
+        <tr>
+            <td><span style="color:yellow">I'm yellow</span></td><td><font color="red">using font tag</font></td><td><span style="font-weight:bold; color:blue">I'm bold and blue</span></td>
+        </tr>
+        <tr>
+            <td><a href="/../hello.txt">absolute /../hello.txt</a>
+                <br/>
+                <a href="http://dafizilla.sourceforge.net/table2clip/index.php">external url</a>
+            </td>
+            <td><a href="../hello.txt" id="colored">relative ../hello.txt</a></td>
+            <td><a href="hello.txt">relative2 hello.txt</a></td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <a href="index.php#aa">anchor</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

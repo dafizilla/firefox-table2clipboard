@@ -1,0 +1,174 @@
+#headertable {
+	background: #333 url(../../_media/elements/discharge/blank.png) repeat-y center;
+}
+
+
+/* @group Periodic Table */
+
+caption.periodic_table_caption {
+	caption-side: top;
+	text-align: center;
+	border-style: none;
+	margin-bottom: 0;
+	padding-top: 18px;
+}
+
+#pertable {
+	background-color: #fff;
+	font-size: 1.1em;
+	text-align: center;
+	position: relative;
+	left: 5%;
+	width: 90%;
+	padding-bottom: 2em;
+	right: 5%;
+}
+
+#pertable th {
+	padding: 1px;
+	text-align: left;
+	font-size: 1em;
+}
+
+#pertable th {
+	padding: 1px;
+	text-align: center;
+	font-size: 1em;
+}
+
+#pertable .lbl {
+	color: #cc3300;
+	background-color: #eeeeee;
+	border: 1px solid #aaaaaa;
+	font-size: 0.85em;
+	vertical-align: bottom;
+}
+
+#pertable .w5 {
+	color: #cc3300;
+	background-color: #eeeeee;
+	width: 5%;
+	border: 1px solid #aaaaaa;
+	font-size: 0.85em;
+	text-align: center;
+}
+
+#pertable .w2 {
+	color: #cc3300;
+	background-color: #ffffff;
+	width: 2%;
+	text-align: center;
+	font-size: 0.85em;
+}
+
+#pertable .w8 {
+	color: #cc3300;
+	background-color: #eeeeee;
+	width: 8%;
+	border: 1px solid #aaaaaa;
+	font-size: 0.85em;
+	text-align: center;
+}
+
+.x {
+	color: #333333;
+	background-color: #666666;
+	border: 1px solid #009900;
+	text-align: center;
+}
+
+.unknown {
+	color: #999999;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	text-align: center;
+}
+
+.xs {
+	color: #333333;
+	background-color: #6699ff;
+	border: 1px solid #336699;
+	text-align: center;
+}
+
+.xp {
+	color: #333333;
+	background-color: #ffcc00;
+	border: 1px solid #cc9900;
+	text-align: center;
+}
+
+.xd {
+	color: #333333;
+	background-color: #ff9999;
+	border: 1px solid #cc6666;
+	text-align: center;
+}
+
+.xf {
+	color: #333333;
+	background-color: #00cc33;
+	border: 1px solid #009900;
+	text-align: center;
+}
+
+.xg {
+	color: #333333;
+	background-color: #cc33ff;
+	border: 1px solid #9900cc;
+	text-align: center;
+}
+
+.xz {
+	color: #333333;
+	background-color: #cccccc;
+	border: 1px solid #666666;
+	text-align: center;
+}
+
+#pertable small {
+	font-size: 0.7em;
+}
+
+/* @end */
+
+/* @group menu horizontal categories */
+
+ul.menu_hz_categories {
+	text-align: center;
+	/* background: #fff repeat-x; */
+	clear: both;
+	line-height: 1.5em;
+	margin: 0;
+	padding: 9px 0 2px;
+}
+
+ul.menu_hz_categories li {
+	font-size: 75%;
+	list-style: none;
+	display: inline;
+	margin: 0;
+	padding: 0 0 12px;
+}
+
+ul.menu_hz_categories li a {
+	border: 1px solid #aaa;
+	border-bottom-style: none;
+	background: #69f url(../../_theme/images/menu-hz-z.png) repeat-x;
+	padding: 2px 4px;
+}
+
+ul.menu_hz_categories li a.selected {
+	background-position: 0% -40px;
+}
+
+ul.menu_hz_categories li a:hover, ul.menu_hz_base li a:hover.selected {
+	background-position: 0% -80px;
+	color: #0d047e;
+}
+
+ul.menu_hz_categories li a:active, ul.menu_hz_base li a:active.selected {
+	background-position: 0% -120px;
+}
+
+/* @end */

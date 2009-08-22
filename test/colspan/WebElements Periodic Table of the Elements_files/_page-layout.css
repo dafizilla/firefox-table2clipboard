@@ -1,0 +1,77 @@
+/* @group Full page */
+
+body {
+	width: 976px;
+	font-size: 100%;
+	margin: auto;
+}
+
+#webelements {
+	width: 100%;
+	padding-top: 3px;
+	padding-bottom: 12px;
+}
+
+/* @end */
+
+/* @group Header */
+
+#header {
+	clear: both;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* @end */
+
+/* @group Main */
+
+#main {
+	clear: both;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#maintable {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+td.c1 {
+	width: 130px;
+}
+
+td.c2 {
+	width: 250px;
+	margin: 0;
+	padding: 0;
+}
+
+td.c3 {
+	padding-right: 6px;
+	padding-left: 6px;
+}
+
+#chemistry {
+	margin: 0;
+	padding: 0;
+}
+
+
+/* @end */
+
+/* @group Footer */
+
+#footer {
+	clear: both;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* @end */
+
+

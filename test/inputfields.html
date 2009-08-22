@@ -1,0 +1,47 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<style>
+	.odd {
+		background-color: yellow;
+		color: #0000FF;
+	}
+	.even {
+		background-color: grey;
+		color: white;
+	}
+</style>
+<title>T2C with input fields</title>
+<script>
+	function show() {
+		alert(document.getElementById("mytxt").value);
+	}
+</script>
+</head>
+
+<body>
+
+<div class="center">
+<input type="button" onclick="show()" />
+
+<table border="1" id="data">
+	<tr style="font-weight:bold">
+		<td>Continent
+		</td>
+		<td>Country
+		</td>
+		<td>message
+		</td>
+	</tr>
+	<tr>
+		<td class="odd">North America <input type="text" value="aa"/></td>
+		<td class="even"><font color="red"><b><i>USA</i></b></font></td>
+		<td class="odd"><textarea id="mytxt">A long text
+		Multiple lines</textarea></td>
+	</tr>
+</table>
+</div>
+</body>
+
+</html>

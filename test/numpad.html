@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'
+<html lang="en">
+<head>
+    <title>DOMRange Test</title>
+    <style type="text/css">
+    td {
+        width: 60px;
+        height: 30px;
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+    }
+    </style>
+    <script src="numpad.js">
+    </script>
+</head>
+<body>
+    <table onclick="domRangeTest.updateRanges(this, document.getElementById('resultContent'))">
+        <tr>
+            <td>Num<br/>Lock</td>
+            <td>/</td>
+            <td>*</td>
+            <td>-</td>
+        </tr>
+
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td rowspan="2">+</td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td rowspan="2">&#182;</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">0</td>
+            <td>.</td>
+        </tr>
+    </table>
+
+    <p>DOMRange</p>
+    <textarea id="resultContent" cols="50" rows="20"></textarea>
+</body>
+</html>

@@ -1,0 +1,49 @@
+#headertable {
+	background: #333 url(../../_media/elements/discharge/blank.png) repeat-y center;
+}
+
+.image-centre {
+	clear: both;
+	border-style: none;
+}
+
+/* @group menu horizontal */
+
+ul.menu_hz {
+	font-size: 85%;
+	text-align: center;
+	/* background: #fff repeat-x; */
+	border-bottom: 3px solid #999;
+	clear: both;
+	margin: 0;
+	padding: 9px 0 2px;
+}
+
+ul.menu_hz li {
+	list-style: none;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+ul.menu_hz li a {
+	border: 1px solid #aaa;
+	border-bottom-style: none;
+	padding: 2px 6px;
+	background: #999 url(../../_theme/images/menu-hz-z.png) repeat-x;
+}
+
+ul.menu_hz li a.selected {
+	background-position: 0% -40px;
+}
+
+ul.menu_hz li a:hover, ul.menu_hz li a:hover.selected {
+	background-position: 0% -80px;
+	color: #0d047e;
+}
+
+ul.menu_hz li a:active, ul.menu_hz li a:active.selected {
+	background-position: 0% -120px;
+}
+
+/* @end */
