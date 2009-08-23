@@ -210,36 +210,31 @@
         <mkdir dir="${migrate.dir}/profile" />
     </target>
 
-    <target name="upload" depends="bin-dist, upload-ohloh, upload-sfnet">
-    </target>
+    <target name="upload" depends="bin-dist, upload-ohloh, upload-sfnet"/>
 
     <target name="upload-sfnet" if="upload.sfnet">
         <echo message="Uploading ${dist.name}.xpi to frs.sourceforge.net" />
-        <echo message="Creating directory ${extension.name}/${extension.version}"/>
-        <exec executable="ssh">
-          <arg value="frs@172.16.124.129"/>
-          <arg value="mkdir -p /home/frs/project/d/da/dafizilla/${extension.name}/${extension.version}"/>
-        </exec>
-
-        <echo message="Uploading ${bin.dist.dir}/${dist.name}.xpi"/>
-        <exec executable="scp">
+        
+        <exec executable="rsync">
+          <arg value="-e"/>
+          <arg value="ssh"/>
           <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
-          <arg value="frs@172.16.124.129:/home/frs/project/d/da/dafizilla/${extension.name}/${extension.version}"/>
+          <arg value="dafi,dafizilla@frs.sourceforge.net:/home/frs/project/d/da/dafizilla/${extension.name}/v${extension.version}/"/>
         </exec>
     </target>
 
     <target name="upload-ohloh" if="upload.ohloh">
         <echo message="Uploading ${dist.name}.xpi to upload.ohloh.net" />
-        <!--<exec executable="scp">-->
-        <!--  <arg value="${bin.dist.dir}/${dist.name}.xpi"/>-->
-        <!--  <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/files"/>-->
-        <!--</exec>-->
+        <exec executable="scp">
+          <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
+          <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/files"/>
+        </exec>
 
         <echo message="Uploading instruct.xml to upload.ohloh.net" />
-        <!--<exec executable="scp">-->
-        <!--  <arg value="${tmp.dir}/instruct.xml"/>-->
-        <!--  <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/instructs"/>-->
-        <!--</exec>-->
+        <exec executable="scp">
+          <arg value="${tmp.dir}/instruct.xml"/>
+          <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/instructs"/>
+        </exec>
     </target>
 
 </project>
