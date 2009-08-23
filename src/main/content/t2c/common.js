@@ -49,23 +49,39 @@ Table2ClipCommon.log = function(message) {
 }
 
 Table2ClipCommon.htmlEncode = function(txt) {
-    return txt.replace(/[<>&"]/g, Table2ClipCommon.getEntity);
+    return txt.replace(/[<>&"]/g, function(str) {
+        return Table2ClipCommon.getEntity(str, true, false);
+        });
 }
     
-Table2ClipCommon.getEntity = function(ch)
-{
+Table2ClipCommon.getEntity = function(ch, isAttValue, isCanonical) {
     switch (ch) {
-        case "<":
+        case '<':
             return "&lt;";
-        case ">":
+        case '>':
             return "&gt;";
-        case "&":
+        case '&':
             return "&amp;";
-        case "\"":
-            return "&quot;";
+        case '"':
+            // A '"' that appears in character data
+            // does not need to be escaped.
+            return isAttValue ? "&quot;" : "\"";
+        case '\r':
+            // If CR is part of the document's content, it
+            // must not be printed as a literal otherwise
+            // it would be normalized to LF when the document
+            // is reparsed.
+            return "&#xD;";
+        case '\n':
+            if (isCanonical) {
+                return "&#xA;";
+            }
+            // else, default print char
         default:
             return ch;
     }
+    // make happy lint
+    return ch;
 }
 
 Table2ClipCommon.isTargetATextBox = function(node) {

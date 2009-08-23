@@ -222,57 +222,10 @@ Table2ClipHtmlOutput.prototype = {
         var len = (s != null) ? s.length : 0;
         for (var i = 0; i < len; i++) {
             var c = s.charAt(i);
-            this.normalizeAndPrintChar(c, isAttValue);
+	    this.print(Table2ClipCommon.getEntity(c, isAttValue));
         }
     },
 
-    /** Normalizes and print the given character. */
-    normalizeAndPrintChar : function(c, isAttValue) {
-        switch (c) {
-            case '<': {
-                this.print("&lt;");
-                break;
-            }
-            case '>': {
-                this.print("&gt;");
-                break;
-            }
-            case '&': {
-                this.print("&amp;");
-                break;
-            }
-            case '"': {
-                // A '"' that appears in character data
-                // does not need to be escaped.
-                if (isAttValue) {
-                    this.print("&quot;");
-                }
-                else {
-                    this.print("\"");
-                }
-                break;
-            }
-            case '\r': {
-            	// If CR is part of the document's content, it
-            	// must not be printed as a literal otherwise
-            	// it would be normalized to LF when the document
-            	// is reparsed.
-            	this.print("&#xD;");
-            	break;
-            }
-            case '\n': {
-                if (this.isCanonical) {
-                    this.print("&#xA;");
-                    break;
-                }
-                // else, default print char
-            }
-            default: {
-                this.print(c);
-            }
-        }
-    },
-    
     getOutputText : function() {
 	return this.htmlText;
     }

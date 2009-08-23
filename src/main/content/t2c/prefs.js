@@ -3,11 +3,11 @@
  * Date  : 26-Dec-05
  */
 
-const T2CLIP_ROW_SEP        = "dafi.table2clip.rowSep";
-const T2CLIP_COL_SEP        = "dafi.table2clip.colSep";
-const T2CLIP_ROW_SEP_ATEND  = "dafi.table2clip.rowSepAtEnd";
-const T2CLIP_COPY_STYLES    = "dafi.table2clip.copyStyles";
-const T2CLIP_COPY_LINKS     = "dafi.table2clip.copyLinks";
+const T2CLIP_ROW_SEP        = "rowSep";
+const T2CLIP_COL_SEP        = "colSep";
+const T2CLIP_ROW_SEP_ATEND  = "rowSepAtEnd";
+const T2CLIP_COPY_STYLES    = "copyStyles";
+const T2CLIP_COPY_LINKS     = "copyLinks";
 
 function Table2ClipFormat() {
 }
@@ -39,9 +39,11 @@ Table2ClipFormat.prototype = {
 };
 
 function Table2ClipPrefs() {
-    this.prefBranch = Components.classes['@mozilla.org/preferences-service;1']
-                      .getService()
-                      .QueryInterface(Components.interfaces.nsIPrefBranch);
+    this.prefBranch = Components
+        .classes["@mozilla.org/preferences-service;1"]
+        .getService(Components.interfaces.nsIPrefService)
+        .getBranch("extensions.dafizilla.table2clip.");
+
     this.format = new Table2ClipFormat();
 }
 
