@@ -48,12 +48,21 @@ Table2ClipCommon.log = function(message) {
             .logStringMessage(message);
 }
 
-Table2ClipCommon.htmlEncode = function(txt) {
-    return txt.replace(/[<>&"]/g, function(str) {
-        return Table2ClipCommon.getEntity(str, true, false);
-        });
+Table2ClipCommon.htmlEncode = function(s, isAttValue, isCanonical) {
+    if (typeof (isAttValue) == "undefined" || isAttValue == null) {
+        isAttValue = true;
+    }
+    if (typeof (isCanonical) == "undefined" || isCanonical == null) {
+        isCanonical = false;
+    }
+    var len = s ? s.length : 0;
+    var str = "";
+    for (var i = 0; i < len; i++) {
+        str += Table2ClipCommon.getEntity(s.charAt(i), isAttValue, isCanonical);
+    }
+    return str;
 }
-    
+
 Table2ClipCommon.getEntity = function(ch, isAttValue, isCanonical) {
     switch (ch) {
         case '<':

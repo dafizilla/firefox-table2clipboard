@@ -71,11 +71,11 @@ var gTable2Clip = {
         if (event.target == this) {
             var thiz = gTable2Clip;
 
-            thiz.showMenuItem(document.getElementById("context-t2c:Copy"), 
+            thiz.showMenuItem(document.getElementById("context-t2c:Copy"),
                               thiz.isCommandEnabled('cmd_copyT2C'));
-            thiz.showMenuItem(document.getElementById("context-t2c:SelectTable"), 
+            thiz.showMenuItem(document.getElementById("context-t2c:SelectTable"),
                               thiz.isCommandEnabled('cmd_selectTableT2C'));
-            thiz.showMenuItem(document.getElementById("context-t2c:CopyWholeTable"), 
+            thiz.showMenuItem(document.getElementById("context-t2c:CopyWholeTable"),
                               thiz.isCommandEnabled('cmd_copyWholeTable'));
         }
         return true;
@@ -88,7 +88,7 @@ var gTable2Clip = {
             menuItem.setAttribute("hidden", "true");
         }
     },
-    
+
     goUpdateSelectMenuItems : function() {
         var thiz = gTable2Clip;
         goSetCommandEnabled("cmd_copyT2C", thiz.isCommandEnabled('cmd_copyT2C'));
@@ -97,7 +97,7 @@ var gTable2Clip = {
     copyTableSelection : function(event) {
         try {
             var arr;
-            
+
             if (gTable2Clip._selectedTable) {
                 arr = gTable2Clip.getTextArrayFromTable(gTable2Clip._selectedTable);
             } else {
@@ -109,7 +109,7 @@ var gTable2Clip = {
             Table2ClipCommon.log("T2C copyTableSelection: " + err);
         }
     },
-    
+
     copyToClipboard : function(arr) {
         var textHtml = gTable2Clip.getHtml(arr, gTable2Clip.format);
         var textCSV = gTable2Clip.getCSV(arr, gTable2Clip.format);
@@ -199,6 +199,7 @@ var gTable2Clip = {
         var minColumn = 0;
         var maxColumn = -1;
         var rows = table.rows;
+        var htmlOptions = thiz.getHtmlOptions();
 
         for (var i = 0; i < rows.length; i++) {
             // rows[i] type is nsIDOMHTMLTableRowElement
@@ -208,13 +209,7 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                var builder = new Table2ClipBuilder(thiz.prefs);
-                builder.build(theCell);
-                arrCol[cc] = { content : Table2ClipCommon.getTextNodeContent(theCell),
-                                htmlContent : builder.toHtml(),
-                                colspan : theCell.getAttribute("colspan"),
-                                rowspan : theCell.getAttribute("rowspan")};
-
+                arrCol[cc] = thiz.getCellInfo(theCell, theCell, htmlOptions);
             }
 
             // Adjust the value if row contains a colspan
@@ -236,12 +231,33 @@ var gTable2Clip = {
         return arrRow;
     },
 
+    /**
+     * @param textContentNode the node from which get text content
+     * @param cellNode the cell table node
+     * @param htmlOptions used to generate html output
+     * @returns the cellInfo object {content, htmlContent, colspan, rowspan}
+     */
+    getCellInfo : function(textContentNode, cellNode, htmlOptions) {
+        var builder = new Table2ClipBuilder(htmlOptions);
+        builder.build(cellNode);
+        return {content : Table2ClipCommon.getTextNodeContent(textContentNode),
+                htmlContent : builder.toHtml(),
+                colspan : cellNode.getAttribute("colspan"),
+                rowspan : cellNode.getAttribute("rowspan")};
+    },
+
+    getHtmlOptions : function() {
+        return {copyStyles : gTable2Clip.prefs.getBool(T2CLIP_COPY_STYLES),
+            copyLinks : gTable2Clip.prefs.getBool(T2CLIP_COPY_LINKS)};
+    },
+
     getTextArrayFromSelection : function(sel) {
         var thiz = gTable2Clip;
         var arrRow = new Array();
         var minColumn = 100000;
         var maxColumn = -1;
         var columnCount = 0;
+        var htmlOptions = thiz.getHtmlOptions();
 
         for (var i = 0; i < sel.rangeCount; i += columnCount) {
             columnCount = thiz.getColumnsPerRow(sel, i);
@@ -253,15 +269,11 @@ var gTable2Clip = {
             var rangeIndexEnd = i + columnCount;
             for (var cc = 0; cc < cells.length && rangeIndexStart < rangeIndexEnd; cc++) {
                 var theCell = cells.item(cc);
-                
+
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
-                    var builder = new Table2ClipBuilder(thiz.prefs);
-                    builder.build(theCell);
-                    arrCol[cc] = { content : Table2ClipCommon.getTextNodeContent(selNode),
-                                    htmlContent : builder.toHtml(),
-                                    colspan : theCell.getAttribute("colspan"),
-                                    rowspan : theCell.getAttribute("rowspan") };
+
+                    arrCol[cc] = thiz.getCellInfo(selNode, theCell, htmlOptions);
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
@@ -414,14 +426,14 @@ var gTable2Clip = {
         } else if ((nodeUnderCursor instanceof HTMLTableCellElement)
                    || (nodeUnderCursor instanceof HTMLTableRowElement)) {
             tableNode = nodeUnderCursor.parentNode;
-            
+
             while (tableNode && !(tableNode instanceof HTMLTableElement)) {
                 tableNode = tableNode.parentNode;
             }
         } else {
             // Check if current node is inside a table cell
             var cellNode = nodeUnderCursor.parentNode;
-            
+
             while (cellNode && !(cellNode instanceof HTMLTableCellElement)) {
                 cellNode = cellNode.parentNode;
             }
@@ -474,7 +486,7 @@ var gTable2Clip = {
     supportsCommand : function(command) {
         return command == "cmd_copyT2C";
     },
-    
+
     onOpenSettings : function(event) {
         window.openDialog("chrome://t2c/content/settings/settings.xul",
                           "_blank",
