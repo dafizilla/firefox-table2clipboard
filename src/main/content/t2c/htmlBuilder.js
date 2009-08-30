@@ -102,8 +102,8 @@ var Table2ClipBuilderHandlers = {
         output.print('"');
 
 	if (t2cBuilder.copyStyles) {
-	    var style = node.ownerDocument.defaultView.getComputedStyle(node, null);
-	    var style = t2cBuilder.getStyleText(node);
+	    var style = Table2ClipCSSUtils.getStyleTextByNode(node);
+	    
 	    if (style != "") {
 		output.print(' style="' + style + '"');
 	    }
@@ -238,7 +238,7 @@ Table2ClipBuilder.prototype = {
                     }
 
 		    if (this.copyStyles) {
-			var style = this.getStyleText(style);
+			var style = Table2ClipCSSUtils.getStyleText(style);
 			if (style != "") {
 			    this.htmlOutput.print(' style="' + style + '"');
 			}
