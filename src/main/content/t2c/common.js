@@ -3,37 +3,38 @@
  * Date     : 26-Dec-05
  */
 
+if (typeof(table2clipboard) == "undefined") {
+    var table2clipboard = {};
+}
+
+table2clipboard.common = {};
+
+(function() {
 // Under mozilla composer <stringbundleset id="stringbundleset"> isn't available
 // so we use nsIStringBundleService
 
-Table2ClipCommon.locale = Components.classes["@mozilla.org/intl/stringbundle;1"]
+var locale = Components.classes["@mozilla.org/intl/stringbundle;1"]
     .getService(Components.interfaces.nsIStringBundleService)
     .createBundle("chrome://t2c/locale/t2c.properties");
 
-function Table2ClipCommon() {
-    return this;
-}
-
-Table2ClipCommon.isOSWin = function() {
+this.isOSWin = function() {
     return top.window.navigator.platform.indexOf("Win") >= 0;
 }
 
-Table2ClipCommon.getLocalizedMessage = function(msg) {
-    return Table2ClipCommon.locale.GetStringFromName(msg);
+this.getLocalizedMessage = function(msg) {
+    return locale.GetStringFromName(msg);
 }
 
-Table2ClipCommon.getFormattedMessage = function(msg, ar) {
-    return Table2ClipCommon.locale.formatStringFromName(msg, ar, ar.length);
+this.getFormattedMessage = function(msg, ar) {
+    return locale.formatStringFromName(msg, ar, ar.length);
 }
 
-Table2ClipCommon.getObserverService = function () {
-    const CONTRACTID_OBSERVER = "@mozilla.org/observer-service;1";
-    const nsObserverService = Components.interfaces.nsIObserverService;
-
-    return Components.classes[CONTRACTID_OBSERVER].getService(nsObserverService);
+this.getObserverService = function () {
+    return Components.classes["@mozilla.org/observer-service;1"]
+        .getService(Components.interfaces.nsIObserverService);
 }
 
-Table2ClipCommon.loadExternalUrl = function(url) {
+this.loadExternalUrl = function(url) {
     var uri = Components.classes["@mozilla.org/network/standard-url;1"]
                 .createInstance(Components.interfaces.nsIURI);
     uri.spec = url;
@@ -42,13 +43,13 @@ Table2ClipCommon.loadExternalUrl = function(url) {
     prot.loadUrl(uri);
 }
 
-Table2ClipCommon.log = function(message) {
+this.log = function(message) {
     Components.classes["@mozilla.org/consoleservice;1"]
         .getService(Components.interfaces.nsIConsoleService)
             .logStringMessage(message);
 }
 
-Table2ClipCommon.htmlEncode = function(s, isAttValue, isCanonical) {
+this.htmlEncode = function(s, isAttValue, isCanonical) {
     if (typeof (isAttValue) == "undefined" || isAttValue == null) {
         isAttValue = true;
     }
@@ -58,12 +59,12 @@ Table2ClipCommon.htmlEncode = function(s, isAttValue, isCanonical) {
     var len = s ? s.length : 0;
     var str = "";
     for (var i = 0; i < len; i++) {
-        str += Table2ClipCommon.getEntity(s.charAt(i), isAttValue, isCanonical);
+        str += this.getEntity(s.charAt(i), isAttValue, isCanonical);
     }
     return str;
 }
 
-Table2ClipCommon.getEntity = function(ch, isAttValue, isCanonical) {
+this.getEntity = function(ch, isAttValue, isCanonical) {
     switch (ch) {
         case '<':
             return "&lt;";
@@ -86,6 +87,8 @@ Table2ClipCommon.getEntity = function(ch, isAttValue, isCanonical) {
                 return "&#xA;";
             }
             // else, default print char
+        case '\xA0':
+            return "&nbsp;";
         default:
             return ch;
     }
@@ -93,7 +96,7 @@ Table2ClipCommon.getEntity = function(ch, isAttValue, isCanonical) {
     return ch;
 }
 
-Table2ClipCommon.isTargetATextBox = function(node) {
+this.isTargetATextBox = function(node) {
     if (!node || node.nodeType != Node.ELEMENT_NODE)
         return false;
 
@@ -119,7 +122,7 @@ Table2ClipCommon.isTargetATextBox = function(node) {
     }
 }
 
-Table2ClipCommon.getTextNodeContent = function(node) {
+this.getTextNodeContent = function(node) {
     var str = "";
     var nl = node.childNodes;
 
@@ -132,7 +135,7 @@ Table2ClipCommon.getTextNodeContent = function(node) {
         }
         if (nl[i].nodeType == Node.TEXT_NODE) {
             str += nl[i].nodeValue;
-        } else if (Table2ClipCommon.isTargetATextBox(nl[i])) {
+        } else if (this.isTargetATextBox(nl[i])) {
             // replace all new lines/carriage returns with a single blank space
             str += nl[i].value.replace(/(\r\n|\r|\n)+/g, " ");
             // ignore children
@@ -140,8 +143,25 @@ Table2ClipCommon.getTextNodeContent = function(node) {
             continue;
         }
         if (nl[i].hasChildNodes()) {
-            str += Table2ClipCommon.getTextNodeContent(nl[i]);
+            str += this.getTextNodeContent(nl[i]);
         }
     }
     return str;
 }
+
+this.trim = function(str) {
+    var retStr = "";
+
+    if (str) {
+        var re = /^[ \s]+/g;
+        retStr = str.replace(re, "");
+        re = /[ \s]+$/g;
+        retStr = retStr.replace(re, "");
+
+        // remove inner tabs
+        var re = /[\t\n\r]+/g;
+        retStr = retStr.replace(re, "");
+    }
+    return retStr;
+}
+}).apply(table2clipboard.common);

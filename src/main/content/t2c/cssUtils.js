@@ -35,87 +35,58 @@
 # ***** END LICENSE BLOCK *****
 */
 
-var Table2ClipCSSUtils = {
-    cssStyles : [
-        "background-color",
-        
-        "border-bottom-color",
-        "border-bottom-style",
-        "border-bottom-width",
-        "border-left-color",
-        "border-left-style",
-        "border-left-width",
-        "border-right-color",
-        "border-right-style",
-        "border-right-width",
-        "border-top-color",
-        "border-top-style",
-        "border-top-width",
-        
-        "font-family",
-        "font-size",
-        "font-style",
-        "font-variant",
-        "font-weight",
-        
-        "margin-bottom",
-        "margin-left",
-        "margin-right",
-        "margin-top",
-        
-        "padding-bottom",
-        "padding-left",
-        "padding-right",
-        "padding-top",
-        
-        "border-collapse",
-        "border-spacing",
-        "empty-cells",
-        "table-layout",
-        
-        "color",
-        "direction",
-        "line-height",
-        "text-align",
-        "text-decoration",
-        "text-indent",
-        "text-shadow",
-        "text-transform",
-        "unicode-bidi",
-        "vertical-align",
-        "white-space",
-        "word-spacing"
-    ],
-
-    /**
-     * Get the string in the HTML style attribute format, eg. css-prop: css-value.
-     * Only the styles meaningful for applications like Microsoft Excel and
-     * OpenOffice Calc are returned.
-     * @param node the node from which get style
-     * @returns the string containing the CSS style values
-     */
-    getStyleTextByNode : function(node) {
-        var nodeWindow = node.ownerDocument.defaultView;
-	return this.getStyleText(nodeWindow.getComputedStyle(node, null));
-    },
-
-    /**
-     * Get the string in the HTML style attribute format, eg. css-prop: css-value.
-     * Only the styles meaningful for applications like Microsoft Excel and
-     * OpenOffice Calc are returned.
-     * @param style the CSSStyleDeclaration object
-     * @returns the string containing the CSS style values
-     */
-    getStyleText : function(cssStyleDeclaration) {
-        var computed = "";
-
-        for (var i = 0; i < this.cssStyles.length; i++) {
-            var cssPropName = this.cssStyles[i];
-            var cssPropValue = cssStyleDeclaration.getPropertyValue(cssPropName);
-
-            computed += cssPropName + ":" + cssPropValue + ";";
-        }
-
-        return computed;
-    }
+if (typeof(table2clipboard) == "undefined") {
+    var table2clipboard = {};
 }
+
+if (typeof(table2clipboard.css) == "undefined") {
+    table2clipboard.css = {};
+}
+
+table2clipboard.css.utils = {};
+
+(function() {
+var inIDOMUtils = Components.classes["@mozilla.org/inspector/dom-utils;1"]
+            .getService(Components.interfaces.inIDOMUtils);
+
+/**
+ * Determine if passed url is a system uri, adapted from Firebug
+ * @requires true if url represent a system url
+ */
+this.isSystemURL = function(url) {
+    if (!url) return true;
+    if (url.length == 0) return true;
+    if (url[0] == 'h') return false;
+    if (url.substr(0, 9) == "resource:")
+        return true;
+    return false;
+}
+
+this.isUserAgentCSSRule = function(rule) {
+    var href = rule.parentStyleSheet.href;  // Null means inline
+    return href != null && this.isSystemURL(rule.parentStyleSheet.href);
+}
+
+/**
+ * Fill the passed hashMap with selectors and associated style
+ * The hashMap value is set to true and it is not meaningful
+ * @param node the DOM node to inspect
+ * @param hashMap the hash array object to fill, selector keys already
+ * present are overwritten by design
+ * @returns the map itself
+ */
+this.addStyles = function(node, hashMap) {
+    var rules = inIDOMUtils.getCSSStyleRules(node);
+
+    for (var i = 0; i < rules.Count(); i++) {
+        var rule = rules.GetElementAt(i);
+
+        if (!this.isUserAgentCSSRule(rule)) {
+            // if same selector is present more than once the last defined wins
+            hashMap[rule.cssText] = true;
+        }
+    }
+
+    return hashMap;
+}
+}).apply(table2clipboard.css.utils);

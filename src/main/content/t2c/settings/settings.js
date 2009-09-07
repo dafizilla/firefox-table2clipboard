@@ -20,7 +20,7 @@ var gTable2ClipSettings = {
 
             thiz.prefs.setClipFormat(format);
             thiz.prefs.savePrefs();
-            Table2ClipCommon.getObserverService()
+            table2clipboard.common.getObserverService()
                 .notifyObservers(null, "t2clip:update-config", "");
         } catch (err) {
             alert("gTable2ClipSettings.onAccept: " + err);
@@ -70,7 +70,7 @@ var gTable2ClipSettings = {
         } catch (err) {
             // This isn't a browser (e.g. Thunderbird, NVU)
             try {
-                Table2ClipCommon.loadExternalUrl(url);
+                table2clipboard.common.loadExternalUrl(url);
             } catch (err) {
             }
         }

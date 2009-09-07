@@ -10,22 +10,24 @@ var gTable2Clip = {
     onLoad : function() {
         var thiz = gTable2Clip;
 
-        thiz.reLineBreak = /[\n\r]/g;
-        thiz.reDuplicateQuote = /\"/g; // "
-
         thiz.addListeners();
 
-        var obs = Table2ClipCommon.getObserverService();
+        var obs = table2clipboard.common.getObserverService();
         obs.addObserver(thiz, "t2clip:update-config", false);
         obs.notifyObservers(null, "t2clip:update-config", "");
 
         thiz.workaroundEditMenu();
+
+        var builderNS = table2clipboard.builders.html;
+        builderNS.registerHandler('a', builderNS.handlers.handleA);
+        builderNS.registerHandler('img', builderNS.handlers.handleIMG);
+        builderNS.registerHandler('br', builderNS.handlers.handleBR);
     },
 
     onUnLoad : function() {
         var thiz = gTable2Clip;
 
-        var obs = Table2ClipCommon.getObserverService();
+        var obs = table2clipboard.common.getObserverService();
         obs.removeObserver(thiz, "t2clip:update-config");
         thiz.removeListeners();
     },
@@ -106,13 +108,15 @@ var gTable2Clip = {
             }
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
-            Table2ClipCommon.log("T2C copyTableSelection: " + err);
+            table2clipboard.common.log("T2C copyTableSelection: " + err);
         }
     },
 
-    copyToClipboard : function(arr) {
-        var textHtml = gTable2Clip.getHtml(arr, gTable2Clip.format);
-        var textCSV = gTable2Clip.getCSV(arr, gTable2Clip.format);
+    copyToClipboard : function(tableInfo) {
+        with (table2clipboard.formatters) {
+            var textHtml = html.format(tableInfo, gTable2Clip.getHtmlOptions());
+            var textCSV = csv.format(tableInfo, gTable2Clip.format);
+        }
 
         var xferable = Components.classes["@mozilla.org/widget/transferable;1"]
                         .createInstance(Components.interfaces.nsITransferable);
@@ -135,120 +139,45 @@ var gTable2Clip = {
                           Components.interfaces.nsIClipboard.kGlobalClipboard);
     },
 
-    getHtml : function(arr, format) {
-        var rc = arr.length;
-        var cc = arr[0].length;
-        var str = "<HTML><BODY>";
-
-        str += "<TABLE><TBODY>";
-        for (var i = 0; i < rc; i++) {
-            str += "<TR>";
-            for (var j = 0; j < cc; j++) {
-                // arr[i][j] should be a string object
-                var cellInfo = arr[i][j];
-                if (typeof(cellInfo) == "object") {
-                    var cellText = cellInfo.htmlContent
-                        ? cellInfo.htmlContent : "<TD>&nbsp;</TD>";
-                    str += cellText;
-                }
-            }
-            str += "</TR>";
-        }
-        str += "</TBODY></TABLE>";
-        str += "</BODY></HTML>";
-
-        return str;
-    },
-
-    getCSV : function(arr, format) {
-        var rc = arr.length;
-        var cc = arr[0].length;
-        var lastRow = rc - 1;
-        var lastCol = cc - 1;
-        var str = "";
-
-        for (var i = 0; i < rc; i++) {
-            for (var j = 0; j < cc; j++) {
-                var cellInfo = arr[i][j];
-                if (typeof(cellInfo) == "object") {
-                    var cellText = cellInfo.content
-                            ? gTable2Clip.handleSpecials(gTable2Clip.trim(cellInfo.content))
-                            : "";
-                    str += cellText;
-                    if (cellInfo.colspan) {
-                        for (var cs = 1; cs < cellInfo.colspan; cs++) {
-                            str += format.columnSep;
-                        }
-                    }
-                    if (j < lastCol) {
-                        str += format.columnSep;
-                    }
-                }
-            }
-            if (i < lastRow || format.appendRowSepAtEnd) {
-                str += format.rowSep;
-            }
-        }
-
-        return str;
-    },
-
+    /**
+     * Get structure info for passed table
+     * @param table the table to obtain
+     * @returns the object
+     * {
+     * tableNode : node,
+     * rows : [{rowNode : node,
+     *          cells : [textNode : node, cellNode : node]}
+     *        ]
+     * }
+     */
     getTextArrayFromTable : function(table) {
         var thiz = gTable2Clip;
         var arrRow = new Array();
         var minColumn = 0;
         var maxColumn = -1;
         var rows = table.rows;
-        var htmlOptions = thiz.getHtmlOptions();
 
         for (var i = 0; i < rows.length; i++) {
             // rows[i] type is nsIDOMHTMLTableRowElement
-            var cells = rows[i].cells;
+            var row = rows[i];
+            var cells = row.cells;
             var arrCol = new Array();
 
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                arrCol[cc] = thiz.getCellInfo(theCell, theCell, htmlOptions);
+                arrCol[cc] = {textNode : theCell, cellNode : theCell};
             }
 
             // Adjust the value if row contains a colspan
             if (maxColumn < arrCol.length) {
                 maxColumn = arrCol.length;
             }
-            arrRow.push(arrCol);
+            arrRow.push({rowNode : row, cells : arrCol});
         }
 
-        // Fill all rows to maximum number of cells
-        for (i = 0; i < arrRow.length; i++) {
-            var fillCount = maxColumn - arrRow[i].length;
-            for (var j = 0; j < fillCount; j++) {
-                arrRow[i].push("");
-            }
-            // remove empty rows at left
-            arrRow[i] = arrRow[i].slice(minColumn);
-        }
-        return arrRow;
-    },
-
-    /**
-     * @param textContentNode the node from which get text content
-     * @param cellNode the cell table node
-     * @param htmlOptions used to generate html output
-     * @returns the cellInfo object {content, htmlContent, colspan, rowspan}
-     */
-    getCellInfo : function(textContentNode, cellNode, htmlOptions) {
-        var builder = new Table2ClipBuilder(htmlOptions);
-        builder.build(cellNode);
-        return {content : Table2ClipCommon.getTextNodeContent(textContentNode),
-                htmlContent : builder.toHtml(),
-                colspan : cellNode.getAttribute("colspan"),
-                rowspan : cellNode.getAttribute("rowspan")};
-    },
-
-    getHtmlOptions : function() {
-        return {copyStyles : gTable2Clip.prefs.getBool(T2CLIP_COPY_STYLES),
-            copyLinks : gTable2Clip.prefs.getBool(T2CLIP_COPY_LINKS)};
+        thiz.padCells(arrRow, minColumn, maxColumn);
+        return {tableNode : table, rows : arrRow};
     },
 
     getTextArrayFromSelection : function(sel) {
@@ -257,12 +186,11 @@ var gTable2Clip = {
         var minColumn = 100000;
         var maxColumn = -1;
         var columnCount = 0;
-        var htmlOptions = thiz.getHtmlOptions();
 
         for (var i = 0; i < sel.rangeCount; i += columnCount) {
             columnCount = thiz.getColumnsPerRow(sel, i);
-
-            var cells = sel.getRangeAt(i).startContainer.cells;
+            var row = sel.getRangeAt(i).startContainer;
+            var cells = row.cells;
 
             var arrCol = new Array();
             var rangeIndexStart = i;
@@ -273,34 +201,52 @@ var gTable2Clip = {
                 if (sel.containsNode(theCell, false))  {
                     var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
 
-                    arrCol[cc] = thiz.getCellInfo(selNode, theCell, htmlOptions);
+                    arrCol[cc] = {textNode : selNode, cellNode : theCell};
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
                 } else {
-                    arrCol[cc] = { content : "",
-                                    htmlContent : null,
-                                    colspan : null,
-                                    rowspan : null};
+                    arrCol[cc] = null;
                 }
             }
 
             if (maxColumn < arrCol.length) {
                 maxColumn = arrCol.length;
             }
-            arrRow.push(arrCol);
+            arrRow.push({rowNode : row, cells : arrCol});
         }
 
+        thiz.padCells(arrRow, minColumn, maxColumn);
+        return {tableNode : thiz._tableUnderCursor, rows : arrRow};
+    },
+
+    /**
+     * Return the options to use to copy HTML table
+     * @returns the object {copyStyles, copyLinks, copyImages}
+     */
+    getHtmlOptions : function() {
+        return {copyStyles : gTable2Clip.prefs.getBool("copyStyles"),
+            copyLinks : gTable2Clip.prefs.getBool("copyLinks"),
+            copyImages : gTable2Clip.prefs.getBool("copyImages")};
+    },
+
+    /**
+     * Pad cell arrays to have all same dimension and remove starting blank cells
+     * @param arrRow cells array
+     * @param minColumn the minimum column count
+     * @param maxColumn the maximum coloun count
+     */
+    padCells : function(arrRow, minColumn, maxColumn) {
         // Fill all rows to maximum number of cells
-        for (i = 0; i < arrRow.length; i++) {
-            var fillCount = maxColumn - arrRow[i].length;
+        for (var i = 0; i < arrRow.length; i++) {
+            var cells = arrRow[i].cells;
+            var fillCount = maxColumn - cells.length;
             for (var j = 0; j < fillCount; j++) {
-                arrRow[i].push("");
+                cells.push(null);
             }
             // remove empty rows at left
-            arrRow[i] = arrRow[i].slice(minColumn);
+            arrRow[i].cells = cells.slice(minColumn);
         }
-        return arrRow;
     },
 
     getColumnsPerRow : function(sel, startPos) {
@@ -317,34 +263,6 @@ var gTable2Clip = {
         }
 
         return currPos - startPos;
-    },
-
-    trim : function(str) {
-        var retStr = "";
-
-        if (str) {
-            var re = /^[ \s]+/g;
-            retStr = str.replace(re, "");
-            re = /[ \s]+$/g;
-            retStr = retStr.replace(re, "");
-
-            // remove inner tabs
-            var re = /[\t\n\r]+/g;
-            retStr = retStr.replace(re, "");
-        }
-        return retStr;
-    },
-
-    // str must be surronded with quotes if contains new lines
-    // if contains new lines and inside str there are quotes
-    // they must be escaped by duplicating the quote character
-    handleSpecials : function(str) {
-        if (gTable2Clip.reLineBreak.test(str)) {
-            str = "\""
-                  + str.replace(gTable2Clip.reDuplicateQuote, "\"\"")
-                  + "\"";
-        }
-        return str;
     },
 
     // From browser.js
@@ -410,7 +328,7 @@ var gTable2Clip = {
             var arr = gTable2Clip.getTextArrayFromTable(table);
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
-            Table2ClipCommon.log("T2C copyWholeTable: " + err);
+            table2clipboard.common.log("T2C copyWholeTable: " + err);
         }
     },
 

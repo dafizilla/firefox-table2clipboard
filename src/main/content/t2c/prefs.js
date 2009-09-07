@@ -6,8 +6,6 @@
 const T2CLIP_ROW_SEP        = "rowSep";
 const T2CLIP_COL_SEP        = "colSep";
 const T2CLIP_ROW_SEP_ATEND  = "rowSepAtEnd";
-const T2CLIP_COPY_STYLES    = "copyStyles";
-const T2CLIP_COPY_LINKS     = "copyLinks";
 
 function Table2ClipFormat() {
 }
@@ -78,7 +76,7 @@ Table2ClipPrefs.prototype = {
 
     getClipFormat : function() {
         this.format.rowSep = this.getString(T2CLIP_ROW_SEP,
-                                Table2ClipCommon.isOSWin() ? "\r\n" : "\n");
+                                table2clipboard.common.isOSWin() ? "\r\n" : "\n");
         this.format.columnSep = this.getString(T2CLIP_COL_SEP, "\t");
         this.format.appendRowSepAtEnd = this.getBool(T2CLIP_ROW_SEP_ATEND, true);
 

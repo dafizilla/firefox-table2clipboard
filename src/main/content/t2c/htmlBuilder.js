@@ -35,6 +35,19 @@
 # ***** END LICENSE BLOCK *****
 */
 
+if (typeof(table2clipboard) == "undefined") {
+    var table2clipboard = {};
+}
+
+if (typeof(table2clipboard.builders) == "undefined") {
+    table2clipboard.builders = {};
+}
+
+if (typeof(table2clipboard.builders.html) == "undefined") {
+    table2clipboard.builders.html = {};
+}
+
+(function() {
 /**
  * Contains informations about a node to output, this object is returned by
  * node handlers
@@ -42,12 +55,12 @@
  *   content - the user generated content to output for node (default == "")
  *   skipNode - do not output node and its children
  *   skipTagName - do not output tag name, both the open tag and close tag
- *   	(eg <a> and </a>) (default == false) used when #content handles tag
+ *   (eg <a> and </a>) (default == false) used when #content handles tag
  *   skipChildren - do not output node children (ie stop recursive traversal
- *   	for children)
+ *   for children)
  *   skipAttributes - do not output node attributes
  */
-function Table2ClipOutputNodeInfo() {
+function OutputNodeInfo() {
     this.content = "";
     this.skipTagName = false;
     this.skipNode = false;
@@ -55,97 +68,112 @@ function Table2ClipOutputNodeInfo() {
     this.skipAttributes = false;
 }
 
+this.OutputNodeInfo = OutputNodeInfo;
+
 /**
  * Contains all handlers used by HTML builder
  */
-var Table2ClipBuilderHandlers = {
+nodeHandlers = [];
+
+this.registerHandler = function(tagName, handler) {
+    if (handler) {
+        nodeHandlers[tagName.toLowerCase()] = handler;
+    } else {
+        alert("Unable to add invalid handler for tag name " + tagName);
+    }
+};
+
+this.getHandler = function(tagName) {
+    return nodeHandlers[tagName.toLowerCase()];
+};
+
+this.handlers = {
     /**
-     * Generate output for links as plain text, the tag A is removed and the
-     * output contains only the link description generated using children nodes
+     * Generate output for links.
+     * If copyLinks is true normalize relative target URLs to document location
+     * otherwise the tag A is removed and the output contains only the link
+     * description generated using children nodes
      * @param t2cBuilder the builder running this handler
      * @param node the node to use to generate output info
-     * @returns Table2ClipOutputNodeInfo
+     * @returns OutputNodeInfo
      */
-    handleLinksAsPlainText: function(t2cBuilder, node) {
-	var output = new Table2ClipHtmlOutput(t2cBuilder.isCanonical);
-        output.print(Table2ClipCommon.getTextNodeContent(node));
+    handleA: function(t2cBuilder, node) {
+        var nodeInfo = new OutputNodeInfo();
 
-	var nodeInfo = new Table2ClipOutputNodeInfo();
-        nodeInfo.content = output.getOutputText();
-	nodeInfo.skipTagName = true;
-	nodeInfo.skipAttributes = true;
-	nodeInfo.skipChildren = true;
+        if (t2cBuilder.options.copyLinks) {
+            var href = node.getAttribute('href');
+            var uri = Components
+                .classes["@mozilla.org/network/standard-url;1"]
+                .createInstance(Components.interfaces.nsIURL);
+            uri.spec = window.content.document.location;
 
-	return nodeInfo;
-    },
+            var output = new HtmlOutput(t2cBuilder.isCanonical);
+            output.print(' ');
+            output.print('href');
+            output.print('="');
 
-    /**
-     * Generate output for links as tag A, normalize relative target URLs to
-     * document location
-     * @param t2cBuilder the builder running this handler
-     * @param node the node to use to generate output info
-     * @returns Table2ClipOutputNodeInfo
-     */
-    handleLinksAsHtml : function(t2cBuilder, node) {
-        var href = node.getAttribute('href');
-        var uri = Components
-            .classes["@mozilla.org/network/standard-url;1"]
-            .createInstance(Components.interfaces.nsIURL);
-        uri.spec = window.content.document.location;
+            output.normalizeAndPrint(uri.resolve(href), true);
+            output.print('"');
 
-	var output = new Table2ClipHtmlOutput(t2cBuilder.isCanonical);
-        output.print(' ');
-        output.print('href');
-        output.print('="');
+            nodeInfo.content = output.getOutputText();
+            nodeInfo.skipAttributes = true;
+        } else {
+            var output = new HtmlOutput(t2cBuilder.isCanonical);
+            output.print(table2clipboard.common.getTextNodeContent(node));
 
-        output.normalizeAndPrint(uri.resolve(href), true);
-        output.print('"');
+            nodeInfo.content = output.getOutputText();
+            nodeInfo.skipTagName = true;
+            nodeInfo.skipAttributes = true;
+            nodeInfo.skipChildren = true;
+        }
 
-	if (t2cBuilder.copyStyles) {
-	    var style = Table2ClipCSSUtils.getStyleTextByNode(node);
-	    
-	    if (style != "") {
-		output.print(' style="' + style + '"');
-	    }
-	}
-
-	var nodeInfo = new Table2ClipOutputNodeInfo();
-        nodeInfo.content = output.getOutputText();
-	nodeInfo.skipAttributes = true;
-
-	return nodeInfo;
+        return nodeInfo;
     },
 
     /**
      * Generate output for BR tags, the output form is "<BR>" instead of "<BR></BR>"
      * @param t2cBuilder the builder running this handler
      * @param node the node to use to generate output info
-     * @returns Table2ClipOutputNodeInfo
+     * @returns OutputNodeInfo
      */
     handleBR: function(t2cBuilder, node) {
-	var output = new Table2ClipHtmlOutput(t2cBuilder.isCanonical);
+        var output = new HtmlOutput(t2cBuilder.isCanonical);
         output.print("<BR>");
 
-	var nodeInfo = new Table2ClipOutputNodeInfo();
+        var nodeInfo = new OutputNodeInfo();
         nodeInfo.content = output.getOutputText();
-	nodeInfo.skipTagName = true;
-	nodeInfo.skipAttributes = true;
-	nodeInfo.skipChildren = true;
+        nodeInfo.skipTagName = true;
+        nodeInfo.skipAttributes = true;
+        nodeInfo.skipChildren = true;
 
-	return nodeInfo;
+        return nodeInfo;
+    },
+
+    handleIMG: function(t2cBuilder, node) {
+        if (t2cBuilder.options.copyImages) {
+            var nodeInfo = new OutputNodeInfo();
+            nodeInfo.content = "";
+            nodeInfo.skipTagName = false;
+            nodeInfo.skipAttributes = false;
+            nodeInfo.skipChildren = false;
+
+            return nodeInfo;
+        } else {
+            return null;
+        }
     }
 };
 
 /**
  * Collect HTML output text, if necessary normalize it encoding entities
  */
-function Table2ClipHtmlOutput(isCanonical) {
+function HtmlOutput(isCanonical) {
     this.isCanonical = (typeof(isCanonical) == "undefined"
-			|| isCanonical == null) ? false : isCanonical;
+            || isCanonical == null) ? false : isCanonical;
     this.htmlText = "";
 }
 
-Table2ClipHtmlOutput.prototype = {
+HtmlOutput.prototype = {
     print : function(str) {
         this.htmlText += str;
     },
@@ -156,39 +184,49 @@ Table2ClipHtmlOutput.prototype = {
 
     /** Normalizes and prints the given string. */
     normalizeAndPrint : function(s, isAttValue) {
-	this.print(Table2ClipCommon.htmlEncode(s, isAttValue));
+        this.print(table2clipboard.common.htmlEncode(s, isAttValue));
     },
 
     getOutputText : function() {
-	return this.htmlText;
+        return this.htmlText;
+    },
+
+    printNodeAttributes : function(node, excludedAttrs) {
+        var attrs = node.attributes;
+        for (var i = 0; i < attrs.length; i++) {
+            var attr = attrs[i];
+            if (excludedAttrs && excludedAttrs[attr.nodeName]) {
+                continue;
+            }
+            this.print(' ');
+            this.print(attr.nodeName);
+            this.print('="');
+
+            this.normalizeAndPrint(attr.nodeValue, true);
+            this.print('"');
+        }
     }
 }
+
+this.HtmlOutput = HtmlOutput;
 
 /**
  * Builder used to generate HTML from a node (and its descendants)
  * @param options the options to use to generate HTML
  * Below are described the options object properties
- *   copyStyles - copy the node styles otherwise styles are empty
- *   copyLinks - copy the links as clickable otherwise output only the link text
+ *   copyLinks - if true copy the links as clickable otherwise output only the link text
+ *   copyImages - if true copy the IMG tags otherwise skip it and their descendant
  */
-function Table2ClipBuilder(options) {
+function Builder(options) {
     this.isCanonical = false;
-    this.htmlOutput = new Table2ClipHtmlOutput(this.isCanonical);
-    this.copyStyles = options.copyStyles;
-    this.defaultNodeInfo = new Table2ClipOutputNodeInfo();
-
-    this.nodeHandlers = [];
-    if (options.copyLinks) {
-        this.nodeHandlers['a'] = Table2ClipBuilderHandlers.handleLinksAsHtml;
-    } else {
-        this.nodeHandlers['a'] = Table2ClipBuilderHandlers.handleLinksAsPlainText;
-    }
-    this.nodeHandlers['br'] = Table2ClipBuilderHandlers.handleBR;
+    this.htmlOutput = new HtmlOutput(this.isCanonical);
+    this.defaultNodeInfo = new OutputNodeInfo();
+    this.options = options;
 }
 
-Table2ClipBuilder.prototype = {
+Builder.prototype = {
     getNodeInfo : function(node) {
-        var handler = this.nodeHandlers[node.localName.toLowerCase()];
+        var handler = table2clipboard.builders.html.getHandler(node.localName);
         if (handler) {
             return handler(this, node);
         }
@@ -196,7 +234,7 @@ Table2ClipBuilder.prototype = {
     },
 
     build : function(node) {
-	this._internalBuild(node);
+        this._internalBuild(node);
     },
 
     _internalBuild : function(node) {
@@ -206,7 +244,7 @@ Table2ClipBuilder.prototype = {
         }
 
         var type = node.nodeType;
-	var skipTagName = false;
+        var skipTagName = false;
 
         switch (type) {
             case node.ELEMENT_NODE: {
@@ -218,35 +256,19 @@ Table2ClipBuilder.prototype = {
                 if (nodeInfo.skipNode) {
                     return;
                 }
-		skipTagName = nodeInfo.skipTagName;
-		if (!skipTagName) {
-		    this.htmlOutput.print('<');
-		    this.htmlOutput.print(node.nodeName);
-		}
-		this.htmlOutput.print(nodeInfo.content);
+                skipTagName = nodeInfo.skipTagName;
+                if (!skipTagName) {
+                    this.htmlOutput.print('<');
+                    this.htmlOutput.print(node.nodeName);
+                }
+                this.htmlOutput.print(nodeInfo.content);
 
                 if  (!nodeInfo.skipAttributes) {
-                    var attrs = node.attributes;
-                    for (var i = 0; i < attrs.length; i++) {
-                        var attr = attrs[i];
-                        this.htmlOutput.print(' ');
-                        this.htmlOutput.print(attr.nodeName);
-                        this.htmlOutput.print('="');
-
-                        this.htmlOutput.normalizeAndPrint(attr.nodeValue, true);
-                        this.htmlOutput.print('"');
-                    }
-
-		    if (this.copyStyles) {
-			var style = Table2ClipCSSUtils.getStyleText(style);
-			if (style != "") {
-			    this.htmlOutput.print(' style="' + style + '"');
-			}
-		    }
+                    this.htmlOutput.printNodeAttributes(node);
                 }
-		if (!skipTagName) {
-		    this.htmlOutput.print('>');
-		}
+                if (!skipTagName) {
+                    this.htmlOutput.print('>');
+                }
 
                 if (!nodeInfo.skipChildren) {
                     var child = node.firstChild;
@@ -294,25 +316,18 @@ Table2ClipBuilder.prototype = {
         }
 
         if (type == Node.ELEMENT_NODE) {
-	    if (!skipTagName) {
-		this.htmlOutput.print("</");
-		this.htmlOutput.print(node.nodeName);
-		this.htmlOutput.print('>');
-	    }
+            if (!skipTagName) {
+                this.htmlOutput.print("</");
+                this.htmlOutput.print(node.nodeName);
+                this.htmlOutput.print('>');
+            }
         }
-    },
-
-    getStyleText : function(style) {
-        var computed = "";
-        for (var i = 0; i < style.length; i++) {
-            var cssPropName = style.item(i);
-            computed += cssPropName + ":" + style.getPropertyValue(cssPropName) + ";";
-        }
-
-        return computed;
     },
 
     toHtml : function() {
         return this.htmlOutput.getOutputText();
     }
 }
+
+this.Builder = Builder;
+}).apply(table2clipboard.builders.html);
