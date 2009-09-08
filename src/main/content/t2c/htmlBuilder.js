@@ -233,8 +233,10 @@ Builder.prototype = {
         return this.defaultNodeInfo;
     },
 
-    build : function(node) {
+    build : function(node, stylesMap) {
+        this._stylesMap = stylesMap;
         this._internalBuild(node);
+        this._stylesMap = null;
     },
 
     _internalBuild : function(node) {
@@ -255,6 +257,10 @@ Builder.prototype = {
                 var nodeInfo = this.getNodeInfo(node);
                 if (nodeInfo.skipNode) {
                     return;
+                }
+
+                if (this._stylesMap) {
+                    table2clipboard.css.utils.addStyles(node, this._stylesMap);
                 }
                 skipTagName = nodeInfo.skipTagName;
                 if (!skipTagName) {

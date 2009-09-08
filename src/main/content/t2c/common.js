@@ -66,6 +66,8 @@ this.htmlEncode = function(s, isAttValue, isCanonical) {
 
 this.getEntity = function(ch, isAttValue, isCanonical) {
     switch (ch) {
+        case '\xA0':
+            return "&nbsp;";
         case '<':
             return "&lt;";
         case '>':
@@ -87,8 +89,6 @@ this.getEntity = function(ch, isAttValue, isCanonical) {
                 return "&#xA;";
             }
             // else, default print char
-        case '\xA0':
-            return "&nbsp;";
         default:
             return ch;
     }

@@ -53,7 +53,7 @@ table2clipboard.formatters.html = {};
 var htmlBuildersNS = table2clipboard.builders.html;
 
 this.format = function(tableInfo, options) {
-    var stylesMap = [];
+    var stylesMap = options.copyStyles ? [] : null;
     var getNodeAttrs = function(node) {
         if (node) {
             var attrs = new htmlBuildersNS.HtmlOutput(false);
@@ -67,7 +67,7 @@ this.format = function(tableInfo, options) {
     strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode) + ">\n";
     strTable += "<TBODY>\n";
 
-    if (options.copyStyles) {
+    if (stylesMap) {
         table2clipboard.css.utils.addStyles(tableInfo.tableNode, stylesMap);
     }
     var rows = tableInfo.rows;
@@ -76,7 +76,7 @@ this.format = function(tableInfo, options) {
         var cells = row.cells;
 
         strTable += "<TR " + getNodeAttrs(row.rowNode) + ">\n";
-        if (options.copyStyles) {
+        if (stylesMap) {
             table2clipboard.css.utils.addStyles(row.rowNode, stylesMap);
         }
 
@@ -85,11 +85,8 @@ this.format = function(tableInfo, options) {
 
             if (cell) {
                 var builder = new htmlBuildersNS.Builder(options);
-                builder.build(cell.cellNode);
+                builder.build(cell.cellNode, stylesMap);
                 strTable += builder.toHtml();
-                if (options.copyStyles) {
-                    table2clipboard.css.utils.addStyles(cell.cellNode, stylesMap);
-                }
             } else {
                 strTable += "<TD>&nbsp;</TD>";
             }
@@ -99,7 +96,7 @@ this.format = function(tableInfo, options) {
     strTable += "\n</TBODY>\n</TABLE>\n";
 
     var strStyles = "";
-    if (options.copyStyles) {
+    if (stylesMap) {
         for (var selector in stylesMap) {
             strStyles += selector + "\n";
         }
