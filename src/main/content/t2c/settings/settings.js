@@ -4,22 +4,28 @@
  */
 var gTable2ClipSettings = {
     onLoad : function() {
-        gTable2ClipSettings.prefs = new Table2ClipPrefs();
-        gTable2ClipSettings.initControls();
+        this.prefs = new Table2ClipPrefs();
+        this.initControls();
         window.sizeToContent();
     },
 
     onAccept : function() {
         var isValid = true;
-        var thiz = gTable2ClipSettings;
+
         try {
             var format = new Table2ClipFormat();
-            format.rowSep = thiz.escape(thiz.oRowSep.value);
-            format.columnSep = thiz.escape(thiz.oColumnSep.value);
-            format.appendRowSepAtEnd = thiz.oAppendSep.checked;
+            format.rowSep = this.escape(this.oRowSep.value);
+            format.columnSep = this.escape(this.oColumnSep.value);
+            format.appendRowSepAtEnd = this.oAppendSep.checked;
 
-            thiz.prefs.setClipFormat(format);
-            thiz.prefs.savePrefs();
+            this.prefs.setClipFormat(format);
+
+            // TODO must be handled by savePrefs
+            this.prefs.setBool("copyLinks", this.oCopyLinks.checked);
+            this.prefs.setBool("copyStyles", this.oCopyStyles.checked);
+            this.prefs.setBool("copyImages", this.oCopyImages.checked);
+
+            this.prefs.savePrefs();
             table2clipboard.common.getObserverService()
                 .notifyObservers(null, "t2clip:update-config", "");
         } catch (err) {
@@ -30,17 +36,19 @@ var gTable2ClipSettings = {
     },
 
     initControls : function() {
-        var thiz = gTable2ClipSettings;
+        this.specials = new Array();
+        this.specials["tab"] = "\\t";
+        this.specials["newline"] = "\\n";
 
-        thiz.specials = new Array();
-        thiz.specials["tab"] = "\\t";
-        thiz.specials["newline"] = "\\n";
+        this.oRowSep = document.getElementById("rowSep");
+        this.oColumnSep = document.getElementById("columnSep");
+        this.oAppendSep = document.getElementById("appendRowSep");
 
-        thiz.oRowSep = document.getElementById("rowSep");
-        thiz.oColumnSep = document.getElementById("columnSep");
-        thiz.oAppendSep = document.getElementById("appendRowSep");
+        this.oCopyLinks = document.getElementById("copyLinks");
+        this.oCopyStyles = document.getElementById("copyStyles");
+        this.oCopyImages = document.getElementById("copyImages");
 
-        thiz.initValues(true);
+        this.initValues(true);
     },
 
     getNavigationWindow : function() {
@@ -63,7 +71,7 @@ var gTable2ClipSettings = {
         var url = aEvent.currentTarget.getAttribute("url");
 
         try {
-            var navWin = gTable2ClipSettings.getNavigationWindow();
+            var navWin = this.getNavigationWindow();
             var browser = navWin.document.getElementById("content");
 
             browser.selectedTab = browser.addTab(url);
@@ -77,12 +85,15 @@ var gTable2ClipSettings = {
     },
 
     initValues : function(changeProfilePath) {
-        var thiz = gTable2ClipSettings;
-        var format = thiz.prefs.getClipFormat();
+        var format = this.prefs.getClipFormat();
 
-        thiz.oRowSep.value = thiz.unescape(format.rowSep);
-        thiz.oColumnSep.value = thiz.unescape(format.columnSep);
-        thiz.oAppendSep.checked = format.appendRowSepAtEnd;
+        this.oRowSep.value = this.unescape(format.rowSep);
+        this.oColumnSep.value = this.unescape(format.columnSep);
+        this.oAppendSep.checked = format.appendRowSepAtEnd;
+
+        this.oCopyLinks.checked = this.prefs.getBool("copyLinks");
+        this.oCopyStyles.checked = this.prefs.getBool("copyStyles");
+        this.oCopyImages.checked = this.prefs.getBool("copyImages");
     },
 
     unescape : function(str2unescape) {
@@ -151,11 +162,10 @@ var gTable2ClipSettings = {
     },
 
     insertSpecial : function(controlName, charDesc) {
-        var thiz = gTable2ClipSettings;
         var control = document.getElementById(controlName);
 
         if (control) {
-            control.value += thiz.specials[charDesc];
+            control.value += this.specials[charDesc];
         }
     }
 };
