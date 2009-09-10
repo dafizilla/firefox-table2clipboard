@@ -73,7 +73,7 @@ this.OutputNodeInfo = OutputNodeInfo;
 /**
  * Contains all handlers used by HTML builder
  */
-nodeHandlers = [];
+var nodeHandlers = [];
 
 this.registerHandler = function(tagName, handler) {
     if (handler) {

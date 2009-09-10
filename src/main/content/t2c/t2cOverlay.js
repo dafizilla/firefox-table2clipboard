@@ -206,7 +206,7 @@ var gTable2Clip = {
                         minColumn = cc;
                     }
                 } else {
-                    arrCol[cc] = null;
+                    arrCol[cc] = {textNode : null, cellNode : null};
                 }
             }
 

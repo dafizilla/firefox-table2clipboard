@@ -84,11 +84,13 @@ this.format = function(tableInfo, options) {
             var cell = cells[j];
 
             if (cell) {
-                var builder = new htmlBuildersNS.Builder(options);
-                builder.build(cell.cellNode, stylesMap);
-                strTable += builder.toHtml();
-            } else {
-                strTable += "<TD>&nbsp;</TD>";
+                if (cell.cellNode) {
+                    var builder = new htmlBuildersNS.Builder(options);
+                    builder.build(cell.cellNode, stylesMap);
+                    strTable += builder.toHtml();
+                } else {
+                    strTable += "<TD>&nbsp;</TD>";
+                }
             }
         }
         strTable += "\n</TR>\n";
@@ -140,28 +142,30 @@ var handleSpecials = function(str) {
 this.format = function(tableInfo, options) {
     var rows = tableInfo.rows;
     var lastRow = rows.length - 1;
-    var lastCol = rows[0].cells.length - 1;
     var str = "";
 
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         var cells = row.cells;
+        var lastCol = cells.length - 1;
 
         for (var j = 0; j < cells.length; j++) {
             var cell = cells[j];
-            var cellText = "";
-            var colspan = -1;
 
             if (cell) {
-                cellText = table2clipboard.common.getTextNodeContent(cell.textNode);
-                colspan = cell.cellNode.getAttribute("colspan");
-            }
-            str += handleSpecials(table2clipboard.common.trim(cellText));
-            for (var cs = 1; cs < colspan; cs++) {
-                str += options.columnSep;
-            }
-            if (j < lastCol) {
-                str += options.columnSep;
+                var cellText = "";
+                var colspan = -1;
+                if (cell.cellNode) {
+                    cellText = table2clipboard.common.getTextNodeContent(cell.textNode);
+                    colspan = cell.cellNode.getAttribute("colspan");
+                }
+                str += handleSpecials(table2clipboard.common.trim(cellText));
+                for (var cs = 1; cs < colspan; cs++) {
+                    str += options.columnSep;
+                }
+                if (j < lastCol) {
+                    str += options.columnSep;
+                }
             }
         }
         if (i < lastRow || options.appendRowSepAtEnd) {
