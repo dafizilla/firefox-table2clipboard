@@ -84,13 +84,11 @@ this.format = function(tableInfo, options) {
             var cell = cells[j];
 
             if (cell) {
-                if (cell.cellNode) {
-                    var builder = new htmlBuildersNS.Builder(options);
-                    builder.build(cell.cellNode, stylesMap);
-                    strTable += builder.toHtml();
-                } else {
-                    strTable += "<TD>&nbsp;</TD>";
-                }
+                var builder = new htmlBuildersNS.Builder(options);
+                builder.build(cell.cellNode, stylesMap);
+                strTable += builder.toHtml();
+            } else {
+                strTable += "<TD>&nbsp;</TD>";
             }
         }
         strTable += "\n</TR>\n";
@@ -151,21 +149,19 @@ this.format = function(tableInfo, options) {
 
         for (var j = 0; j < cells.length; j++) {
             var cell = cells[j];
+            var cellText = "";
+            var colspan = -1;
 
             if (cell) {
-                var cellText = "";
-                var colspan = -1;
-                if (cell.cellNode) {
-                    cellText = table2clipboard.common.getTextNodeContent(cell.textNode);
-                    colspan = cell.cellNode.getAttribute("colspan");
-                }
-                str += handleSpecials(table2clipboard.common.trim(cellText));
-                for (var cs = 1; cs < colspan; cs++) {
-                    str += options.columnSep;
-                }
-                if (j < lastCol) {
-                    str += options.columnSep;
-                }
+                cellText = table2clipboard.common.getTextNodeContent(cell.textNode);
+                colspan = cell.cellNode.getAttribute("colspan");
+            }
+            str += handleSpecials(table2clipboard.common.trim(cellText));
+            for (var cs = 1; cs < colspan; cs++) {
+                str += options.columnSep;
+            }
+            if (j < lastCol) {
+                str += options.columnSep;
             }
         }
         if (i < lastRow || options.appendRowSepAtEnd) {

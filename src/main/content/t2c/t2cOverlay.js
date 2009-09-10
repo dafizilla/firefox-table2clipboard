@@ -206,7 +206,7 @@ var gTable2Clip = {
                         minColumn = cc;
                     }
                 } else {
-                    arrCol[cc] = {textNode : null, cellNode : null};
+                    arrCol[cc] = null;
                 }
             }
 
@@ -240,10 +240,10 @@ var gTable2Clip = {
         // Fill all rows to maximum number of cells
         for (var i = 0; i < arrRow.length; i++) {
             var cells = arrRow[i].cells;
-            var fillCount = maxColumn - cells.length;
-            for (var j = 0; j < fillCount; j++) {
-                cells.push(null);
-            }
+            //var fillCount = maxColumn - cells.length;
+            //for (var j = 0; j < fillCount; j++) {
+            //    cells.push(null);
+            //}
             // remove empty rows at left
             arrRow[i].cells = cells.slice(minColumn);
         }
