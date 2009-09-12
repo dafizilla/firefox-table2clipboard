@@ -153,7 +153,7 @@ this.format = function(tableInfo, options) {
             var colspan = -1;
 
             if (cell) {
-                cellText = table2clipboard.common.getTextNodeContent(cell.textNode);
+                cellText = table2clipboard.common.getTextNodeContent(cell.cellNode);
                 colspan = cell.cellNode.getAttribute("colspan");
             }
             str += handleSpecials(table2clipboard.common.trim(cellText));

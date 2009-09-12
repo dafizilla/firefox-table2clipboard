@@ -146,8 +146,8 @@ var gTable2Clip = {
      * {
      * tableNode : node,
      * rows : [{rowNode : node,
-     *          cells : [textNode : node, cellNode : node]}
-     *        ]
+     *          cells : [{cellNode:node}]
+     *        }]
      * }
      */
     getTextArrayFromTable : function(table) {
@@ -166,7 +166,7 @@ var gTable2Clip = {
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
-                arrCol[cc] = {textNode : theCell, cellNode : theCell};
+                arrCol[cc] = {cellNode : theCell};
             }
 
             // Adjust the value if row contains a colspan
@@ -199,9 +199,9 @@ var gTable2Clip = {
                 var theCell = cells.item(cc);
 
                 if (sel.containsNode(theCell, false))  {
-                    var selNode = sel.getRangeAt(rangeIndexStart++).cloneContents();
+                    rangeIndexStart++;
 
-                    arrCol[cc] = {textNode : selNode, cellNode : theCell};
+                    arrCol[cc] = {cellNode : theCell};
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
