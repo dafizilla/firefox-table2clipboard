@@ -217,7 +217,14 @@ var gTable2Clip = {
         }
 
         thiz.padCells(arrRow, minColumn, maxColumn);
-        return {tableNode : thiz._tableUnderCursor, rows : arrRow};
+        // if it isn't called from context menu _tableUnderCursor is null
+        var tableNode = thiz._tableUnderCursor;
+
+        if (!tableNode && arrRow.length > 0) {
+            tableNode = gTable2Clip.findTableFromNode(arrRow[0].rowNode);
+        }
+
+        return {tableNode : tableNode, rows : arrRow};
     },
 
     /**
@@ -337,20 +344,25 @@ var gTable2Clip = {
             return null;
         }
         var nodeUnderCursor = gContextMenu.target;
+
+        return gTable2Clip.findTableFromNode(nodeUnderCursor);
+    },
+
+    findTableFromNode : function(node) {
         var tableNode = null;
 
-        if (nodeUnderCursor instanceof HTMLTableElement) {
-            tableNode = nodeUnderCursor;
-        } else if ((nodeUnderCursor instanceof HTMLTableCellElement)
-                   || (nodeUnderCursor instanceof HTMLTableRowElement)) {
-            tableNode = nodeUnderCursor.parentNode;
+        if (node instanceof HTMLTableElement) {
+            tableNode = node;
+        } else if ((node instanceof HTMLTableCellElement)
+                   || (node instanceof HTMLTableRowElement)) {
+            tableNode = node.parentNode;
 
             while (tableNode && !(tableNode instanceof HTMLTableElement)) {
                 tableNode = tableNode.parentNode;
             }
         } else {
             // Check if current node is inside a table cell
-            var cellNode = nodeUnderCursor.parentNode;
+            var cellNode = node.parentNode;
 
             while (cellNode && !(cellNode instanceof HTMLTableCellElement)) {
                 cellNode = cellNode.parentNode;
@@ -362,6 +374,7 @@ var gTable2Clip = {
                 }
             }
         }
+
         return tableNode;
     },
 

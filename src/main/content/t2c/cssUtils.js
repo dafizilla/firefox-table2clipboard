@@ -76,14 +76,16 @@ this.isUserAgentCSSRule = function(rule) {
  * @returns the map itself
  */
 this.addStyles = function(node, hashMap) {
-    var rules = inIDOMUtils.getCSSStyleRules(node);
+    if (node && hashMap) {
+        var rules = inIDOMUtils.getCSSStyleRules(node);
 
-    for (var i = 0; i < rules.Count(); i++) {
-        var rule = rules.GetElementAt(i);
+        for (var i = 0; i < rules.Count(); i++) {
+            var rule = rules.GetElementAt(i);
 
-        if (!this.isUserAgentCSSRule(rule)) {
-            // if same selector is present more than once the last defined wins
-            hashMap[rule.cssText] = true;
+            if (!this.isUserAgentCSSRule(rule)) {
+                // if same selector is present more than once the last defined wins
+                hashMap[rule.cssText] = true;
+            }
         }
     }
 

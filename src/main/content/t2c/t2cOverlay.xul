@@ -48,48 +48,41 @@
                  disabled="true"/>
     </commandset>
 
+    <menuitem id="context-t2c:Copy"
+                label="&cmd.ctx-copyselection.label;"
+                accesskey="&editMenu-t2c-copy.accesskey;"
+                command="cmd_copyT2C"
+                hidden="true"/>
+
+    <menuitem id="context-t2c:CopyWholeTable"
+                label="&cmd.ctx-copy-whole-table.label;"
+                oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
+                hidden="true"/>
+
+    <menuitem id="context-t2c:SelectTable"
+                label="&cmd.ctx-selecttable.label;"
+                oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
+                hidden="true"/>
+
     <!-- Context Menu Firefox, Mozilla, NS8, Flock -->
     <popup id="contentAreaContextMenu">
-        <menuitem id="context-t2c:Copy"
-                    label="&cmd.ctx-copyselection.label;"
-                    accesskey="&editMenu-t2c-copy.accesskey;"
-                    insertbefore="context-sep-paste"
-                    command="cmd_copyT2C"
-                    hidden="true"/>
-
-        <menuitem id="context-t2c:CopyWholeTable"
-                    label="&cmd.ctx-copy-whole-table.label;"
-                    insertbefore="context-sep-paste"
-                    oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
-                    hidden="true"/>
-
-        <menuitem id="context-t2c:SelectTable"
-                    label="&cmd.ctx-selecttable.label;"
-                    insertbefore="context-sep-selectall"
-                    oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
-                    hidden="true"/>
+        <menuitem id="context-t2c:Copy" insertbefore="context-sep-paste" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="context-sep-paste" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="context-sep-paste" />
     </popup>
 
-    <!-- Context Menu Thunderbird -->
+    <!-- Context Menu Thunderbird 2.x -->
     <popup id="messagePaneContext">
-        <menuitem id="context-t2c:Copy"
-                    label="&cmd.ctx-copyselection.label;"
-                    accesskey="&editMenu-t2c-copy.accesskey;"
-                    insertbefore="context-sep-selectall"
-                    command="cmd_copyT2C"
-                    hidden="true"/>
+        <menuitem id="context-t2c:Copy" insertbefore="context-sep-selectall" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="context-sep-selectall" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="context-sep-selectall" />
+    </popup>
 
-        <menuitem id="context-t2c:CopyWholeTable"
-                    label="&cmd.ctx-copy-whole-table.label;"
-                    insertbefore="context-sep-selectall"
-                    oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
-                    hidden="true"/>
-
-        <menuitem id="context-t2c:SelectTable"
-                    label="&cmd.ctx-selecttable.label;"
-                    insertbefore="context-sep-selectall"
-                    oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
-                    hidden="true"/>
+    <!-- Context Menu Thunderbird 3.x -->
+    <popup id="mailContext">
+        <menuitem id="context-t2c:Copy" insertbefore="mailContext-selectall" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="mailContext-selectall" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="mailContext-selectall" />
     </popup>
 
     <!-- Edit Menu Firefox, available in Thunderbird since version 2.0.0.16 -->
@@ -115,28 +108,24 @@
         </menuitem>
     </menupopup>
 
+    <key id="key_t2c"
+         key="&t2c.commandkey;"
+         command="cmd_copyT2C"
+         modifiers="accel,shift"/>
+
     <!-- Shortcuts Element Firefox -->
     <keyset id="mainKeyset">
-        <key id="key_t2c"
-             key="&t2c.commandkey;"
-             command="cmd_copyT2C"
-             modifiers="accel,shift"/>
+        <key id="key_t2c" />
     </keyset>
 
     <!-- Shortcuts Element Thunderbird -->
     <keyset id="mailKeys">
-        <key id="key_t2c"
-             key="&t2c.commandkey;"
-             command="cmd_copyT2C"
-             modifiers="accel,shift"/>
+        <key id="key_t2c" />
     </keyset>
 
     <!-- Shortcuts Element Mozilla -->
     <keyset id="navKeys">
-        <key id="key_t2c"
-             key="&t2c.commandkey;"
-             command="cmd_copyT2C"
-             modifiers="accel,shift"/>
+        <key id="key_t2c" />
     </keyset>
 
     <!-- Tools menu Firefox, Thunderbird -->
