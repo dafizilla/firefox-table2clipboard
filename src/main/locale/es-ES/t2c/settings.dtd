@@ -1,7 +1,7 @@
 <!ENTITY appendRowSep.label "Añadir separador al final">
 <!ENTITY colSeparator.label "Cadena para separar columnas">
 <!ENTITY menu.special.label "Especial">
-<!ENTITY menu.special.newline "Cambio línea">
+<!ENTITY menu.special.newline "Salto de línea">
 <!ENTITY menu.special.tab "Tabulador">
 <!ENTITY rowSeparator.label "Cadena para separar filas">
 <!ENTITY settings.title "Predisposiciones de Table2Clipboard">
@@ -9,3 +9,10 @@
 <!ENTITY table2Clip.home.tooltip "Ir a Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Escrito por">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HMTL">
+<!ENTITY copy.options.label "Copiar opciones de &quot;Pegado especial&quot;">
+<!ENTITY copy.links.label "Copiar enlaces">
+<!ENTITY copy.styles.label "Copiar estilos (colores, bordes ...)">
+<!ENTITY copy.images.label "Copiar imágenes">
+<!ENTITY styles.warning.label "Por el momento sólo es posible copiar estilos de productos de Microsoft">

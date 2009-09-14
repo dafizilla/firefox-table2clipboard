@@ -9,3 +9,10 @@
 <!ENTITY table2Clip.home.tooltip "Homepage von Table2Clipboard besuchen">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Erstellt von">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Kopieroptionen für &quot;Erweitertes Einfügen&quot;">
+<!ENTITY copy.links.label "Links kopieren">
+<!ENTITY copy.styles.label "Stile kopieren (Farben, Ränder, ...)">
+<!ENTITY copy.images.label "Grafiken kopieren">
+<!ENTITY styles.warning.label "Kopieren der Stile wird gegenwärtig nur von Microsoft-Produkten unterstützt">

@@ -1,11 +1,18 @@
 <!ENTITY appendRowSep.label "Scheidingsteken aan einde toevoegen">
 <!ENTITY colSeparator.label "Als scheidingsteken gebruiken:">
 <!ENTITY menu.special.label "Speciaal">
-<!ENTITY menu.special.newline "Regeleinde">
-<!ENTITY menu.special.tab "Tab-karakter">
-<!ENTITY rowSeparator.label "Als rij-scheiding gebruiken:">
+<!ENTITY menu.special.newline "Nieuw regeleinde">
+<!ENTITY menu.special.tab "Tabulatie">
+<!ENTITY rowSeparator.label "Als rijscheiding gebruiken:">
 <!ENTITY settings.title "Opties voor Table2Clipboard">
 <!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Ga naar Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Geschreven door">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Kopieeropties voor ‘Speciaal plakken’">
+<!ENTITY copy.links.label "Koppelingen kopiëren">
+<!ENTITY copy.styles.label "Kopieerstijlen (kleuren, randen,…)">
+<!ENTITY copy.images.label "Afbeeldingen kopiëren">
+<!ENTITY styles.warning.label "Kopiëren van stijlen wordt momenteel alleen ondersteund voor producten van Microsoft">
