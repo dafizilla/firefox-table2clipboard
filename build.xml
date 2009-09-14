@@ -210,16 +210,23 @@
         <mkdir dir="${migrate.dir}/profile" />
     </target>
 
-    <target name="upload" depends="bin-dist, upload-ohloh, upload-sfnet"/>
+    <target name="upload" depends="bin-dist, upload-ohloh, upload-sfnet" description="Upload to web sites host application"/>
 
     <target name="upload-sfnet" if="upload.sfnet">
         <echo message="Uploading ${dist.name}.xpi to frs.sourceforge.net" />
+
+        <!-- If sfnet.directory is not defined then set it to extension.name -->
+        <condition property="sfnet.directory" value="${extension.name}">
+            <not>
+                <isset property="${sfnet.directory}"/>
+            </not>
+        </condition>
         
         <exec executable="rsync">
           <arg value="-e"/>
           <arg value="ssh"/>
           <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
-          <arg value="dafi,dafizilla@frs.sourceforge.net:/home/frs/project/d/da/dafizilla/${extension.name}/v${extension.version}/"/>
+          <arg value="dafi,dafizilla@frs.sourceforge.net:/home/frs/project/d/da/dafizilla/${sfnet.directory}/v${extension.version}/"/>
         </exec>
     </target>
 
