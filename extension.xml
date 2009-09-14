@@ -1,5 +1,5 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "0.2.1">
+<!ENTITY extension.version "1.0">
 ]>
 
 <extension name="t2c">
@@ -47,19 +47,20 @@
         <locale pos="4" code="es-ES" />
         <locale pos="5" code="fr-FR" />
         <locale pos="6" code="nl-NL" />
-        <locale pos="7" code="pl-PL" />
-        <locale pos="8" code="tr-TR" />
+        <!--<locale pos="7" code="pl-PL" />-->
+        <!--<locale pos="8" code="tr-TR" />-->
         <locale pos="9" code="ru-RU" />
-        <locale pos="10" code="zh-CN" />
+        <!--<locale pos="10" code="zh-CN" />-->
         <locale pos="11" code="sk-SK" />
         <locale pos="12" code="pt-BR" />
-        <locale pos="13" code="bg-BG" />
-        <locale pos="14" code="da-DK" />
-        <locale pos="15" code="fa-IR" />
-        <locale pos="16" code="nb-NO" />
-        <locale pos="17" code="ja-JP" />
-        <locale pos="18" code="sv-SE" />
-        <locale pos="19" code="uk-UA" />
+        <!--<locale pos="13" code="bg-BG" />-->
+        <!--<locale pos="14" code="da-DK" />-->
+        <!--<locale pos="15" code="fa-IR" />-->
+        <!--<locale pos="16" code="nb-NO" />-->
+        <!--<locale pos="17" code="ja-JP" />-->
+        <!--<locale pos="18" code="sv-SE" />-->
+        <!--<locale pos="19" code="uk-UA" />-->
+        <locale pos="20" code="ko-KR" />
     </locales>
 
     <styles>
@@ -77,42 +78,28 @@
             <description>Firefox</description>
             <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
             <minVersion>1.5</minVersion>
-            <maxVersion>3.2a1pre</maxVersion>
+            <maxVersion>3.7a1pre</maxVersion>
         </application>
 
-        <application>
-            <description>Mozilla</description>
-            <id>{86c18b42-e466-45a9-ae7a-9b95ba6f5640}</id>
-            <minVersion>1.7</minVersion>
-            <maxVersion>1.8</maxVersion>
-        </application>
-        
         <application>
             <description>Thunderbird</description>
             <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id>
             <minVersion>0.5</minVersion>
-            <maxVersion>3.0b2pre</maxVersion>
-        </application>
-        
-        <application>
-            <description>Netscape</description>
-            <id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</id>
-            <minVersion>8.0</minVersion>
-            <maxVersion>9.0</maxVersion>
+            <maxVersion>3.1a1pre</maxVersion>
         </application>
         
         <application>
             <description>Flock</description>
             <id>{a463f10c-3994-11da-9945-000d60ca027b}</id>
             <minVersion>1.0+</minVersion>
-            <maxVersion>1.0+</maxVersion>
+            <maxVersion>3.0.*</maxVersion>
         </application>
 
         <application>
             <description>SeaMonkey</description>
             <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
             <minVersion>1.0</minVersion>
-            <maxVersion>2.0a1</maxVersion>
+            <maxVersion>2.1a1pre</maxVersion>
         </application>
     </compatibility>
 
