@@ -22,6 +22,11 @@ var gTable2Clip = {
         builderNS.registerHandler('a', builderNS.handlers.handleA);
         builderNS.registerHandler('img', builderNS.handlers.handleIMG);
         builderNS.registerHandler('br', builderNS.handlers.handleBR);
+
+        var styleTags = ['big', 'small', 'b', 'u', 'font', 'i'];
+        for (var i = 0; i < styleTags.length; i++) {
+            builderNS.registerHandler(styleTags[i], builderNS.handlers.handleStylesOff);
+        }
     },
 
     onUnLoad : function() {

@@ -53,12 +53,13 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
  * node handlers
  * Below are described the object properties
  *   content - the user generated content to output for node (default == "")
+ *   if skipNode is true is not printed otherwise is always printed
  *   skipNode - do not output node and its children
  *   skipTagName - do not output tag name, both the open tag and close tag
  *   (eg <a> and </a>) (default == false) used when #content handles tag
- *   skipChildren - do not output node children (ie stop recursive traversal
+ *   skipChildren - do not output children nodes (ie stop recursive traversal
  *   for children)
- *   skipAttributes - do not output node attributes
+ *   skipAttributes - do not output node attributes, ignored if skipTagName is true
  */
 function OutputNodeInfo() {
     this.content = "";
@@ -150,17 +151,32 @@ this.handlers = {
     },
 
     handleIMG: function(t2cBuilder, node) {
-        if (t2cBuilder.options.copyImages) {
-            var nodeInfo = new OutputNodeInfo();
-            nodeInfo.content = "";
-            nodeInfo.skipTagName = false;
-            nodeInfo.skipAttributes = false;
-            nodeInfo.skipChildren = false;
+        var nodeInfo = new OutputNodeInfo();
+        nodeInfo.content = "";
+        nodeInfo.skipNode = false;
+        nodeInfo.skipTagName = false;
+        nodeInfo.skipAttributes = false;
+        nodeInfo.skipChildren = false;
 
-            return nodeInfo;
-        } else {
-            return null;
+        if (!t2cBuilder.options.copyImages) {
+            nodeInfo.skipTagName = true;
         }
+        return nodeInfo;
+    },
+
+    /**
+     * Do not output tag if the copyStyles flag is false
+     */
+    handleStylesOff: function(t2cBuilder, node) {
+        var nodeInfo = new OutputNodeInfo();
+        nodeInfo.content = "";
+        nodeInfo.skipNode = false;
+        nodeInfo.skipTagName = false;
+        nodeInfo.skipAttributes = false;
+        nodeInfo.skipChildren = false;
+        nodeInfo.skipTagName = !t2cBuilder.options.copyStyles;
+
+        return nodeInfo;
     }
 };
 
@@ -235,6 +251,7 @@ Builder.prototype = {
 
     build : function(node, stylesMap) {
         this._stylesMap = stylesMap;
+        this._excludeStyleTags = this.options.copyStyles ? null : {'style' : 1, 'bgcolor' : 1};
         this._internalBuild(node);
         this._stylesMap = null;
     },
@@ -269,10 +286,11 @@ Builder.prototype = {
                 }
                 this.htmlOutput.print(nodeInfo.content);
 
-                if  (!nodeInfo.skipAttributes) {
-                    this.htmlOutput.printNodeAttributes(node);
-                }
                 if (!skipTagName) {
+                    // attributes are printed only if the tag name is printed, too
+                    if (!nodeInfo.skipAttributes) {
+                        this.htmlOutput.printNodeAttributes(node, this._excludeStyleTags);
+                    }
                     this.htmlOutput.print('>');
                 }
 
