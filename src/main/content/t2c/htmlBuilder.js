@@ -48,6 +48,10 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
 }
 
 (function() {
+    /**
+     * This map contains the HTML attributes representing styles (eg colors, fonts)
+     */
+    this.stylesAttributesMap = {'style' : 1, 'bgcolor' : 1};
 /**
  * Contains informations about a node to output, this object is returned by
  * node handlers
@@ -251,7 +255,8 @@ Builder.prototype = {
 
     build : function(node, stylesMap) {
         this._stylesMap = stylesMap;
-        this._excludeStyleTags = this.options.copyStyles ? null : {'style' : 1, 'bgcolor' : 1};
+        this._excludeStylesAttr = this.options.copyStyles
+            ? null : table2clipboard.builders.html.stylesAttributesMap;
         this._internalBuild(node);
         this._stylesMap = null;
     },
@@ -289,7 +294,7 @@ Builder.prototype = {
                 if (!skipTagName) {
                     // attributes are printed only if the tag name is printed, too
                     if (!nodeInfo.skipAttributes) {
-                        this.htmlOutput.printNodeAttributes(node, this._excludeStyleTags);
+                        this.htmlOutput.printNodeAttributes(node, this._excludeStylesAttr);
                     }
                     this.htmlOutput.print('>');
                 }

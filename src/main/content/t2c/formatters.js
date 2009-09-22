@@ -53,16 +53,26 @@ table2clipboard.formatters.html = {};
 var htmlBuildersNS = table2clipboard.builders.html;
 
 this.format = function(tableInfo, options) {
-    var stylesMap = options.copyStyles ? [] : null;
+    var stylesMap;
+    var excludeStylesMap;
     var getNodeAttrs = function(node) {
         if (node) {
             var attrs = new htmlBuildersNS.HtmlOutput(false);
-            attrs.printNodeAttributes(node);
+            attrs.printNodeAttributes(node, excludeStylesMap);
 
             return attrs.getOutputText();
         }
         return "";
     }
+
+    if (options.copyStyles) {
+        stylesMap = [];
+        excludeStylesMap = null;
+    } else {
+        stylesMap = null;
+        excludeStylesMap = htmlBuildersNS.stylesAttributesMap;
+    }
+
     var strTable = "";
     strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode) + ">\n";
     strTable += "<TBODY>\n";
