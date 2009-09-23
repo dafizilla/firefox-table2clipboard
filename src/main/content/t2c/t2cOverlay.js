@@ -18,15 +18,7 @@ var gTable2Clip = {
 
         thiz.workaroundEditMenu();
 
-        var builderNS = table2clipboard.builders.html;
-        builderNS.registerHandler('a', builderNS.handlers.handleA);
-        builderNS.registerHandler('img', builderNS.handlers.handleIMG);
-        builderNS.registerHandler('br', builderNS.handlers.handleBR);
-
-        var styleTags = ['big', 'small', 'b', 'u', 'font', 'i'];
-        for (var i = 0; i < styleTags.length; i++) {
-            builderNS.registerHandler(styleTags[i], builderNS.handlers.handleStylesOff);
-        }
+        table2clipboard.builders.html.registerAllHandlers();
     },
 
     onUnLoad : function() {
@@ -234,12 +226,13 @@ var gTable2Clip = {
 
     /**
      * Return the options to use to copy HTML table
-     * @returns the object {copyStyles, copyLinks, copyImages}
+     * @returns the object {copyStyles, copyLinks, copyImages, copyFormElements}
      */
     getHtmlOptions : function() {
         return {copyStyles : gTable2Clip.prefs.getBool("copyStyles"),
             copyLinks : gTable2Clip.prefs.getBool("copyLinks"),
-            copyImages : gTable2Clip.prefs.getBool("copyImages")};
+            copyImages : gTable2Clip.prefs.getBool("copyImages"),
+            copyFormElements : gTable2Clip.prefs.getBool("copyFormElements")};
     },
 
     /**

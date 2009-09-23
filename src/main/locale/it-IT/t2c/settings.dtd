@@ -15,4 +15,5 @@
 <!ENTITY copy.links.label "Copia i link">
 <!ENTITY copy.styles.label "Copia gli stili (colori, bordi, ...)">
 <!ENTITY copy.images.label "Copia le immagini">
+<!ENTITY copy.form.elements.label "Copia gli elementi delle form (campi di testo, pulsanti, ...)">
 <!ENTITY styles.warning.label "La copia degli stili attualmente e' supportata solo sui prodotti Microsoft">

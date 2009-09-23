@@ -52,6 +52,31 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
      * This map contains the HTML attributes representing styles (eg colors, fonts)
      */
     this.stylesAttributesMap = {'style' : 1, 'bgcolor' : 1};
+
+    /**
+     * This map contains the HTML tags representing styles (eg colors, fonts)
+     */
+    this.styleTagsMap = {'big' : 1, 'small' : 1, 'b' : 1, 'u' : 1, 'font' : 1, 'i' : 1};
+
+    /**
+     * This map contains the HTML tags displaying user interface elements
+     * (checkboxes, input text boxes)
+     */
+    this.formTagsMap = {'input' : 1, 'select' : 1, 'textarea' : 1};
+
+    this.registerAllHandlers = function() {
+        this.registerHandler('a', this.handlers.handleA);
+        this.registerHandler('img', this.handlers.handleIMG);
+        this.registerHandler('br', this.handlers.handleBR);
+
+        for (var i in this.styleTagsMap) {
+            this.registerHandler(i, this.handlers.handleStyles);
+        }
+        for (var i in this.formTagsMap) {
+            this.registerHandler(i, this.handlers.handleFormElements);
+        }
+    };
+
 /**
  * Contains informations about a node to output, this object is returned by
  * node handlers
@@ -171,7 +196,7 @@ this.handlers = {
     /**
      * Do not output tag if the copyStyles flag is false
      */
-    handleStylesOff: function(t2cBuilder, node) {
+    handleStyles: function(t2cBuilder, node) {
         var nodeInfo = new OutputNodeInfo();
         nodeInfo.content = "";
         nodeInfo.skipNode = false;
@@ -179,6 +204,13 @@ this.handlers = {
         nodeInfo.skipAttributes = false;
         nodeInfo.skipChildren = false;
         nodeInfo.skipTagName = !t2cBuilder.options.copyStyles;
+
+        return nodeInfo;
+    },
+
+    handleFormElements: function(t2cBuilder, node) {
+        var nodeInfo = new OutputNodeInfo();
+        nodeInfo.skipNode = !t2cBuilder.options.copyFormElements;
 
         return nodeInfo;
     }

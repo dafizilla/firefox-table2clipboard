@@ -68,6 +68,7 @@
                 <checkbox id="copyLinks" label="&copy.links.label;" />
                 <checkbox id="copyStyles" label="&copy.styles.label;" />
                 <checkbox id="copyImages" label="&copy.images.label;" />
+                <checkbox id="copyFormElements" label="&copy.form.elements.label;" />
                 <label value="&styles.warning.label;" />
             </vbox>
         </groupbox>

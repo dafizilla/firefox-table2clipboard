@@ -24,6 +24,7 @@ var gTable2ClipSettings = {
             this.prefs.setBool("copyLinks", this.oCopyLinks.checked);
             this.prefs.setBool("copyStyles", this.oCopyStyles.checked);
             this.prefs.setBool("copyImages", this.oCopyImages.checked);
+            this.prefs.setBool("copyFormElements", this.oCopyFormElements.checked);
 
             this.prefs.savePrefs();
             table2clipboard.common.getObserverService()
@@ -47,6 +48,7 @@ var gTable2ClipSettings = {
         this.oCopyLinks = document.getElementById("copyLinks");
         this.oCopyStyles = document.getElementById("copyStyles");
         this.oCopyImages = document.getElementById("copyImages");
+        this.oCopyFormElements = document.getElementById("copyFormElements");
 
         this.initValues(true);
     },
@@ -94,6 +96,7 @@ var gTable2ClipSettings = {
         this.oCopyLinks.checked = this.prefs.getBool("copyLinks");
         this.oCopyStyles.checked = this.prefs.getBool("copyStyles");
         this.oCopyImages.checked = this.prefs.getBool("copyImages");
+        this.oCopyFormElements.checked = this.prefs.getBool("copyFormElements");
     },
 
     unescape : function(str2unescape) {
