@@ -3,13 +3,13 @@
          xmlns:chrome="http://www.mozilla.org/rdf/chrome#">
 
   <RDF:Seq about="urn:mozilla:locale:root">
-    <RDF:li resource="urn:mozilla:locale:ja-JP"/>
+    <RDF:li resource="urn:mozilla:locale:ja"/>
   </RDF:Seq>
 
-  <RDF:Description about="urn:mozilla:locale:ja-JP">
+  <RDF:Description about="urn:mozilla:locale:ja">
     <chrome:packages>
-      <RDF:Seq about="urn:mozilla:locale:ja-JP:packages">
-        <RDF:li resource="urn:mozilla:locale:ja-JP:t2c"/>
+      <RDF:Seq about="urn:mozilla:locale:ja:packages">
+        <RDF:li resource="urn:mozilla:locale:ja:t2c"/>
       </RDF:Seq>
     </chrome:packages>
   </RDF:Description>

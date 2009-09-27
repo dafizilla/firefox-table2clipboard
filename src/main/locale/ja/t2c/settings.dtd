@@ -9,3 +9,11 @@
 <!ENTITY table2Clip.home.tooltip "Table2Clipboard に移動">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "著者">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "「特別貼り付け」に関するコピーオプション">
+<!ENTITY copy.links.label "リンクをコピー">
+<!ENTITY copy.styles.label "スタイルをコピー (色や枠線など)">
+<!ENTITY copy.images.label "画像をコピー">
+<!ENTITY copy.form.elements.label "要素からコピー (入力欄やボタンなど)">
+<!ENTITY styles.warning.label "スタイルのコピーは今のところマイクロソフト製品でのみ対応">

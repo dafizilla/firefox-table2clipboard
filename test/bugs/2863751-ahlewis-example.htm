@@ -1,0 +1,1384 @@
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+<!--
+
+function isNetscape4() {
+    if (navigator.appName == "Netscape") {
+        if (navigator.appVersion.indexOf('4.') == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Return true if the browser is based on a version of Mozilla 
+// greater than 1.0
+function isMozilla1() {
+    if (navigator.appName != "Netscape")
+        return false;
+
+    if (navigator.appVersion.substring(0,3) < "5.0")
+        return false;
+
+    if (navigator.userAgent.indexOf('rv:0') != -1)
+        return false;
+
+    return true;
+}
+
+function refreshIfRequired() {
+    if (isNetscape4()) {
+        history.go(0);
+    }
+}
+
+function goToCurrentIssue() {
+    // On Mozilla 1.0+ setting the hash location in the onload causes
+    // an infinite request loop
+    if (!isMozilla1()) {
+        document.location.hash="CurrentIssue";
+    } else {
+       document.anchors['CurrentIssue'].scrollIntoView();
+    }
+}
+
+//-->
+</script>
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/is.css" />
+    <link rel="stylesheet" type="text/css" href="/imweb/im.css" />
+  	
+
+
+
+    <style>
+    <!--
+    span.mks_richcontent table {
+ color: black;
+ font-size: 10pt;
+ font-family: arial, sans-serif;
+}
+
+span.mks_richcontent {
+ color: black;
+ font-size: 10pt;
+ font-family: arial, sans-serif;
+}
+
+span.mks_richcontent p {
+ margin-bottom: .0001pt;
+ margin-top: 0in;
+ margin-left: 0in;
+ margin-right: 0in;
+}
+
+
+    -->
+    </style>
+
+
+  </head>
+  <body onresize="refreshIfRequired()" onload="goToCurrentIssue()">
+
+
+<form action="/im;jsessionid=434B8B0E8900E8EDF6551DB419C21ED0?mks.commandRunner=6484" target="_top" accept-charset="UTF-8" onsubmit="return onSubmit();" method="POST">
+
+
+<script type="text/javascript">
+
+<!--
+
+function doBookmarkSubmit(action, locationHash, inputId)
+{
+    document.forms[0].mks_parm_locationHash.value = locationHash;
+    document.forms[0].mks_parm_lastFocus.value = inputId;
+    doSubmit(action);
+}
+
+function doSubmit(action, targetPage, inputPage, preCondition) {
+    if (checkPageLoaded(inputPage) == false) {
+        return;
+    }
+
+    if (inputPage != null && inputPage != window.name) {
+        doRemoteSubmit(action, targetPage, inputPage, preCondition);
+    }
+    else {
+	if (preCondition != null) {
+	    var success = eval(preCondition);
+	    if (success == false) {
+		return;
+	    }
+	}
+
+        document.forms[0].proxyRender.name = null;
+        document.forms[0].proxyRender.value = null;
+
+	if (targetPage == null) {
+	    targetPage = "_top";
+	}
+	
+	if (targetPage == "_self") {
+	    targetPage = window.self.name;
+	}
+
+	if (targetPage.substr(0,1) != "_") {
+            document.forms[0].proxyRender.name = 
+		"mks.render";
+            document.forms[0].proxyRender.value = targetPage;
+	} 
+        document.forms[0].target = targetPage;
+        document.forms[0].proxySubmit.name = 
+	    "mks.action";
+        document.forms[0].proxySubmit.value = action;
+        document.forms[0].submit();
+    }
+}
+
+// Returns true if the inputPage page is loaded, otherwise alert the user
+// and return false
+function checkPageLoaded(inputPage) {
+    var isPageLoaded = true;
+    if (inputPage != null) {
+        if (top.frames[inputPage].pageLoaded == null) {
+            isPageLoaded = false;
+        }
+    } else {
+        if (this.pageLoaded == null) {
+            isPageLoaded = false;
+        }
+    }
+        
+    if (!isPageLoaded) {
+        alert('Please wait for the page to finish loading.');
+    }
+    return isPageLoaded;
+}
+
+
+function onSubmit() {
+    // If a web action has not been specified, don't proceed with the submit
+    if (document.forms[0].proxySubmit.value == "") {
+        return false;
+    }
+    return true;
+}
+
+function doRemoteSubmit(action, targetPage, inputPage, preCondition) {
+    top.frames[inputPage].doSubmit(action, targetPage, null, preCondition);
+}
+
+function invokeMenuItemHandler(menu, handlerArray) {
+    var i = menu.selectedIndex - 1;
+    if (i >= 0) {
+        eval(handlerArray[i]);
+    }
+    menu.selectedIndex = 0;
+}
+
+function evalOnSelect(select, handlerArray) {
+    var i = select.selectedIndex;
+    var result = true;
+    if (i >= 0) {
+	var handler = handlerArray[i];
+	if (handler != null) {
+            result = eval(handler);
+	    if (result == null) {
+		result = true;
+	    }
+	}
+    }
+    return result;
+}
+
+function doPanelSelect(action, panel, target) {
+    document.forms[0].mks_selectedPanel.value = panel;
+    doSubmit(action, target);
+}  
+
+var heartbeatTimer = null
+
+function stopHeartbeat() {
+    clearTimeout(heartbeatTimer)
+}
+
+function startHeartbeat(seconds,heartbeat) {
+    heartbeatTimer = setTimeout(heartbeat,seconds * 1000)
+}
+
+//-->
+</script>
+
+<input type="hidden" name="proxySubmit" value="">
+<input type="hidden" name="proxyRender" value="">
+<input type="hidden" name="mks_parm_locationHash" value="">
+<input type="hidden" name="mks_parm_lastFocus" value="">
+
+<input type="hidden" name="mks_selectedPanel" value="">
+
+  <table class="ViewPanel" border="0" cellspacing="0" cellpadding="0" width="100%">
+
+    <tr>
+      <td>
+        
+
+
+
+
+
+
+<input type="hidden" name="mks_issue_index" value="">
+<input type="hidden" name="mks_sort_field" value="">
+<input type="hidden" name="mks_issue" value="">
+
+<script type="text/javascript">
+<!--
+function singleIssueSelection() {
+    if (Counter["issue"] != 1) {
+	alert('Please select exactly one item.');
+	return false;
+    }
+    return true;
+}
+
+function nonEmptyIssueSelection() {
+    if (Counter["issue"] == 0) {
+	alert('Please select at least one item.');
+	return false;
+    }
+    return true;
+}
+
+//-->
+</script>
+
+
+<script type="text/javascript">
+<!--
+
+function doGoToIssue(issue) {
+    document.forms[0].mks_issue.value = issue;
+    doSubmit('gotoIssue')
+}
+
+function doSelectIssue(issue) {
+    document.forms[0].mks_issue_index.value = issue;
+    doSubmit('selectIssue');
+}
+
+function doSort(field) {
+    document.forms[0].mks_sort_field.value = field;
+    doSubmit('sort');
+}
+
+//-->
+</script>
+
+
+<table cellspacing="0" cellpadding="0" border="1" width="100%">
+
+  <tr>
+    <td width="100%">  
+      
+
+
+    <a NAME="CurrentIssue"></a>               
+
+
+
+
+
+<script type="text/javascript">
+<!--
+function toggleSelection(selectionParam) {
+   if (document.forms[0].toggleAll.checked) {
+       selectAll(selectionParam);
+   }
+   if (!document.forms[0].toggleAll.checked) {
+       selectNone(selectionParam);
+   }
+}
+
+function selectAll(selectionParam) {
+    for (var i=0;i<document.forms[0].elements.length;i++) {
+        if (document.forms[0].elements[i].name==selectionParam) {
+            if (document.forms[0].elements[i].checked == false) {
+                document.forms[0].elements[i].click();        
+	    }
+        }   
+    }
+}
+
+function selectNone(selectionParam) {
+    for (var i=0;i<document.forms[0].elements.length;i++) {
+        if (document.forms[0].elements[i].name==selectionParam) {
+            if (document.forms[0].elements[i].checked == true) {
+                document.forms[0].elements[i].click();        
+	    }
+        }   
+    }
+}
+
+function checkboxCount(row, counter) {
+   if (row.checked == true) {
+        counter = counter + 1;
+   } else {
+        counter = counter - 1;
+   }
+   return counter;
+}
+
+function radioCount(row, counter) {
+    resetCounters();
+    counter = 1;
+    return counter;
+}
+
+//-->
+</script>
+<table cellpadding="3" width="100%" cellspacing="1" border="0"><tr><td NOWRAP width="1%" class="HeaderRow" valign="top"><input type="checkbox" onclick="javascript:toggleSelection('mks_table_selection');" name="toggleAll"></td><td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('-5'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">ID</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('90'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Change Type</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('-9'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">State</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('129'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Request Type</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('106'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Impact</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('87'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Subject ID</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('-10'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Title</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('85'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Scheduled End Date</a>
+    
+                <a href="" title="Invert Sort Order" onclick="javascript:doSort('85'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Invert Sort Order';return true"><img border="0" src="/imweb/images/SortDown.gif" alt="Invert Sort Order"/></a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('-7'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Assigned User</a></td>
+  <td NOWRAP class="HeaderRow"><a href="javascript:changeSortOrder();" title="Click to Change Sort Order" onclick="javascript:doSort('86'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='Click to Change Sort Order';return true">Actual End Date</a></td></tr><tr><td NOWRAP width="1%" class="HighlightedRow" valign="top" style="text-align: left"><input value="0" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('0'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">26639</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_26"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Submitted</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">ADG Billing</a></td>
+  
+  
+               
+  <td class="HighlightedRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Fiber Copper Reporting and List - AS400</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('0'); return false;">Friedenberg, Peter (friedenbergp)</a></td>
+  
+  
+               
+  <td NOWRAP class="HighlightedRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="1" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('1'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">26831</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_26"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Submitted</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Data Warehouse</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Fiber Copper Reporting and List - DW Report</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('1'); return false;">Friedenberg, Peter (friedenbergp)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="2" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('2'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">27771</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_26"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">Submitted</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">ADG Billing</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">&nbsp;&nbsp;$10 Discount BlackBerry &amp; Smartphone [Post Launch AS400 Updates (1)]</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('2'); return false;">Craun, Donita (craund)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="3" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('3'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">27348</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Configuration Change</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Redistribute routing protocols: BGP into EIGRP</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Sep 18, 2009 5:00:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('3'); return false;">Findlay, Richard (findlayr)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="4" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('4'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28470</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Urgent Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_66"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">CC Review - Urgent</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Configuration Change</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">DWSQLLoad Memory Module Replacement</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Sep 21, 2009 6:00:00 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Allen, James (allenj)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('4'); return false;">Sep 21, 2009 6:45:00 PM</a></td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="5" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('5'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28479</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">Data Exception</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_64"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">CC Review</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">No Change Required</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">ICMS</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">Steven McCumsey - Hung re-rate</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">Sep 21, 2009 11:15:45 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">McCumsey, Steven (mccumseys)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('5'); return false;">Sep 21, 2009 11:16:02 PM</a></td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="6" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('6'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28458</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_63"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">In Production</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Patch DCWAY, DCWBO, DCRICH, NISA1, NISA2, ROBOTO1, NVDIRECTORY</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Sep 22, 2009 1:00:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('6'); return false;">Van Meter, Chris (vanmeterc)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="7" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('7'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28436</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Network</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Upgrade NPOLY3 to POLYServe &nbsp;Matrix Server 3.6.1 hotfix 2</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Sep 22, 2009 5:15:42 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('7'); return false;">Heerschap, Dick (heerschapd)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="8" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('8'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28443</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Configuration Change</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Change the corporate wireless guest network password</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Sep 23, 2009 12:30:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('8'); return false;">Hudson, David (hudsond)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="9" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('9'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28349</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Program Change</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Wireless Wizard</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Release 1.0.78</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Sep 23, 2009 11:52:23 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('9'); return false;">Batts, Wendy (battsw)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="10" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('10'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28427</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Strategic</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Wireless Wizard</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Loaner Phone Enhancement - Loaner Table Admin Return to Warehouse Status Update</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Sep 23, 2009 11:59:08 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('10'); return false;">Zirkle, Joan (zirklej)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="11" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('11'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28430</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Wireless Wizard</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Purchase Order - Detail and Approval Queue</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Sep 23, 2009 11:59:45 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('11'); return false;">Zirkle, Joan (zirklej)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="12" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('12'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28447</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">September Server Patching I</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Sep 24, 2009 4:00:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('12'); return false;">Love, Shannon (loves)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="13" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('13'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28442</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Network</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">add redundant links to Plaza switches</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Sep 24, 2009 10:00:12 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('13'); return false;">Butler, Daryl (butlerd)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="14" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('14'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28448</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">September Server Patching II</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Sep 25, 2009 4:00:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('14'); return false;">Love, Shannon (loves)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="15" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('15'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">27469</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Data Warehouse</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Sales Inventory Movement Report</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Sep 25, 2009 5:00:45 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('15'); return false;">Friedenberg, Peter (friedenbergp)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="16" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('16'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28474</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_64"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">CC Review</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Security Change</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Low</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Allow DMZ switches to log to Splunk</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Sep 28, 2009 5:00:00 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('16'); return false;">Hudson, David (hudsond)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="17" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('17'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">26872</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Desktop</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">TCX Extensions for Virtual Desktops</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Sep 29, 2009 5:00:00 PM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('17'); return false;">Testerman, William (testermanw)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="EvenRow" valign="top" style="text-align: left"><input value="18" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('18'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">28449</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_64"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">CC Review</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Operating Infrastructure</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Network</a></td>
+  
+  
+               
+  <td class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">September Server Patching III</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Oct 1, 2009 4:00:00 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('18'); return false;">Love, Shannon (loves)</a></td>
+  
+  
+               
+  <td NOWRAP class="EvenRow" valign="top" style="text-align: left">&nbsp;</td></tr><tr><td NOWRAP width="1%" class="OddRow" valign="top" style="text-align: left"><input value="19" type="checkbox" onclick="Counter['issue']=checkboxCount(this,Counter['issue']);" name="mks_table_selection"></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" title="View Item" class="ViewIssueIDLink" onclick="javascript:doSelectIssue('19'); return false;" onMouseOut="window.status='';return true" onMouseOver="window.status='View Item';return true">25937</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Scheduled</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/custom/mks_ci_api_CIState_70"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Ready for Implementation</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Tactical</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Medium</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Data Warehouse</a></td>
+  
+  
+               
+  <td class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Modification of RITS Sales and Store Inventory Reports</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Oct 2, 2009 10:26:29 AM</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left"><img align="top" src="/imweb/images/imgUser.gif"/>  
+
+                    
+    
+      <a href="javascript:selectIssue();" class="ViewIssueLink" onclick="javascript:doSelectIssue('19'); return false;">Friedenberg, Peter (friedenbergp)</a></td>
+  
+  
+               
+  <td NOWRAP class="OddRow" valign="top" style="text-align: left">&nbsp;</td></tr></table><script type="text/javascript"><!--
+if (Counter == null) var Counter = new Array();
+Counter["issue"] = 0;
+//--></script><script type="text/javascript"><!--
+function resetCounters() {
+Counter["issue"] = 0;
+}
+//--></script>
+    </td>
+  </tr>
+</table>      
+
+
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+
+
+  </body>
+
+<script type="text/javascript">
+
+// A function that can be interogated to determine if the current document has
+// completed loading. Currently done from submit().
+function pageLoaded(){}
+
+
+
+
+    
+
+
+
+ 
+ function scrollAndSetFocus()
+ {
+    window.scrollTo(0,null);
+    setLastFocusLocation();
+ }
+ 
+ //
+ // Set the focus to the last component used.
+ //
+ function setLastFocusLocation()
+ {
+    var id = "null";
+    var focusLocation = document.getElementById(id); 
+          
+    if ( focusLocation != null) {
+        if ( focusLocation.style.visibility != null && 
+            focusLocation.style.visibility.indexOf("hidden") == -1 ) {
+           focusLocation.focus();
+        }
+    }
+ }
+ 
+</script>
+</html>
+
+
+ 	  	 

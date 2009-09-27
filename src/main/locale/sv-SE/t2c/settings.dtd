@@ -9,3 +9,11 @@
 <!ENTITY table2Clip.home.tooltip "Gå till Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Skriven av">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Kopiera alternativ för 'Klista in Special'">
+<!ENTITY copy.links.label "Kopiera länkar">
+<!ENTITY copy.styles.label "Kopiera stilar (färger, ramar, ...)">
+<!ENTITY copy.images.label "Kopiera bilder">
+<!ENTITY copy.form.elements.label "Kopiera formulärelement (textlådor, knappar, ...)">
+<!ENTITY styles.warning.label "Att kopiera stilar är för närvarande bara möjligt med Microsoft produkter">

@@ -15,4 +15,5 @@
 <!ENTITY copy.links.label "Копировать ссылки">
 <!ENTITY copy.styles.label "Копировать стили (цвета, границы)">
 <!ENTITY copy.images.label "Копировать изображения">
+<!ENTITY copy.form.elements.label "Копировать элементы форм (поля ввода, кнопки и т.д.)">
 <!ENTITY styles.warning.label "Копирование стилей в настоящее время поддерживается только для продуктов Microsoft">

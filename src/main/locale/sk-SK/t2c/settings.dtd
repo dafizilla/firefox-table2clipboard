@@ -15,4 +15,5 @@
 <!ENTITY copy.links.label "Kopírovať odkazy">
 <!ENTITY copy.styles.label "Kopírovať štýly (farby, čiary, ...)">
 <!ENTITY copy.images.label "Kopírovať obrázky">
+<!ENTITY copy.form.elements.label "Kopírovať prvky formulárov (textové polia, tlačidlá...)">
 <!ENTITY styles.warning.label "Kopírovanie štýlov je momentálne podporované len v produktoch Microsoftu.">

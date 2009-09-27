@@ -9,3 +9,11 @@
 <!ENTITY table2Clip.home.tooltip "Перехід на сторінку Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Автор:">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Скопіювати опції для &quot;Спеціальна вставка&quot;">
+<!ENTITY copy.links.label "Копіювати посилання">
+<!ENTITY copy.styles.label "Копіювати стилі (кольори, границі тощо)">
+<!ENTITY copy.images.label "Копіювати зображення">
+<!ENTITY copy.form.elements.label "Копіювати елементи форм (поля вводу, кнопки тощо)">
+<!ENTITY styles.warning.label "Копіювання стилів наразі підтримується тільки у продуктах Microsoft">
