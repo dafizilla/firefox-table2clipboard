@@ -1,11 +1,19 @@
 <!ENTITY appendRowSep.label "Dopisz separator na końcu kopiowanego tekstu">
-<!ENTITY colSeparator.label "Łańcuch znaków używany jako separator kolumn">
+<!ENTITY colSeparator.label "Znaki używane jako separator kolumn">
 <!ENTITY menu.special.label "Znaki specjalne">
-<!ENTITY menu.special.newline "Znak nowej lini">
+<!ENTITY menu.special.newline "Znak nowego wiersza">
 <!ENTITY menu.special.tab "Tabulator">
-<!ENTITY rowSeparator.label "Łańcuch znaków używany jako separator wierszy">
-<!ENTITY settings.title "Opcje Table2Clipboard">
+<!ENTITY rowSeparator.label "Znaki używane jako separator wierszy">
+<!ENTITY settings.title "Table2Clipboard – ustawienia">
 <!ENTITY site.label "Davide Ficano">
-<!ENTITY table2Clip.home.tooltip "Idź do Table2Clipboard">
+<!ENTITY table2Clip.home.tooltip "Przejdź do Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
-<!ENTITY writtenBy.label "Stworzony przez">
+<!ENTITY writtenBy.label "Autor">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Kopiuj ustawienia dla „Paste Special”">
+<!ENTITY copy.links.label "Kopiuj odnośniki">
+<!ENTITY copy.styles.label "Kopiuj style (kolory, obramowania…)">
+<!ENTITY copy.images.label "Kopiuj obrazki">
+<!ENTITY copy.form.elements.label "Kopiuj elementy formularzy (zawartość pól tekstowych, przycisli…)">
+<!ENTITY styles.warning.label "Aktualnie kopiowanie stylów działa tylko na systemach operacyjnych Windows">
