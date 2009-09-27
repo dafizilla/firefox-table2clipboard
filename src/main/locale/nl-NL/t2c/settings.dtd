@@ -13,6 +13,7 @@
 <!ENTITY html.label "HTML">
 <!ENTITY copy.options.label "Kopieeropties voor ‘Speciaal plakken’">
 <!ENTITY copy.links.label "Koppelingen kopiëren">
-<!ENTITY copy.styles.label "Kopieerstijlen (kleuren, randen,…)">
+<!ENTITY copy.styles.label "Kopieer stijlen (kleuren, randen,…)">
 <!ENTITY copy.images.label "Afbeeldingen kopiëren">
+<!ENTITY copy.form.elements.label "Elementen van formulier (tekstvelden, knoppen, etc) kopiëren">
 <!ENTITY styles.warning.label "Kopiëren van stijlen wordt momenteel alleen ondersteund voor producten van Microsoft">

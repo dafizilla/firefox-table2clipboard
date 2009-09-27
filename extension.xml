@@ -46,7 +46,7 @@
         <locale pos="3" code="de-DE" />
         <locale pos="4" code="es-ES" />
         <locale pos="5" code="fr" />
-        <!--<locale pos="6" code="nl-NL" />-->
+        <locale pos="6" code="nl-NL" />
         <!--<locale pos="7" code="pl-PL" />-->
         <!--<locale pos="8" code="tr-TR" />-->
         <locale pos="9" code="ru-RU" />
