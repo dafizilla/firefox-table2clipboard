@@ -51,7 +51,7 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
     /**
      * This map contains the HTML attributes representing styles (eg colors, fonts)
      */
-    this.stylesAttributesMap = {'style' : 1, 'bgcolor' : 1};
+    this.stylesAttributesMap = {'style' : 1, 'bgcolor' : 1, 'border' : 1};
 
     /**
      * This map contains the HTML tags representing styles (eg colors, fonts)
@@ -210,8 +210,17 @@ this.handlers = {
 
     handleFormElements: function(t2cBuilder, node) {
         var nodeInfo = new OutputNodeInfo();
-        nodeInfo.skipNode = !t2cBuilder.options.copyFormElements;
 
+        if (!t2cBuilder.options.copyFormElements) {
+            var output = new HtmlOutput(t2cBuilder.isCanonical);
+            output.print(node.value);
+
+            nodeInfo.content = output.getOutputText();
+            nodeInfo.skipTagName = true;
+            nodeInfo.skipAttributes = true;
+            nodeInfo.skipChildren = true;
+            nodeInfo.skipNode = false;
+        }
         return nodeInfo;
     }
 };
