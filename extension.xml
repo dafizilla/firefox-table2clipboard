@@ -73,6 +73,8 @@
         <overlay description="Mozilla - Main window" uri="chrome://navigator/content/navigator.xul" value="chrome://t2c/content/t2cOverlay.xul" />
         <overlay description="Thunderbird - Main window" uri="chrome://messenger/content/messenger.xul" value="chrome://t2c/content/t2cOverlay.xul" />
         <overlay description="Thunderbird - Message window" uri="chrome://messenger/content/messageWindow.xul" value="chrome://t2c/content/t2cOverlay.xul" />
+
+        <overlay description="Prism" uri="chrome://webrunner/content/webrunner.xul" value="chrome://t2c/content/prismOverlay.xul" />
     </overlays>
 
     <compatibility>
@@ -102,6 +104,13 @@
             <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
             <minVersion>1.0</minVersion>
             <maxVersion>2.1a1pre</maxVersion>
+        </application>
+
+        <application>
+            <description>Prism</description>
+            <id>prism@developer.mozilla.org</id>
+            <minVersion>1.0b1</minVersion>
+            <maxVersion>1.0.*</maxVersion>
         </application>
     </compatibility>
 

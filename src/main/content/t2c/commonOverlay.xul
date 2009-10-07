@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://t2c/locale/t2c.dtd" >
+
+<overlay id="t2c-common-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/common.js"/>
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/prefs.js" />
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/cssUtils.js"/>
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/htmlBuilder.js" />
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/formatters.js" />
+    <script type="application/x-javascript"
+            src="chrome://t2c/content/t2cOverlay.js" />
+
+    <command id="cmd_copyT2C"
+             oncommand="gTable2Clip.doCommand('cmd_copyT2C');"
+             disabled="true"/>
+
+    <key id="key_t2c"
+         key="&t2c.commandkey;"
+         command="cmd_copyT2C"
+         modifiers="accel,shift"/>
+
+    <menuitem id="context-t2c:Copy"
+                label="&cmd.ctx-copyselection.label;"
+                accesskey="&editMenu-t2c-copy.accesskey;"
+                command="cmd_copyT2C"
+                hidden="true"/>
+
+    <menuitem id="context-t2c:CopyWholeTable"
+                label="&cmd.ctx-copy-whole-table.label;"
+                oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
+                hidden="true"/>
+
+    <menuitem id="context-t2c:SelectTable"
+                label="&cmd.ctx-selecttable.label;"
+                oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
+                hidden="true"/>
+
+
+    <menuitem id="toolsMenu-t2c:Settings"
+            label="&table2Clip.tool.menu.label;"
+            accesskey="&table2Clip.tool.menu.accesskey;"
+            oncommand="gTable2Clip.onOpenSettings()" />
+
+</overlay>

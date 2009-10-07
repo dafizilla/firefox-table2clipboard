@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://t2c/locale/t2c.dtd" >
+<?xul-overlay href="chrome://t2c/content/commonOverlay.xul"?>
+
+<overlay id="t2c-prism-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <!-- Very wrong way to create fake gContextMenu object on Prism -->
+    <script><![CDATA[
+        var gContextMenu = {
+            get target() {
+                return document.popupNode;
+            }
+        };
+    ]]></script>
+    
+    <!-- Prism Main Commandset -->
+    <commandset id="cmdset_main"
+                commandupdater="true"
+                events="focus,select"
+                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
+        <command id="cmd_copyT2C"/>
+    </commandset>
+
+    <!-- Prism Main Keyset -->
+    <keyset id="keyset_main">
+        <key id="key_t2c" />
+    </keyset>
+
+    <!-- Prism Tools menu -->
+    <menupopup id="popup_tools">
+        <menuitem id="toolsMenu-t2c:Settings"
+                insertbefore="menuitem_console" />
+    </menupopup>
+
+    <!-- Prism Context menu -->
+    <menupopup id="popup_content"> 
+        <menuitem id="context-t2c:Copy" insertbefore="menuitem_paste" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="menuitem_paste" />
+        <menuitem id="context-t2c:SelectTable" insertafter="menuitem_selectAll" />
+    </menupopup>
+</overlay>
