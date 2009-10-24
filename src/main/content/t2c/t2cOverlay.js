@@ -159,18 +159,26 @@ var gTable2Clip = {
             var row = rows[i];
             var cells = row.cells;
             var arrCol = new Array();
+            var colsInRow = 0;
 
             for (var cc = 0; cc < cells.length; cc++) {
                 // theCell type is HTMLTableCellElement
                 var theCell = cells.item(cc);
                 arrCol[cc] = {cellNode : theCell};
+                var cs = parseInt(theCell.getAttribute("colspan"));
+                if (cs > 0) {
+                    // subtract column itself
+                    // otherwise when adding length it is computed twice
+                    colsInRow += cs - 1;
+                }
             }
 
             // Adjust the value if row contains a colspan
-            if (maxColumn < arrCol.length) {
-                maxColumn = arrCol.length;
+            colsInRow += arrCol.length;
+            if (maxColumn < colsInRow) {
+                maxColumn = colsInRow;
             }
-            arrRow.push({rowNode : row, cells : arrCol});
+            arrRow.push({rowNode : row, cells : arrCol, colsInRow : colsInRow});
         }
 
         thiz.padCells(arrRow, minColumn, maxColumn);
@@ -192,6 +200,8 @@ var gTable2Clip = {
             var arrCol = new Array();
             var rangeIndexStart = i;
             var rangeIndexEnd = i + columnCount;
+            var colsInRow = 0;
+
             for (var cc = 0; cc < cells.length && rangeIndexStart < rangeIndexEnd; cc++) {
                 var theCell = cells.item(cc);
 
@@ -202,15 +212,21 @@ var gTable2Clip = {
                     if (minColumn > cc) {
                         minColumn = cc;
                     }
+                    var cs = parseInt(theCell.getAttribute("colspan"));
+                    if (cs > 0) {
+                        // subtract column itself
+                        // otherwise when adding length it is computed twice
+                        colsInRow += cs - 1;
+                    }
                 } else {
                     arrCol[cc] = null;
                 }
             }
-
-            if (maxColumn < arrCol.length) {
-                maxColumn = arrCol.length;
+            colsInRow += arrCol.length;
+            if (maxColumn < colsInRow) {
+                maxColumn = colsInRow;
             }
-            arrRow.push({rowNode : row, cells : arrCol});
+            arrRow.push({rowNode : row, cells : arrCol, colsInRow : colsInRow});
         }
 
         thiz.padCells(arrRow, minColumn, maxColumn);
@@ -245,10 +261,10 @@ var gTable2Clip = {
         // Fill all rows to maximum number of cells
         for (var i = 0; i < arrRow.length; i++) {
             var cells = arrRow[i].cells;
-            //var fillCount = maxColumn - cells.length;
-            //for (var j = 0; j < fillCount; j++) {
-            //    cells.push(null);
-            //}
+            var fillCount = maxColumn - arrRow[i].colsInRow;
+            for (var j = 0; j < fillCount; j++) {
+                cells.push(null);
+            }
             // remove empty rows at left
             arrRow[i].cells = cells.slice(minColumn);
         }
