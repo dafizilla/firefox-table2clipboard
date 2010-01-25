@@ -19,15 +19,41 @@
         document.getElementById("elementInfo").innerHTML = s;
 
         var findTableFromNode = t2c.findTableFromNode(node);
-        var findTableFromNodeLocalName = t2c.findTableFromNodeLocalName(node);
+        var findTableFromNodeLocalName = t2cPureHTML.findTableFromNode(node);
         
-        document.getElementById("isTableSelection").innerHTML = t2c.isTableSelection(node);
-        document.getElementById("tableFromNode").innerHTML = findTableFromNode && findTableFromNode.id;
-        document.getElementById("findTableFromNodeLocalName").innerHTML = findTableFromNodeLocalName && findTableFromNodeLocalName.id;
+        document.getElementById("isTableSelection1").innerHTML = t2c.isTableSelection(node);
+        document.getElementById("isTableSelection2").innerHTML = t2cPureHTML.isTableSelection(node);
+        document.getElementById("tableFromNode1").innerHTML = findTableFromNode && findTableFromNode.id;
+        document.getElementById("tableFromNode2").innerHTML = findTableFromNodeLocalName && findTableFromNodeLocalName.id;
       }, true);
     }
 
 var t2c = {
+    isTableSelection : function(node) {
+        this._selectedTable = null;
+        try {
+            node
+                .QueryInterface(Components.interfaces.nsIDOMHTMLTableRowElement);
+            return true;
+        } catch (err) {
+        }
+
+        if (node instanceof HTMLTableElement) {
+            this._selectedTable = node;
+            return true;
+        }
+
+        var nl = node.childNodes;
+        for (var i = 0; i < nl.length; i++) {
+            if (nl[i] instanceof HTMLTableElement) {
+                this._selectedTable = nl[i];
+                return true;
+            }
+        }
+
+        return false;
+    },
+
     findTableFromNode : function(node) {
         var tableNode = null;
 
@@ -57,8 +83,10 @@ var t2c = {
 
         return tableNode;
     },
+};
 
-    findTableFromNodeLocalName : function(node) {
+var t2cPureHTML = {
+    findTableFromNode : function(node) {
         var tableNode = null;
         var nodeName = node.localName.toUpperCase();
 
@@ -96,24 +124,27 @@ var t2c = {
     },
 
     isTableSelection : function(node) {
+      this._selectedTable = null;
       var nodeName = node.localName && node.localName.toUpperCase();
 
-        if (nodeName == "TR" || nodeName == "TH") {
-          return true;
-        }
+      if (nodeName == "TR" || nodeName == "TH") {
+        return true;
+      }
 
-        if (nodeName == "TABLE") {
+      if (nodeName == "TABLE") {
+        this._selectedTable = node;
+        return true;
+      }
+
+      var nl = node.childNodes;
+      for (var i = 0; i < nl.length; i++) {
+        if (node.localName.toUpperCase() == "TABLE") {
+            this._selectedTable = nl[i];
             return true;
         }
+      }
 
-        var nl = node.childNodes;
-        for (var i = 0; i < nl.length; i++) {
-            if (node.localName.toUpperCase() == "TABLE") {
-                return true;
-            }
-        }
-
-        return false;
+      return false;
     }
 }
     </script>
@@ -218,9 +249,10 @@ var t2c = {
 <p>Element: <span id="elementInfo"></span></p>
 <!--<p>Element1: <span id="elementInfo1"></span></p>-->
 
-<p>isTableSelection: <span id="isTableSelection"></span></p>
-<p>tableFromNode: <span id="tableFromNode"></span></p>
-<p>findTableFromNodeLocalName: <span id="findTableFromNodeLocalName"></span></p>
+<p>isTableSelection1: <span id="isTableSelection1"></span></p>
+<p>tableFromNode1: <span id="tableFromNode1"></span></p>
+<p>isTableSelection2: <span id="isTableSelection2"></span></p>
+<p>tableFromNode2: <span id="tableFromNode2"></span></p>
 </div>
 </body>
 </html>
