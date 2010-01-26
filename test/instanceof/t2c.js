@@ -1,12 +1,4 @@
-<html>
-  <head>
-    <style type="text/css">
-    thead {color:green}
-    tbody {color:blue;height:50px}
-    tfoot {color:red}
-    </style>
-
-    <script type="text/javascript">
+      clickedTable = null;
     function onloadPage() {
       window.addEventListener('mousemove', function(event) {
         var node = event.target;
@@ -26,7 +18,21 @@
         document.getElementById("tableFromNode1").innerHTML = findTableFromNode && findTableFromNode.id;
         document.getElementById("tableFromNode2").innerHTML = findTableFromNodeLocalName && findTableFromNodeLocalName.id;
       }, true);
+      
+      document.getElementById("copyButton").addEventListener("click", function(event) {
+        t2c.copyWholeTable(clickedTable);
+      }, true);
+
+
+      window.addEventListener('mousedown', function(event) {
+        var node = event.target;
+        clickedTable = t2cPureHTML.findTableFromNode(node);
+
+        document.getElementById("selectedTable").innerHTML = clickedTable.id;
+        t2c.copyWholeTable(clickedTable);
+      }, true);
     }
+
 
 var t2c = {
     isTableSelection : function(node) {
@@ -82,6 +88,35 @@ var t2c = {
         }
 
         return tableNode;
+    },
+
+    copyWholeTable : function(table) {
+        try {
+            var arr = tableInfo.getTextArrayFromTable(table);
+            this.copyToClipboard(arr);
+        } catch (err) {
+          alert(err);
+            table2clipboard.common.log("T2C copyWholeTable: " + err);
+        }
+    },
+
+    copyToClipboard : function(tableInfo) {
+        with (table2clipboard.formatters) {
+            var textHtml = html.format(tableInfo, this.getHtmlOptions());
+            //var textCSV = csv.format(tableInfo, this.format);
+        }
+        document.getElementById("output").value = textHtml;
+    },
+
+    /**
+     * Return the options to use to copy HTML table
+     * @returns the object {copyStyles, copyLinks, copyImages, copyFormElements}
+     */
+    getHtmlOptions : function() {
+        return {copyStyles : true,//gTable2Clip.prefs.getBool("copyStyles"),
+            copyLinks : true,//gTable2Clip.prefs.getBool("copyLinks"),
+            copyImages : true,//gTable2Clip.prefs.getBool("copyImages"),
+            copyFormElements : true};//gTable2Clip.prefs.getBool("copyFormElements")};
     },
 };
 
@@ -147,113 +182,3 @@ var t2cPureHTML = {
       return false;
     }
 }
-    </script>
-  </head>
-<body onload="onloadPage();">
-
-<table  id="tbl1" border="1">
-  <thead id="tableHead">
-    <tr>
-      <th>Month</th>
-      <th>Savings</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <td>Sum</td>
-      <td>$180</td>
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr>
-      <td>January</td>
-      <td>$100</td>
-    </tr>
-    <tr>
-      <td>February</td>
-      <td>$80</td>
-    </tr>
-  </tbody>
-</table>
-
-<table id="tbl2" >
-<tr>
-<th class="lbl">3</th>
-<td class="xs"><small>11</small><br>Na</td>
-<td class="xs"><small>12</small><br>Mg</td>
-<td colspan="11"></td>
-<td class="xp"><small>13</small><br>Al</td>
-<td class="xp"><small>14</small><br>Si</td>
-
-<td class="xp"><small>15</small><br>P</td>
-<td class="xp"><small>16</small><br>S</td>
-<td class="xp"><small>17</small><br>Cl</td>
-<td class="xp"><small>18</small><br>Ar</td>
-</tr>
-</table>
-
-<table id="tbl3" border="1">
-  <tr>
-    <th></th>
-    <th scope="col">Month</th>
-    <th scope="col">Savings</th>
-  </tr>
-  <tr>
-    <td scope="row">1</td>
-    <td>January</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td scope="row">2</td>
-    <td>February</td>
-    <td>$80</td>
-  </tr>
-</table>
-
-<TABLE id="tbl3" border="2" frame="hsides" rules="groups"
-          summary="Code page support in different versions of MS Windows.">
-  <CAPTION>CODE-PAGE SUPPORT IN MICROSOFT WINDOWS</CAPTION>
-  <COLGROUP align="center">
-  <COLGROUP align="left">
-  <COLGROUP align="center" span="2">
-  <COLGROUP align="center" span="3">
-  <THEAD valign="top">
-  <TR>
-  <TH>Code-Page<BR>ID
-  <TH>Name
-  <TH>ACP
-  <TH>OEMCP
-  <TH>Windows<BR>NT 3.1
-  <TH>Windows<BR>NT 3.51
-  <TH>Windows<BR>95
-  <TBODY>
-  <TR><TD>1200<TD>Unicode (BMP of ISO/IEC-10646)<TD><TD><TD>X<TD>X<TD>*
-  <TR><TD>1250<TD>Windows 3.1 Eastern European<TD>X<TD><TD>X<TD>X<TD>X
-  <TR><TD>1251<TD>Windows 3.1 Cyrillic<TD>X<TD><TD>X<TD>X<TD>X
-  <TR><TD>1252<TD>Windows 3.1 US (ANSI)<TD>X<TD><TD>X<TD>X<TD>X
-  <TR><TD>1253<TD>Windows 3.1 Greek<TD>X<TD><TD>X<TD>X<TD>X
-  <TR><TD>1254<TD>Windows 3.1 Turkish<TD>X<TD><TD>X<TD>X<TD>X
-  <TR><TD>1255<TD>Hebrew<TD>X<TD><TD><TD><TD>X
-  <TR><TD>1256<TD>Arabic<TD>X<TD><TD><TD><TD>X
-  <TR><TD>1257<TD>Baltic<TD>X<TD><TD><TD><TD>X
-  <TR><TD>1361<TD>Korean (Johab)<TD>X<TD><TD><TD>**<TD>X
-  <TBODY>
-  <TR><TD>437<TD>MS-DOS United States<TD><TD>X<TD>X<TD>X<TD>X
-  <TR><TD>708<TD>Arabic (ASMO 708)<TD><TD>X<TD><TD><TD>X
-  <TR><TD>709<TD>Arabic (ASMO 449+, BCON V4)<TD><TD>X<TD><TD><TD>X
-  <TR><TD>710<TD>Arabic (Transparent Arabic)<TD><TD>X<TD><TD><TD>X
-  <TR><TD>720<TD>Arabic (Transparent ASMO)<TD><TD>X<TD><TD><TD>X
-</TABLE>
-
-<div style="position:absolute; right:200px; top:0;">
-<p>Element: <span id="elementInfo"></span></p>
-<!--<p>Element1: <span id="elementInfo1"></span></p>-->
-
-<p>isTableSelection1: <span id="isTableSelection1"></span></p>
-<p>tableFromNode1: <span id="tableFromNode1"></span></p>
-<p>isTableSelection2: <span id="isTableSelection2"></span></p>
-<p>tableFromNode2: <span id="tableFromNode2"></span></p>
-</div>
-</body>
-</html>
-
