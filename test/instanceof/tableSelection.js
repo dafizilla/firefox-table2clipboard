@@ -1,4 +1,4 @@
-var tableInfo = {
+var tableSelection = {
     /**
      * Get structure info for passed table
      * @param table the table to obtain
@@ -95,7 +95,7 @@ var tableInfo = {
         var tableNode = this._tableUnderCursor;
 
         if (!tableNode && arrRow.length > 0) {
-            tableNode = gTable2Clip.findTableFromNode(arrRow[0].rowNode);
+            tableNode = this.findTableFromNode(arrRow[0].rowNode);
         }
 
         return {tableNode : tableNode, rows : arrRow};
@@ -135,4 +135,65 @@ var tableInfo = {
 
         return currPos - startPos;
     },
+
+    findTableFromNode : function(node) {
+        var tableNode = null;
+        var nodeName = node.localName.toUpperCase();
+
+        if (nodeName == "TABLE") {
+            tableNode = node;
+        } else if (nodeName == "TD"
+                   || nodeName == "TR"
+                   || nodeName == "TH"
+                   || nodeName == "TBODY"
+                   || nodeName == "THEAD"
+                   || nodeName == "TFOOT"
+                   || nodeName == "CAPTION") {
+            tableNode = node.parentNode;
+
+            while (tableNode && tableNode.localName.toUpperCase() != "TABLE") {
+                tableNode = tableNode.parentNode;
+            }
+        } else {
+            // Check if current node is inside a table cell
+            var cellNode = node.parentNode;
+
+            // if cellNode is the document element the localName property doesn't exist
+            while (cellNode && cellNode.localName && cellNode.localName.toUpperCase() != "TD") {
+                cellNode = cellNode.parentNode;
+            }
+            if (cellNode) {
+                tableNode = cellNode.parentNode;
+                while (tableNode && tableNode.localName && tableNode.localName.toUpperCase() != "TABLE") {
+                    tableNode = tableNode.parentNode;
+                }
+            }
+        }
+
+        return tableNode;
+    },
+
+    isTableSelection : function(node) {
+        this._selectedTable = null;
+        var nodeName = node.localName && node.localName.toUpperCase();
+
+        if (nodeName == "TR" || nodeName == "TH") {
+            return true;
+        }
+
+        if (nodeName == "TABLE") {
+            this._selectedTable = node;
+            return true;
+        }
+
+        var nl = node.childNodes;
+        for (var i = 0; i < nl.length; i++) {
+            if (node.localName.toUpperCase() == "TABLE") {
+                this._selectedTable = nl[i];
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

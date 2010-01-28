@@ -26,10 +26,32 @@
 
       window.addEventListener('mousedown', function(event) {
         var node = event.target;
-        clickedTable = t2cPureHTML.findTableFromNode(node);
+        try {
+            
+        if (event.metaKey) {
+            clickedTable = t2cPureHTML.findTableFromNode(node);
+    
+            document.getElementById("selectedTable").innerHTML = clickedTable.id;
+            t2c.copyWholeTable(clickedTable);
+        } else if (event.shiftKey) {
+            var sel = window.getSelection();
 
-        document.getElementById("selectedTable").innerHTML = clickedTable.id;
-        t2c.copyWholeTable(clickedTable);
+            document.getElementById("selectedTable").innerHTML = "<<>>";
+            if (!sel.isCollapsed && tableSelection.isTableSelection(sel.focusNode)) {
+                var arr = tableSelection.getTextArrayFromSelection(sel);
+                t2c.copyToClipboard(arr);
+                //if (sel.rangeCount) {
+                //document.getElementById("selectedTable").innerHTML = "--" + sel.getRangeAt(0).startContainer.cells;
+                //} else {
+                //document.getElementById("selectedTable").innerHTML = "none2";
+                //}
+            } else {
+                document.getElementById("selectedTable").innerHTML = "none1";
+            }
+        }
+        } catch (err) {
+            alert(err);
+        }
       }, true);
     }
 
@@ -92,7 +114,7 @@ var t2c = {
 
     copyWholeTable : function(table) {
         try {
-            var arr = tableInfo.getTextArrayFromTable(table);
+            var arr = tableSelection.getTextArrayFromTable(table);
             this.copyToClipboard(arr);
         } catch (err) {
           alert(err);
@@ -100,10 +122,10 @@ var t2c = {
         }
     },
 
-    copyToClipboard : function(tableInfo) {
+    copyToClipboard : function(tableSelection) {
         with (table2clipboard.formatters) {
-            var textHtml = html.format(tableInfo, this.getHtmlOptions());
-            //var textCSV = csv.format(tableInfo, this.format);
+            var textHtml = html.format(tableSelection, this.getHtmlOptions());
+            //var textCSV = csv.format(tableSelection, this.format);
         }
         document.getElementById("output").value = textHtml;
     },
@@ -170,7 +192,6 @@ var t2cPureHTML = {
         this._selectedTable = node;
         return true;
       }
-
       var nl = node.childNodes;
       for (var i = 0; i < nl.length; i++) {
         if (node.localName.toUpperCase() == "TABLE") {
