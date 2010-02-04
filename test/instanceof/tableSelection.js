@@ -187,6 +187,7 @@ var tableSelection = {
         }
 
         var nl = node.childNodes;
+
         for (var i = 0; i < nl.length; i++) {
             if (node.localName.toUpperCase() == "TABLE") {
                 this._selectedTable = nl[i];

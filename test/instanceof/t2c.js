@@ -26,6 +26,7 @@
 
       window.addEventListener('mousedown', function(event) {
         var node = event.target;
+
         try {
             
         if (event.metaKey) {
@@ -36,8 +37,7 @@
         } else if (event.shiftKey) {
             var sel = window.getSelection();
 
-            document.getElementById("selectedTable").innerHTML = "<<>>";
-            if (!sel.isCollapsed && tableSelection.isTableSelection(sel.focusNode)) {
+            if (!sel.isCollapsed && tableSelection.isTableSelection(sel.focusNode.parentNode)) {
                 var arr = tableSelection.getTextArrayFromSelection(sel);
                 t2c.copyToClipboard(arr);
                 //if (sel.rangeCount) {
@@ -46,7 +46,8 @@
                 //document.getElementById("selectedTable").innerHTML = "none2";
                 //}
             } else {
-                document.getElementById("selectedTable").innerHTML = "none1";
+                document.getElementById("selectedTable").innerHTML = "none1" + sel.isCollapsed + "," + sel.focusNode
+                + "-" + sel.getRangeAt(0).startContainer.parentNode;
             }
         }
         } catch (err) {
@@ -55,6 +56,29 @@
       }, true);
     }
 
+
+function getRootTables() {
+    /*var t = document.getElementsByTagName("table");
+    for (var i = 0; i < t.length; i++) {
+        console.log(t[i] + "--" + (t[i].parentNode == document.body ? "r" : ""));
+    }
+    document.body;*/
+
+    var treeWalker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_ELEMENT,
+        { acceptNode: function(node) {
+            return node.parentNode == document.body && node.localName.toLowerCase() == "table"
+                ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+            }
+        },
+        false);
+    var nodeList = [];
+    while(treeWalker.nextNode()) {
+        nodeList.push(treeWalker.currentNode);
+    }
+    return nodeList;
+}
 
 var t2c = {
     isTableSelection : function(node) {
@@ -127,7 +151,7 @@ var t2c = {
             var textHtml = html.format(tableSelection, this.getHtmlOptions());
             //var textCSV = csv.format(tableSelection, this.format);
         }
-        document.getElementById("output").value = textHtml;
+        document.getElementById("output").value = "----" + textHtml;
     },
 
     /**
