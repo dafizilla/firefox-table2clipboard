@@ -114,7 +114,9 @@ this.registerHandler = function(tagName, handler) {
 };
 
 this.getHandler = function(tagName) {
-    return nodeHandlers[tagName.toLowerCase()];
+    tagName = tagName.toLowerCase();
+    // shut up javascript.options.strict warning
+    return nodeHandlers.hasOwnProperty(tagName) ? nodeHandlers[tagName] : undefined;    
 };
 
 this.handlers = {
