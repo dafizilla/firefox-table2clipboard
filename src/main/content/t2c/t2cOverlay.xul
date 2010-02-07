@@ -13,6 +13,7 @@
                 events="focus,select"
                 oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
         <command id="cmd_copyT2C"/>
+        <command id="cmd_copyT2CAllTable"/>
     </commandset>
 
     <!-- Command set Thunderbird-->
@@ -21,6 +22,7 @@
                 events="focus,select"
                 oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
         <command id="cmd_copyT2C"/>
+        <command id="cmd_copyT2CAllTable"/>
     </commandset>
 
     <!-- Command set Mozilla-->
@@ -29,6 +31,7 @@
                 events="focus,select"
                 oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
         <command id="cmd_copyT2C"/>
+        <command id="cmd_copyT2CAllTable"/>
     </commandset>
 
     <!-- Context Menu Firefox, Mozilla, NS8, Flock -->
@@ -61,33 +64,47 @@
                     command="cmd_copyT2C"
                     position="6">
         </menuitem>
+        <menuitem   id="editMenu-t2c:CopyAllTables"
+                    accesskey="&editMenu-t2c-copyalltables.accesskey;"
+                    key="key_t2c_copyalltables"
+                    command="cmd_copyT2CAllTable"
+                    position="6">
+        </menuitem>
     </menupopup>
 
-    <!-- This item goes to edit Menu Mozilla, Thunderbird using a workaround -->
-    <menupopup id="menu_View_Popup">
-        <menuitem   id="fake-editMenu-t2c:Copy"
+    <!-- SeaMonkey 2.x -->
+    <menupopup id="menu_Edit_Popup">
+        <menuitem   id="editMenu-t2c:Copy"
                     label="&cmd.editMenu-copyselection.label;"
                     accesskey="&editMenu-t2c-copy.accesskey;"
                     key="key_t2c"
                     command="cmd_copyT2C"
-                    hidden="true"
-                    disabled="true">
+                    insertafter="menu_copy">
+        </menuitem>
+        <menuitem   id="editMenu-t2c:CopyAllTables"
+                    accesskey="&editMenu-t2c-copyalltables.accesskey;"
+                    key="key_t2c_copyalltables"
+                    command="cmd_copyT2CAllTable"
+                    insertafter="menu_copy">
         </menuitem>
     </menupopup>
 
     <!-- Shortcuts Element Firefox -->
     <keyset id="mainKeyset">
         <key id="key_t2c" />
+        <key id="key_t2c_copyalltables" />
     </keyset>
 
     <!-- Shortcuts Element Thunderbird -->
     <keyset id="mailKeys">
         <key id="key_t2c" />
+        <key id="key_t2c_copyalltables" />
     </keyset>
 
     <!-- Shortcuts Element Mozilla -->
     <keyset id="navKeys">
         <key id="key_t2c" />
+        <key id="key_t2c_copyalltables" />
     </keyset>
 
     <!-- Tools menu Firefox, Thunderbird -->

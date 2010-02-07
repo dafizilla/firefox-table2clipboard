@@ -55,15 +55,6 @@ var htmlBuildersNS = table2clipboard.builders.html;
 this.format = function(tableInfo, options) {
     var stylesMap;
     var excludeStylesMap;
-    var getNodeAttrs = function(node) {
-        if (node) {
-            var attrs = new htmlBuildersNS.HtmlOutput(false);
-            attrs.printNodeAttributes(node, excludeStylesMap);
-
-            return attrs.getOutputText();
-        }
-        return "";
-    }
 
     if (options.copyStyles) {
         stylesMap = [];
@@ -74,36 +65,14 @@ this.format = function(tableInfo, options) {
     }
 
     var strTable = "";
-    strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode) + ">\n";
-    strTable += "<TBODY>\n";
-
-    if (stylesMap) {
-        table2clipboard.css.utils.addStyles(tableInfo.tableNode, stylesMap);
-    }
-    var rows = tableInfo.rows;
-    for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var cells = row.cells;
-
-        strTable += "<TR " + getNodeAttrs(row.rowNode) + ">\n";
-        if (stylesMap) {
-            table2clipboard.css.utils.addStyles(row.rowNode, stylesMap);
+    // check if tableInfo is an array
+    if (Object.prototype.toString.apply(tableInfo) === '[object Array]') {
+        for (var i in tableInfo) {
+            strTable += createHTMLTable(tableInfo[i], options, stylesMap, excludeStylesMap);
         }
-
-        for (var j = 0; j < cells.length; j++) {
-            var cell = cells[j];
-
-            if (cell) {
-                var builder = new htmlBuildersNS.Builder(options);
-                builder.build(cell.cellNode, stylesMap);
-                strTable += builder.toHtml();
-            } else {
-                strTable += "<TD>&nbsp;</TD>";
-            }
-        }
-        strTable += "\n</TR>\n";
+    } else {
+        strTable += createHTMLTable(tableInfo, options, stylesMap, excludeStylesMap);
     }
-    strTable += "\n</TBODY>\n</TABLE>\n";
 
     var strStyles = "";
     if (stylesMap) {
@@ -124,6 +93,52 @@ this.format = function(tableInfo, options) {
     str += "</HTML>";
 
     return str;
+}
+
+function getNodeAttrs(node, excludeStylesMap) {
+    if (node) {
+        var attrs = new htmlBuildersNS.HtmlOutput(false);
+        attrs.printNodeAttributes(node, excludeStylesMap);
+
+        return attrs.getOutputText();
+    }
+    return "";
+}
+
+function createHTMLTable(tableInfo, options, stylesMap, excludeStylesMap) {
+    var strTable = "";
+    strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode, excludeStylesMap) + ">\n";
+    strTable += "<TBODY>\n";
+
+    if (stylesMap) {
+        table2clipboard.css.utils.addStyles(tableInfo.tableNode, stylesMap);
+    }
+    var rows = tableInfo.rows;
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var cells = row.cells;
+
+        strTable += "<TR " + getNodeAttrs(row.rowNode, excludeStylesMap) + ">\n";
+        if (stylesMap) {
+            table2clipboard.css.utils.addStyles(row.rowNode, stylesMap);
+        }
+
+        for (var j = 0; j < cells.length; j++) {
+            var cell = cells[j];
+
+            if (cell) {
+                var builder = new htmlBuildersNS.Builder(options);
+                builder.build(cell.cellNode, stylesMap);
+                strTable += builder.toHtml();
+            } else {
+                strTable += "<TD>&nbsp;</TD>";
+            }
+        }
+        strTable += "\n</TR>\n";
+    }
+    strTable += "\n</TBODY>\n</TABLE>\n";
+
+    return strTable;
 }
 }).apply(table2clipboard.formatters.html);
 
@@ -148,6 +163,21 @@ var handleSpecials = function(str) {
 }
 
 this.format = function(tableInfo, options) {
+    var str = "";
+
+    // check if tableInfo is an array
+    if (Object.prototype.toString.apply(tableInfo) === '[object Array]') {
+        for (var i in tableInfo) {
+            str += createCSV(tableInfo[i], options) + "\n";
+        }
+    } else {
+        str = createCSV(tableInfo, options);
+    }
+
+    return str;
+}
+
+function createCSV(tableInfo, options) {
     var rows = tableInfo.rows;
     var lastRow = rows.length - 1;
     var str = "";
@@ -178,7 +208,6 @@ this.format = function(tableInfo, options) {
             str += options.rowSep;
         }
     }
-
     return str;
 }
 }).apply(table2clipboard.formatters.csv);

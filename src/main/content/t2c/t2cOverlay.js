@@ -16,8 +16,6 @@ var gTable2Clip = {
         obs.addObserver(thiz, "t2clip:update-config", false);
         obs.notifyObservers(null, "t2clip:update-config", "");
 
-        thiz.workaroundEditMenu();
-
         table2clipboard.builders.html.registerAllHandlers();
     },
 
@@ -50,6 +48,18 @@ var gTable2Clip = {
                                    thiz.onPopupShowingContextMenu, false);
             }
         }
+        
+        // don't use command dispatcher because the test routine can be slow
+        // so call it directly only when menu is shown
+        menuItem = document.getElementById("editMenu-t2c:CopyAllTables");
+        if (menuItem) {
+            var n = menuItem.parentNode;
+
+            if (n) {
+                n.addEventListener("popupshowing",
+                                   thiz.onPopupShowingEdit, false);
+            }
+        }
     },
 
     removeListeners : function() {
@@ -62,6 +72,16 @@ var gTable2Clip = {
             if (n) {
                 n.removeEventListener("popupshowing",
                                    thiz.onPopupShowingContextMenu, false);
+            }
+        }
+
+        menuItem = document.getElementById("editMenu-t2c:CopyAllTables");
+        if (menuItem) {
+            var n = menuItem.parentNode;
+
+            if (n) {
+                n.removeEventListener("popupshowing",
+                                   thiz.onPopupShowingEdit, false);
             }
         }
     },
@@ -78,6 +98,19 @@ var gTable2Clip = {
                               thiz.isCommandEnabled('cmd_copyWholeTable'));
         }
         return true;
+    },
+
+    onPopupShowingEdit : function(event) {
+        var doc = document.commandDispatcher.focusedWindow.content.document;
+        var tables = table2clipboard.tableInfo.getRootTables(doc, doc.body);
+        var menuitem = document.getElementById("editMenu-t2c:CopyAllTables");
+        
+        if (tables.length > 0) {
+            var label = table2clipboard.common.getFormattedMessage(
+                        "copy.all.tables.label", [tables.length]);
+            menuitem.setAttribute("label", label);
+        }
+        gTable2Clip.showMenuItem(menuitem, tables.length > 0);
     },
 
     showMenuItem : function(menuItem, show) {
@@ -98,15 +131,27 @@ var gTable2Clip = {
             var arr;
 
             if (gTable2Clip._selectedTable) {
-                arr = gTable2Clip.getTextArrayFromTable(gTable2Clip._selectedTable);
+                arr = table2clipboard.tableInfo.getTableInfoFromTable(gTable2Clip._selectedTable);
             } else {
                 var sel = document.commandDispatcher.focusedWindow.getSelection();
-                arr = gTable2Clip.getTextArrayFromSelection(sel);
+                // if it isn't called from context menu _tableUnderCursor is null
+                arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, thiz._tableUnderCursor);
             }
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
             table2clipboard.common.log("T2C copyTableSelection: " + err);
         }
+    },
+
+    copyAllTables : function() {
+        var doc = document.commandDispatcher.focusedWindow.content.document;
+        var tables = table2clipboard.tableInfo.getRootTables(doc, doc.body);
+        var tableInfos = [];
+
+        for (var i in tables) {
+            tableInfos.push(table2clipboard.tableInfo.getTableInfoFromTable(tables[i]));
+        }
+        gTable2Clip.copyToClipboard(tableInfos);
     },
 
     copyToClipboard : function(tableInfo) {
@@ -137,110 +182,6 @@ var gTable2Clip = {
     },
 
     /**
-     * Get structure info for passed table
-     * @param table the table to obtain
-     * @returns the object
-     * {
-     * tableNode : node,
-     * rows : [{rowNode : node,
-     *          cells : [{cellNode:node}]
-     *        }]
-     * }
-     */
-    getTextArrayFromTable : function(table) {
-        var thiz = gTable2Clip;
-        var arrRow = new Array();
-        var minColumn = 0;
-        var maxColumn = -1;
-        var rows = table.rows;
-
-        for (var i = 0; i < rows.length; i++) {
-            // rows[i] type is nsIDOMHTMLTableRowElement
-            var row = rows[i];
-            var cells = row.cells;
-            var arrCol = new Array();
-            var colsInRow = 0;
-
-            for (var cc = 0; cc < cells.length; cc++) {
-                // theCell type is HTMLTableCellElement
-                var theCell = cells.item(cc);
-                arrCol[cc] = {cellNode : theCell};
-                var cs = parseInt(theCell.getAttribute("colspan"));
-                if (cs > 0) {
-                    // subtract column itself
-                    // otherwise when adding length it is computed twice
-                    colsInRow += cs - 1;
-                }
-            }
-
-            // Adjust the value if row contains a colspan
-            colsInRow += arrCol.length;
-            if (maxColumn < colsInRow) {
-                maxColumn = colsInRow;
-            }
-            arrRow.push({rowNode : row, cells : arrCol, colsInRow : colsInRow});
-        }
-
-        thiz.padCells(arrRow, minColumn, maxColumn);
-        return {tableNode : table, rows : arrRow};
-    },
-
-    getTextArrayFromSelection : function(sel) {
-        var thiz = gTable2Clip;
-        var arrRow = new Array();
-        var minColumn = 100000;
-        var maxColumn = -1;
-        var columnCount = 0;
-
-        for (var i = 0; i < sel.rangeCount; i += columnCount) {
-            columnCount = thiz.getColumnsPerRow(sel, i);
-            var row = sel.getRangeAt(i).startContainer;
-            var cells = row.cells;
-
-            var arrCol = new Array();
-            var rangeIndexStart = i;
-            var rangeIndexEnd = i + columnCount;
-            var colsInRow = 0;
-
-            for (var cc = 0; cc < cells.length && rangeIndexStart < rangeIndexEnd; cc++) {
-                var theCell = cells.item(cc);
-
-                if (sel.containsNode(theCell, false))  {
-                    rangeIndexStart++;
-
-                    arrCol[cc] = {cellNode : theCell};
-                    if (minColumn > cc) {
-                        minColumn = cc;
-                    }
-                    var cs = parseInt(theCell.getAttribute("colspan"));
-                    if (cs > 0) {
-                        // subtract column itself
-                        // otherwise when adding length it is computed twice
-                        colsInRow += cs - 1;
-                    }
-                } else {
-                    arrCol[cc] = null;
-                }
-            }
-            colsInRow += arrCol.length;
-            if (maxColumn < colsInRow) {
-                maxColumn = colsInRow;
-            }
-            arrRow.push({rowNode : row, cells : arrCol, colsInRow : colsInRow});
-        }
-
-        thiz.padCells(arrRow, minColumn, maxColumn);
-        // if it isn't called from context menu _tableUnderCursor is null
-        var tableNode = thiz._tableUnderCursor;
-
-        if (!tableNode && arrRow.length > 0) {
-            tableNode = gTable2Clip.findTableFromNode(arrRow[0].rowNode);
-        }
-
-        return {tableNode : tableNode, rows : arrRow};
-    },
-
-    /**
      * Return the options to use to copy HTML table
      * @returns the object {copyStyles, copyLinks, copyImages, copyFormElements}
      */
@@ -249,41 +190,6 @@ var gTable2Clip = {
             copyLinks : gTable2Clip.prefs.getBool("copyLinks"),
             copyImages : gTable2Clip.prefs.getBool("copyImages"),
             copyFormElements : gTable2Clip.prefs.getBool("copyFormElements")};
-    },
-
-    /**
-     * Pad cell arrays to have all same dimension and remove starting blank cells
-     * @param arrRow cells array
-     * @param minColumn the minimum column count
-     * @param maxColumn the maximum coloun count
-     */
-    padCells : function(arrRow, minColumn, maxColumn) {
-        // Fill all rows to maximum number of cells
-        for (var i = 0; i < arrRow.length; i++) {
-            var cells = arrRow[i].cells;
-            var fillCount = maxColumn - arrRow[i].colsInRow;
-            for (var j = 0; j < fillCount; j++) {
-                cells.push(null);
-            }
-            // remove empty rows at left
-            arrRow[i].cells = cells.slice(minColumn);
-        }
-    },
-
-    getColumnsPerRow : function(sel, startPos) {
-        var currPos = startPos;
-        var range = sel.getRangeAt(currPos);
-        var currRowIndex = range.startContainer.rowIndex;
-
-        while (++currPos < sel.rangeCount) {
-            range = sel.getRangeAt(currPos);
-
-            if (range.startContainer.rowIndex != currRowIndex) {
-                break;
-            }
-        }
-
-        return currPos - startPos;
     },
 
     // From browser.js
@@ -317,25 +223,6 @@ var gTable2Clip = {
         return false;
     },
 
-    workaroundEditMenu : function() {
-        // Since Thunderbird 2.0.0.16 the menu_EditPopup element exists
-        // so It isn't necessary to add by hand
-        if (document.getElementById("editMenu-t2c:Copy")) {
-            return;
-        }
-        // TB and MZ don't contain a popup for edit menu so I move from view
-        var fakeMenu = document.getElementById("fake-editMenu-t2c:Copy");
-        if (fakeMenu) {
-            var menuPaste = document.getElementById("menu_paste");
-            if (menuPaste) {
-                var newMenu = fakeMenu.cloneNode(false);
-                newMenu.removeAttribute("hidden");
-                newMenu.setAttribute("id", "editMenu-t2c:Copy");
-                menuPaste.parentNode.insertBefore(newMenu, menuPaste);
-            }
-        }
-    },
-
     selectTable : function(table) {
         if (table) {
             var focusedWindow = document.commandDispatcher.focusedWindow;
@@ -346,7 +233,7 @@ var gTable2Clip = {
 
     copyWholeTable : function(table) {
         try {
-            var arr = gTable2Clip.getTextArrayFromTable(table);
+            var arr = table2clipboard.tableInfo.getTableInfoFromTable(table);
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
             table2clipboard.common.log("T2C copyWholeTable: " + err);
@@ -359,37 +246,7 @@ var gTable2Clip = {
         }
         var nodeUnderCursor = gContextMenu.target;
 
-        return gTable2Clip.findTableFromNode(nodeUnderCursor);
-    },
-
-    findTableFromNode : function(node) {
-        var tableNode = null;
-
-        if (node instanceof HTMLTableElement) {
-            tableNode = node;
-        } else if ((node instanceof HTMLTableCellElement)
-                   || (node instanceof HTMLTableRowElement)) {
-            tableNode = node.parentNode;
-
-            while (tableNode && !(tableNode instanceof HTMLTableElement)) {
-                tableNode = tableNode.parentNode;
-            }
-        } else {
-            // Check if current node is inside a table cell
-            var cellNode = node.parentNode;
-
-            while (cellNode && !(cellNode instanceof HTMLTableCellElement)) {
-                cellNode = cellNode.parentNode;
-            }
-            if (cellNode) {
-                tableNode = cellNode.parentNode;
-                while (tableNode && !(tableNode instanceof HTMLTableElement)) {
-                    tableNode = tableNode.parentNode;
-                }
-            }
-        }
-
-        return tableNode;
+        return table2clipboard.tableInfo.findTableFromNode(nodeUnderCursor);
     },
 
     /** nsIController implementation **/

@@ -12,18 +12,20 @@
             }
         };
     ]]></script>
-    
+
     <!-- Prism Main Commandset -->
     <commandset id="cmdset_main"
                 commandupdater="true"
                 events="focus,select"
                 oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
         <command id="cmd_copyT2C"/>
+        <command id="cmd_copyT2CAllTable"/>
     </commandset>
 
     <!-- Prism Main Keyset -->
     <keyset id="keyset_main">
         <key id="key_t2c" />
+        <key id="key_t2c_copyalltables" />
     </keyset>
 
     <!-- Prism Tools menu -->
@@ -33,7 +35,7 @@
     </menupopup>
 
     <!-- Prism Context menu -->
-    <menupopup id="popup_content"> 
+    <menupopup id="popup_content">
         <menuitem id="context-t2c:Copy" insertbefore="menuitem_paste" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="menuitem_paste" />
         <menuitem id="context-t2c:SelectTable" insertafter="menuitem_selectAll" />

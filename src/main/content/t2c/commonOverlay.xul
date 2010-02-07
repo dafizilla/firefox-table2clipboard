@@ -14,15 +14,25 @@
     <script type="application/x-javascript"
             src="chrome://t2c/content/formatters.js" />
     <script type="application/x-javascript"
+            src="chrome://t2c/content/tableInfo.js" />
+    <script type="application/x-javascript"
             src="chrome://t2c/content/t2cOverlay.js" />
 
     <command id="cmd_copyT2C"
              oncommand="gTable2Clip.doCommand('cmd_copyT2C');"
              disabled="true"/>
 
+    <command id="cmd_copyT2CAllTable"
+             oncommand="gTable2Clip.copyAllTables();"/>
+
     <key id="key_t2c"
          key="&t2c.commandkey;"
          command="cmd_copyT2C"
+         modifiers="accel,shift"/>
+
+    <key id="key_t2c_copyalltables"
+         key="&t2c.copyalltables.commandkey;"
+         command="cmd_copyT2CAllTable"
          modifiers="accel,shift"/>
 
     <menuitem id="context-t2c:Copy"
