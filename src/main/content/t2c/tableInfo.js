@@ -238,7 +238,7 @@ if (typeof table2clipboard.tableInfo == "undefined") {
                     while (parentNode) {
                         if (parentNode.localName
                             && parentNode.localName.toLowerCase() == "table") {
-                            returnNodeFilter.FILTER_REJECT;
+                            return NodeFilter.FILTER_REJECT;
                         }
                         parentNode = parentNode.parentNode;
                     }
