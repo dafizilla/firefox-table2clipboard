@@ -48,7 +48,7 @@ var gTable2Clip = {
                                    thiz.onPopupShowingContextMenu, false);
             }
         }
-        
+
         // don't use command dispatcher because the test routine can be slow
         // so call it directly only when menu is shown
         menuItem = document.getElementById("editMenu-t2c:CopyAllTables");
@@ -104,7 +104,7 @@ var gTable2Clip = {
         var doc = document.commandDispatcher.focusedWindow.content.document;
         var tables = table2clipboard.tableInfo.getRootTables(doc, doc.body);
         var menuitem = document.getElementById("editMenu-t2c:CopyAllTables");
-        
+
         if (tables.length > 0) {
             var label = table2clipboard.common.getFormattedMessage(
                         "copy.all.tables.label", [tables.length]);

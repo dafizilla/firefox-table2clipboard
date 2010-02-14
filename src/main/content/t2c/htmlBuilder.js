@@ -116,7 +116,7 @@ this.registerHandler = function(tagName, handler) {
 this.getHandler = function(tagName) {
     tagName = tagName.toLowerCase();
     // shut up javascript.options.strict warning
-    return nodeHandlers.hasOwnProperty(tagName) ? nodeHandlers[tagName] : undefined;    
+    return nodeHandlers.hasOwnProperty(tagName) ? nodeHandlers[tagName] : undefined;
 };
 
 this.handlers = {

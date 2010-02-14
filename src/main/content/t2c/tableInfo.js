@@ -192,33 +192,26 @@ if (typeof table2clipboard.tableInfo == "undefined") {
     }
 
     this.findTableFromNode = function(node) {
-        var tableNode = null;
+        return this.getAncestorByTagName(node, "table");
+    }
 
-        if (node instanceof HTMLTableElement) {
-            tableNode = node;
-        } else if ((node instanceof HTMLTableCellElement)
-                   || (node instanceof HTMLTableRowElement)) {
-            tableNode = node.parentNode;
+    /**
+     * Get the node's ancestor with tagName
+     * @param node starting node
+     * @param tagName the ancestor tag name
+     * @returns the ancestor or null
+     */
+    this.getAncestorByTagName = function(node, tagName) {
+        const TEXT_NODE = Node.TEXT_NODE;
+        tagName = tagName.toLowerCase();
 
-            while (tableNode && !(tableNode instanceof HTMLTableElement)) {
-                tableNode = tableNode.parentNode;
-            }
-        } else {
-            // Check if current node is inside a table cell
-            var cellNode = node.parentNode;
-
-            while (cellNode && !(cellNode instanceof HTMLTableCellElement)) {
-                cellNode = cellNode.parentNode;
-            }
-            if (cellNode) {
-                tableNode = cellNode.parentNode;
-                while (tableNode && !(tableNode instanceof HTMLTableElement)) {
-                    tableNode = tableNode.parentNode;
-                }
-            }
+        // find also non-text node that has not tag name (the document object)
+        while (node
+               && ((node.localName && node.localName.toLowerCase() != tagName)
+                   || (!node.localName && node.nodeType != TEXT_NODE))) {
+            node = node.parentNode;
         }
-
-        return tableNode;
+        return node;
     }
 
     /**
