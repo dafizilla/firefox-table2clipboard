@@ -1,84 +1,77 @@
-      clickedTable = null;
-    function onloadPage() {
-      window.addEventListener('mousemove', function(event) {
-        var node = event.target;
-        var s = node.localName + " "
-                + ((node instanceof HTMLTableElement) ? "HTMLTableElement"
-                  : (node instanceof HTMLTableCellElement) ? "HTMLTableCellElement"
-                  : (node instanceof HTMLTableRowElement) ? "HTMLTableRowElement"
-                  : "");
-                
-        document.getElementById("elementInfo").innerHTML = s;
-
-        var findTableFromNode = t2c.findTableFromNode(node);
-        var findTableFromNodeLocalName = t2cPureHTML.findTableFromNode(node);
-        
-        document.getElementById("isTableSelection1").innerHTML = t2c.isTableSelection(node);
-        document.getElementById("isTableSelection2").innerHTML = t2cPureHTML.isTableSelection(node);
-        document.getElementById("tableFromNode1").innerHTML = findTableFromNode && findTableFromNode.id;
-        document.getElementById("tableFromNode2").innerHTML = findTableFromNodeLocalName && findTableFromNodeLocalName.id;
-      }, true);
+clickedTable = null;
       
-      document.getElementById("copyButton").addEventListener("click", function(event) {
-        t2c.copyWholeTable(clickedTable);
-      }, true);
-
-
-      window.addEventListener('mousedown', function(event) {
-        var node = event.target;
-
-        try {
-            
-        if (event.metaKey) {
-            clickedTable = t2cPureHTML.findTableFromNode(node);
+function getAncestorsString(node) {
+    var arr = [];
     
-            document.getElementById("selectedTable").innerHTML = clickedTable.id;
-            t2c.copyWholeTable(clickedTable);
-        } else if (event.shiftKey) {
-            var sel = window.getSelection();
-
-            if (!sel.isCollapsed && tableSelection.isTableSelection(sel.focusNode.parentNode)) {
-                var arr = tableSelection.getTextArrayFromSelection(sel);
-                t2c.copyToClipboard(arr);
-                //if (sel.rangeCount) {
-                //document.getElementById("selectedTable").innerHTML = "--" + sel.getRangeAt(0).startContainer.cells;
-                //} else {
-                //document.getElementById("selectedTable").innerHTML = "none2";
-                //}
-            } else {
-                document.getElementById("selectedTable").innerHTML = "none1" + sel.isCollapsed + "," + sel.focusNode
-                + "-" + sel.getRangeAt(0).startContainer.parentNode;
-            }
-        }
-        } catch (err) {
-            alert(err);
-        }
-      }, true);
+    while (node) {
+        arr.push(node.localName);
+        node = node.parentNode;
     }
-
-
-function getRootTables() {
-    /*var t = document.getElementsByTagName("table");
-    for (var i = 0; i < t.length; i++) {
-        console.log(t[i] + "--" + (t[i].parentNode == document.body ? "r" : ""));
-    }
-    document.body;*/
-
-    var treeWalker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_ELEMENT,
-        { acceptNode: function(node) {
-            return node.parentNode == document.body && node.localName.toLowerCase() == "table"
-                ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-            }
-        },
-        false);
-    var nodeList = [];
-    while(treeWalker.nextNode()) {
-        nodeList.push(treeWalker.currentNode);
-    }
-    return nodeList;
+    return arr.join("->");
 }
+    
+function onloadPage() {
+  window.addEventListener('mousemove', function(event) {
+    var node = event.target;
+    var s = node.localName + "<br/>"
+            + ((node instanceof HTMLTableElement) ? "HTMLTableElement"
+              : (node instanceof HTMLTableCellElement) ? "HTMLTableCellElement"
+              : (node instanceof HTMLTableRowElement) ? "HTMLTableRowElement"
+              : "");
+            
+    document.getElementById("elementInfo").innerHTML = s;
+
+    var safeId = function(node) {
+        return node && node.id;
+    }
+    
+    var findTableFromNode = t2c.findTableFromNode(node);
+    var findTableFromNodeLocalName = table2clipboard.tableInfo.findTableFromNode(node);
+    var xpath = findParentTableXPATH(node);
+    var ancestor = table2clipboard.tableInfo.getAncestorByTagName(node, "table");
+    
+    document.getElementById("isTableSelection1").innerHTML = t2c.isTableSelection(node);
+    document.getElementById("isTableSelection2").innerHTML = t2cPureHTML.isTableSelection(node);
+    document.getElementById("tableFromNode1").innerHTML = safeId(findTableFromNode) + " xpath " + safeId(xpath);
+    document.getElementById("tableFromNode2").innerHTML = safeId(findTableFromNodeLocalName) + " ancestor " + safeId(ancestor);
+  }, true);
+  
+  document.getElementById("copyButton").addEventListener("click", function(event) {
+    t2c.copyWholeTable(clickedTable);
+  }, true);
+
+
+    window.addEventListener('mousedown', function(event) {
+      var node = event.target;
+
+      try {
+          
+      if (event.altKey) {
+          clickedTable = t2cPureHTML.findTableFromNode(node);
+  
+          document.getElementById("selectedTable").innerHTML = "under mouse " + clickedTable.id;
+          t2c.copyWholeTable(clickedTable);
+      } else if (event.shiftKey) {
+          var sel = window.getSelection();
+
+          if (!sel.isCollapsed && t2cPureHTML.isTableSelection(sel.focusNode.parentNode)) {
+              var arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, this._tableUnderCursor);
+              t2c.copyToClipboard(arr);
+              //if (sel.rangeCount) {
+              //document.getElementById("selectedTable").innerHTML = "--" + sel.getRangeAt(0).startContainer.cells;
+              //} else {
+              //document.getElementById("selectedTable").innerHTML = "none2";
+              //}
+          } else {
+              document.getElementById("selectedTable").innerHTML = "none1" + sel.isCollapsed + "," + sel.focusNode
+              + "-" + sel.getRangeAt(0).startContainer.parentNode;
+          }
+      }
+      } catch (err) {
+          alert(err);
+      }
+    }, true);
+  }
 
 var t2c = {
     isTableSelection : function(node) {
@@ -138,7 +131,7 @@ var t2c = {
 
     copyWholeTable : function(table) {
         try {
-            var arr = tableSelection.getTextArrayFromTable(table);
+            var arr = table2clipboard.tableInfo.getTableInfoFromTable(table);
             this.copyToClipboard(arr);
         } catch (err) {
           alert(err);
@@ -146,10 +139,10 @@ var t2c = {
         }
     },
 
-    copyToClipboard : function(tableSelection) {
+    copyToClipboard : function(tableInfo) {
         with (table2clipboard.formatters) {
-            var textHtml = html.format(tableSelection, this.getHtmlOptions());
-            //var textCSV = csv.format(tableSelection, this.format);
+            var textHtml = html.format(tableInfo, this.getHtmlOptions());
+            //var textCSV = csv.format(tableInfo, this.format);
         }
         document.getElementById("output").value = "----" + textHtml;
     },
@@ -167,63 +160,34 @@ var t2c = {
 };
 
 var t2cPureHTML = {
-    findTableFromNode : function(node) {
-        var tableNode = null;
-        var nodeName = node.localName.toUpperCase();
-
-        if (nodeName == "TABLE") {
-            tableNode = node;
-        } else if (nodeName == "TD"
-                   || nodeName == "TR"
-                   || nodeName == "TH"
-                   || nodeName == "TBODY"
-                   || nodeName == "THEAD"
-                   || nodeName == "TFOOT"
-                   || nodeName == "CAPTION") {
-            tableNode = node.parentNode;
-
-            while (tableNode && tableNode.localName.toUpperCase() != "TABLE") {
-                tableNode = tableNode.parentNode;
-            }
-        } else {
-            // Check if current node is inside a table cell
-            var cellNode = node.parentNode;
-
-            // if cellNode is the document element the localName property doesn't exist
-            while (cellNode && cellNode.localName && cellNode.localName.toUpperCase() != "TD") {
-                cellNode = cellNode.parentNode;
-            }
-            if (cellNode) {
-                tableNode = cellNode.parentNode;
-                while (tableNode && tableNode.localName && tableNode.localName.toUpperCase() != "TABLE") {
-                    tableNode = tableNode.parentNode;
-                }
-            }
-        }
-
-        return tableNode;
-    },
-
     isTableSelection : function(node) {
-      this._selectedTable = null;
-      var nodeName = node.localName && node.localName.toUpperCase();
+        this._selectedTable = null;
+        var nodeName = node.localName && node.localName.toUpperCase();
 
-      if (nodeName == "TR" || nodeName == "TH") {
-        return true;
-      }
-
-      if (nodeName == "TABLE") {
-        this._selectedTable = node;
-        return true;
-      }
-      var nl = node.childNodes;
-      for (var i = 0; i < nl.length; i++) {
-        if (node.localName.toUpperCase() == "TABLE") {
-            this._selectedTable = nl[i];
+        if (nodeName == "TR" || nodeName == "TH") {
             return true;
         }
-      }
 
-      return false;
+        if (nodeName == "TABLE") {
+            this._selectedTable = node;
+            return true;
+        }
+        var nl = node.childNodes;
+        for (var i = 0; i < nl.length; i++) {
+            if (node.localName.toUpperCase() == "TABLE") {
+                this._selectedTable = nl[i];
+                return true;
+            }
+        }
+
+        return false;
     }
+}
+
+function findParentTableXPATH(node) {
+    return document.evaluate('ancestor-or-self::table',
+            node,
+            null,
+            XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+        .singleNodeValue;
 }

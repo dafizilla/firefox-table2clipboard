@@ -8,7 +8,7 @@
 
     <script type="text/javascript"
             src="mini_common.js"></script>
-    <script type="text/javascript" src="tableSelection.js"></script>
+    <script type="text/javascript" src="tableInfo.js"></script>
     <script type="text/javascript"
             src="mini_cssUtils.js"></script>
     <script type="text/javascript"
@@ -34,7 +34,7 @@
       <td>$180</td>
     </tr>
   </tfoot>
-  <tbody>
+  <tbody id="tbl1_tbody">
     <tr>
       <td>January</td>
       <td>$100</td>
@@ -70,7 +70,7 @@
   </tr>
   <tr>
     <td scope="row">1</td>
-    <td>January</td>
+    <td>January <span id="span1_tbl3" style="color:red">a span in red<span id="span2_tbl3" style="color:blue">nested span in blue</span></span></td>
     <td>$100</td>
   </tr>
   <tr>
@@ -125,11 +125,11 @@
   <tbody>
     <tr>
       <td>
-        <table border="1">
+        <table id="tblNested_nested1" border="1">
           <tr>
             <td>One</td>
             <td>Two</td>
-            <td>Three</td>
+            <td id="tblNested_first">Three</td>
           </tr>
         </table>
       </td>
@@ -138,7 +138,7 @@
     <tr>
       <td>February</td>
       <td>
-        <table border="1">
+        <table id="tblNested_nested2" border="1">
           <tr>
             <td>One</td>
             <td>Two</td>
@@ -150,14 +150,14 @@
   </tbody>
 </table>
 
-<div style="position:absolute; right:200px; top:0;">
+<div style="position:absolute; right:0; top:0;">
 <p>Element: <span id="elementInfo"></span></p>
 <!--<p>Element1: <span id="elementInfo1"></span></p>-->
 
-<p>isTableSelection1: <span id="isTableSelection1"></span></p>
-<p>tableFromNode1: <span id="tableFromNode1"></span></p>
-<p>isTableSelection2: <span id="isTableSelection2"></span></p>
-<p>tableFromNode2: <span id="tableFromNode2"></span></p>
+<p>isTableSelection instance: <span id="isTableSelection1"></span></p>
+<p>isTableSelection PureHTML: <span id="isTableSelection2"></span></p>
+<p>tableFromNode instance: <span id="tableFromNode1"></span></p>
+<p>tableFromNode PureHTML: <span id="tableFromNode2"></span></p>
 <p>selected table: <span id="selectedTable"></span></p>
 
 <form>
