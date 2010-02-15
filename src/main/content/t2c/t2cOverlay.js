@@ -135,7 +135,7 @@ var gTable2Clip = {
             } else {
                 var sel = document.commandDispatcher.focusedWindow.getSelection();
                 // if it isn't called from context menu _tableUnderCursor is null
-                arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, thiz._tableUnderCursor);
+                arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, gTable2Clip._tableUnderCursor);
             }
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {

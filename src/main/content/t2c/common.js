@@ -7,7 +7,9 @@ if (typeof(table2clipboard) == "undefined") {
     var table2clipboard = {};
 }
 
-table2clipboard.common = {};
+if (typeof(table2clipboard.common) == "undefined") {
+    table2clipboard.common = {};
+}
 
 (function() {
 // Under mozilla composer <stringbundleset id="stringbundleset"> isn't available
