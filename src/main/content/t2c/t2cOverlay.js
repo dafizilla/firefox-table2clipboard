@@ -198,23 +198,21 @@ var gTable2Clip = {
         return !sel.isCollapsed;
     },
 
-    isTableSelection : function(sel) {
+    isTableSelection : function(node) {
         gTable2Clip._selectedTable = null;
-        try {
-            sel.focusNode
-                .QueryInterface(Components.interfaces.nsIDOMHTMLTableRowElement);
-            return true;
-        } catch (err) {
-        }
+        var nodeName = node.localName && node.localName.toLowerCase();
 
-        if (sel.focusNode instanceof HTMLTableElement) {
-            gTable2Clip._selectedTable = sel.focusNode;
+        if (nodeName == "tr" || nodeName == "th") {
             return true;
         }
 
-        var nl = sel.focusNode.childNodes;
+        if (nodeName == "table") {
+            gTable2Clip._selectedTable = node;
+            return true;
+        }
+        var nl = node.childNodes;
         for (var i = 0; i < nl.length; i++) {
-            if (nl[i] instanceof HTMLTableElement) {
+            if (node.localName.toLowerCase() == "table") {
                 gTable2Clip._selectedTable = nl[i];
                 return true;
             }
@@ -270,7 +268,7 @@ var gTable2Clip = {
             if (focusedWindow) {
                 var sel = focusedWindow.getSelection();
                 return gTable2Clip.isContentSelection(sel)
-                         && gTable2Clip.isTableSelection(sel);
+                         && gTable2Clip.isTableSelection(sel.focusNode);
             }
         } else if (command == "cmd_selectTableT2C") {
             gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
