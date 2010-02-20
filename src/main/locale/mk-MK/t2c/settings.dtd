@@ -1,8 +1,19 @@
+<!ENTITY appendRowSep.label "Додај разделувач на крајот">
+<!ENTITY colSeparator.label "Низа за користење како разделувач на колоните">
+<!ENTITY menu.special.label "Посебен">
+<!ENTITY menu.special.newline "Нов прекин на линија">
+<!ENTITY menu.special.tab "Табулација">
+<!ENTITY rowSeparator.label "Низа за користење како разделувач на редовите">
 <!ENTITY settings.title "Table2Clipboard поставувања">
 <!ENTITY site.label "Davide Ficano">
+<!ENTITY table2Clip.home.tooltip "Оди до Table2Clipboard">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Напишано од">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Копирај ги опциите за 'Вметни специјално'">
 <!ENTITY copy.links.label "Копирај ги врските">
+<!ENTITY copy.styles.label "Копирај ги стиловите (боите, рамките,...)">
 <!ENTITY copy.images.label "Копирај ги сликите">
+<!ENTITY copy.form.elements.label "Копирај ги елементите на формуларот (полиња за внес на текст, копчињата,...)">
+<!ENTITY styles.warning.label "Копирањето на стиловите во ова време е поддржано само од производите на Microsoft">

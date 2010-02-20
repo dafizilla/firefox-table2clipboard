@@ -6,6 +6,14 @@
 <!ENTITY rowSeparator.label "Satır ayracı olarak kullanılacak dize">
 <!ENTITY settings.title "Table2Clipboard ayarları">
 <!ENTITY site.label "Davide Ficano">
-<!ENTITY table2Clip.home.tooltip "Table2Clipboard&apos;a git">
+<!ENTITY table2Clip.home.tooltip "Table2Clipboard'a git">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Hazırlayan">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "'Özel Yapıştır' için Kopyalama Ayarları">
+<!ENTITY copy.links.label "Bağlantıları Kopyala">
+<!ENTITY copy.styles.label "Biçemleri Kopyala (renkler, çerçeveler, ...)">
+<!ENTITY copy.images.label "Resimleri Kopyala">
+<!ENTITY copy.form.elements.label "Form Elemanlarını Kopyala (metin kutuları, düğmeler, ...)">
+<!ENTITY styles.warning.label "Biçem kopyalama şimdilik sadece Microsoft ürünlerinde desteklenmektedir">

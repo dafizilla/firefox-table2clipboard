@@ -6,3 +6,5 @@
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
 <!ENTITY table2Clip.tool.menu.accesskey "2">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "">
+<!ENTITY t2c.copyalltables.commandkey "">

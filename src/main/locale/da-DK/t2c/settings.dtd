@@ -9,3 +9,5 @@
 <!ENTITY table2Clip.home.tooltip "Gå til Tabel2Udklipsholder">
 <!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Skrevet af">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
