@@ -222,10 +222,11 @@
             </not>
         </condition>
         
+        <!-- Get file from ${website.dest.dir} to be sure it contains update url -->
         <exec executable="rsync">
           <arg value="-e"/>
           <arg value="ssh"/>
-          <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
+          <arg value="${website.dest.dir}/${dist.name}.xpi"/>
           <arg value="dafi,dafizilla@frs.sourceforge.net:/home/frs/project/d/da/dafizilla/${sfnet.directory}/v${extension.version}/"/>
         </exec>
     </target>
@@ -233,7 +234,7 @@
     <target name="upload-ohloh" if="upload.ohloh">
         <echo message="Uploading ${dist.name}.xpi to upload.ohloh.net" />
         <exec executable="scp">
-          <arg value="${bin.dist.dir}/${dist.name}.xpi"/>
+          <arg value="${website.dest.dir}/${dist.name}.xpi"/>
           <arg value="dafi@upload.ohloh.net:${extension.ohloh-project-name}/files"/>
         </exec>
 

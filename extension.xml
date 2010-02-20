@@ -1,9 +1,9 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "1.2">
+<!ENTITY extension.version "1.3">
 ]>
 
 <extension name="t2c">
-    <title-name>Dafizilla Table2Clipboard</title-name>
+    <title-name>Table2Clipboard</title-name>
     <uuid>{9ab67d74-ec41-4cb2-b417-df5d93ba1beb}</uuid>
     <version>&extension.version;</version>
     <description>Allow to copy to clipboard an HTML table rows/columns selection correctly formatted</description>
@@ -16,12 +16,8 @@
 
     <author>Davide Ficano</author>
 
-    <exclude-installjs>false</exclude-installjs>
-    <exclude.installrdf>false</exclude.installrdf>
-    <exclude.chromemanifest>false</exclude.chromemanifest>
-    <exclude.prefsjs>false</exclude.prefsjs>
-    <exclude.updaterdf>false</exclude.updaterdf>
-    <exclude.contentrdf>false</exclude.contentrdf>
+    <!-- Do not add to install.rdf deprecated infos about content, skin and locales (i.e. contents.rdf) -->
+    <use-only-chrome-manifest>true</use-only-chrome-manifest>
 
     <!-- Point to directory containing content, locales and skins. -->
     <!-- If present must start with / (slash) -->
@@ -47,7 +43,7 @@
         <locale pos="4" code="es-ES" />
         <locale pos="5" code="fr" />
         <locale pos="6" code="nl-NL" />
-        <locale pos="7" code="pl-PL" />
+        <!--<locale pos="7" code="pl-PL" />-->
         <!--<locale pos="8" code="tr-TR" />-->
         <locale pos="9" code="ru-RU" />
         <!--<locale pos="10" code="zh-CN" />-->
@@ -58,10 +54,10 @@
         <!--<locale pos="15" code="fa-IR" />-->
         <!--<locale pos="16" code="nb-NO" />-->
         <locale pos="17" code="ja" />
-        <locale pos="18" code="sv-SE" />
+        <!--<locale pos="18" code="sv-SE" />-->
         <locale pos="19" code="uk-UA" />
         <locale pos="20" code="ko-KR" />
-        <!--<locale pos="21" code="mk-MK" />-->
+        <locale pos="21" code="mk-MK" />
         <!--<locale pos="22" code="zh-TW" />-->
     </locales>
 
@@ -82,14 +78,14 @@
             <description>Firefox</description>
             <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
             <minVersion>2.0</minVersion>
-            <maxVersion>3.7a1pre</maxVersion>
+            <maxVersion>3.7a2pre</maxVersion>
         </application>
 
         <application>
             <description>Thunderbird</description>
             <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id>
             <minVersion>2.0</minVersion>
-            <maxVersion>3.1a1pre</maxVersion>
+            <maxVersion>3.2a1pre</maxVersion>
         </application>
         
         <application>
@@ -102,7 +98,7 @@
         <application>
             <description>SeaMonkey</description>
             <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
-            <minVersion>1.0</minVersion>
+            <minVersion>2.0</minVersion>
             <maxVersion>2.1a1pre</maxVersion>
         </application>
 
