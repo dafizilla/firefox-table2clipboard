@@ -36,23 +36,29 @@
 
     <!-- Context Menu Firefox, Mozilla, NS8, Flock -->
     <popup id="contentAreaContextMenu">
+        <menuseparator id="context-t2c:sep-begin" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:Copy" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:SelectTable" insertbefore="context-sep-paste" />
+        <menuseparator id="context-t2c:sep-end" insertbefore="context-sep-paste" />
     </popup>
 
     <!-- Context Menu Thunderbird 2.x -->
     <popup id="messagePaneContext">
-        <menuitem id="context-t2c:Copy" insertbefore="context-sep-selectall" />
-        <menuitem id="context-t2c:CopyWholeTable" insertbefore="context-sep-selectall" />
-        <menuitem id="context-t2c:SelectTable" insertbefore="context-sep-selectall" />
+        <menuseparator id="context-t2c:sep-begin" insertbefore="messagePaneContext-sep-open" />
+        <menuitem id="context-t2c:Copy" insertbefore="messagePaneContext-sep-open" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="messagePaneContext-sep-open" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="messagePaneContext-sep-open" />
+        <menuseparator id="context-t2c:sep-end" insertbefore="messagePaneContext-sep-open" />
     </popup>
 
     <!-- Context Menu Thunderbird 3.x -->
     <popup id="mailContext">
-        <menuitem id="context-t2c:Copy" insertbefore="mailContext-selectall" />
-        <menuitem id="context-t2c:CopyWholeTable" insertbefore="mailContext-selectall" />
-        <menuitem id="context-t2c:SelectTable" insertbefore="mailContext-selectall" />
+        <menuseparator id="context-t2c:sep-begin" insertbefore="mailContext-sep-open" />
+        <menuitem id="context-t2c:Copy" insertbefore="mailContext-sep-open" />
+        <menuitem id="context-t2c:CopyWholeTable" insertbefore="mailContext-sep-open" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="mailContext-sep-open" />
+        <menuseparator id="context-t2c:sep-end" insertbefore="mailContext-sep-open" />
     </popup>
 
     <!-- Edit Menu Firefox, available in Thunderbird since version 2.0.0.16 -->

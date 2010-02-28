@@ -36,8 +36,10 @@
 
     <!-- Prism Context menu -->
     <menupopup id="popup_content">
+        <menuseparator id="context-t2c:sep-begin" insertbefore="menuitem_paste" />
         <menuitem id="context-t2c:Copy" insertbefore="menuitem_paste" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="menuitem_paste" />
-        <menuitem id="context-t2c:SelectTable" insertafter="menuitem_selectAll" />
+        <menuitem id="context-t2c:SelectTable" insertbefore="menuitem_paste" />
+        <menuseparator id="context-t2c:sep-end" insertbefore="menuitem_paste" />
     </menupopup>
 </overlay>
