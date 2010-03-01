@@ -51,6 +51,15 @@
                 oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
                 hidden="true"/>
 
+    <menuitem id="context-t2c:SelectTableRow"
+                label="&cmd.ctx-selecttablerow.label;"
+                oncommand="gTable2Clip.doCommand('cmd_selectTableRow');"
+                hidden="true"/>
+
+    <menuitem id="context-t2c:SelectTableColumn"
+                label="&cmd.ctx-selecttablecolumn.label;"
+                oncommand="gTable2Clip.doCommand('cmd_selectTableColumn');"
+                hidden="true"/>
 
     <menuitem id="toolsMenu-t2c:Settings"
             label="&table2Clip.tool.menu.label;"

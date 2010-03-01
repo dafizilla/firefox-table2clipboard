@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Copy selected cells">
 <!ENTITY cmd.ctx-selecttable.label "Select table">
 <!ENTITY cmd.ctx-copy-whole-table.label "Copy whole table">
+<!ENTITY cmd.ctx-selecttablerow.label "Select row">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Select column">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">

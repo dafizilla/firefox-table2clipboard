@@ -248,4 +248,21 @@ if (typeof table2clipboard.tableInfo == "undefined") {
         }
         return nodeList;
     }
+    
+    /**
+     * Select cells
+     * @param sel the selection object
+     * @param {array} cells cells to select
+     */
+    this.selectCells = function(sel, cells) {
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+
+            var range = document.createRange();
+            range.setStartBefore(cell, 0);
+            range.setEndAfter(cell, 0);
+
+            sel.addRange(range);
+        }
+    }
 }).apply(table2clipboard.tableInfo);

@@ -39,6 +39,8 @@
         <menuseparator id="context-t2c:sep-begin" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:Copy" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="context-sep-paste" />
+        <menuitem id="context-t2c:SelectTableRow" insertbefore="context-sep-paste" />
+        <menuitem id="context-t2c:SelectTableColumn" insertbefore="context-sep-paste" />
         <menuitem id="context-t2c:SelectTable" insertbefore="context-sep-paste" />
         <menuseparator id="context-t2c:sep-end" insertbefore="context-sep-paste" />
     </popup>
@@ -48,6 +50,8 @@
         <menuseparator id="context-t2c:sep-begin" insertbefore="messagePaneContext-sep-open" />
         <menuitem id="context-t2c:Copy" insertbefore="messagePaneContext-sep-open" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="messagePaneContext-sep-open" />
+        <menuitem id="context-t2c:SelectTableRow" insertbefore="messagePaneContext-sep-open" />
+        <menuitem id="context-t2c:SelectTableColumn" insertbefore="messagePaneContext-sep-open" />
         <menuitem id="context-t2c:SelectTable" insertbefore="messagePaneContext-sep-open" />
         <menuseparator id="context-t2c:sep-end" insertbefore="messagePaneContext-sep-open" />
     </popup>
@@ -57,6 +61,8 @@
         <menuseparator id="context-t2c:sep-begin" insertbefore="mailContext-sep-open" />
         <menuitem id="context-t2c:Copy" insertbefore="mailContext-sep-open" />
         <menuitem id="context-t2c:CopyWholeTable" insertbefore="mailContext-sep-open" />
+        <menuitem id="context-t2c:SelectTableRow" insertbefore="mailContext-sep-open" />
+        <menuitem id="context-t2c:SelectTableColumn" insertbefore="mailContext-sep-open" />
         <menuitem id="context-t2c:SelectTable" insertbefore="mailContext-sep-open" />
         <menuseparator id="context-t2c:sep-end" insertbefore="mailContext-sep-open" />
     </popup>

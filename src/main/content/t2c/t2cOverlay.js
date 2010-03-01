@@ -96,6 +96,10 @@ var gTable2Clip = {
                               thiz.isCommandEnabled('cmd_selectTableT2C'));
             thiz.showMenuItem(document.getElementById("context-t2c:CopyWholeTable"),
                               thiz.isCommandEnabled('cmd_copyWholeTable'));
+            thiz.showMenuItem(document.getElementById("context-t2c:SelectTableRow"),
+                              thiz.isCommandEnabled('cmd_selectTableRow'));
+            thiz.showMenuItem(document.getElementById("context-t2c:SelectTableColumn"),
+                              thiz.isCommandEnabled('cmd_selectTableColumn'));
         }
         return true;
     },
@@ -259,6 +263,10 @@ var gTable2Clip = {
             gTable2Clip.selectTable(gTable2Clip._tableUnderCursor);
         } else if (command == "cmd_copyWholeTable") {
             gTable2Clip.copyWholeTable(gTable2Clip._tableUnderCursor);
+        } else if (command == "cmd_selectTableRow") {
+            gTable2Clip.selectTableRow();
+        } else if (command == "cmd_selectTableColumn") {
+            gTable2Clip.selectTableColumn();
         }
     },
 
@@ -276,6 +284,12 @@ var gTable2Clip = {
         } else if (command == "cmd_copyWholeTable") {
             gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
             return gTable2Clip._tableUnderCursor != null;
+        } else if (command == "cmd_selectTableRow") {
+            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
+            return gTable2Clip._tableUnderCursor != null;
+        } else if (command == "cmd_selectTableColumn") {
+            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
+            return gTable2Clip._tableUnderCursor != null;
         }
         return false;
     },
@@ -285,6 +299,64 @@ var gTable2Clip = {
 
     supportsCommand : function(command) {
         return command == "cmd_copyT2C";
+    },
+
+    selectTableRow : function() {
+        // get node under mouse pointer
+        var tr = table2clipboard.tableInfo.getAncestorByTagName(document.popupNode, "tr");
+
+        if (tr) {
+            var sel = document.commandDispatcher.focusedWindow.getSelection();
+            table2clipboard.tableInfo.selectCells(sel, tr.cells);
+        }
+    },
+
+    selectTableColumn : function() {
+        var node = document.popupNode;
+        // TODO Must be optimized
+        var cell = table2clipboard.tableInfo.getAncestorByTagName(node, "td")
+                    || table2clipboard.tableInfo.getAncestorByTagName(node, "th");
+        var table = table2clipboard.tableInfo.findTableFromNode(node);
+        var cells = [];
+        var rows = table.rows;
+
+        var cellRowIndex;
+        var cellPos;
+
+        for (var r = 0; r < rows.length && !cellRowIndex; r++) {
+            var row = rows[r];
+            var currCells = row.cells;
+            var pos = 0; 
+
+            for (var c = 0; c < currCells.length; c++) {
+                var currCell = currCells[c];
+                pos += currCell.colSpan;
+                
+                if (currCell == cell) {
+                    cellRowIndex = r;
+                    cellPos = pos;
+                    break;
+                }
+            }
+        }
+
+        for (var r = 0; r < rows.length; r++) {
+            var row = rows[r];
+            var currCells = row.cells;
+            var pos = 0;
+
+            for (var c = 0; c < currCells.length; c++) {
+                var currCell = currCells[c];
+                pos += currCell.colSpan;
+                
+                if (pos >= cellPos) {
+                    cells.push(currCell);
+                    break;
+                }
+            }
+        }
+        var sel = document.commandDispatcher.focusedWindow.getSelection();
+        table2clipboard.tableInfo.selectCells(sel, cells);
     },
 
     onOpenSettings : function(event) {
