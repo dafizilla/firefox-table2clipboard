@@ -43,22 +43,22 @@
 
     <menuitem id="context-t2c:CopyWholeTable"
                 label="&cmd.ctx-copy-whole-table.label;"
-                oncommand="gTable2Clip.doCommand('cmd_copyWholeTable');"
+                oncommand="gTable2Clip.copyWholeTable();"
                 hidden="true"/>
 
     <menuitem id="context-t2c:SelectTable"
                 label="&cmd.ctx-selecttable.label;"
-                oncommand="gTable2Clip.doCommand('cmd_selectTableT2C');"
+                oncommand="gTable2Clip.selectTable();"
                 hidden="true"/>
 
     <menuitem id="context-t2c:SelectTableRow"
                 label="&cmd.ctx-selecttablerow.label;"
-                oncommand="gTable2Clip.doCommand('cmd_selectTableRow');"
+                oncommand="gTable2Clip.selectTableRow();"
                 hidden="true"/>
 
     <menuitem id="context-t2c:SelectTableColumn"
                 label="&cmd.ctx-selecttablecolumn.label;"
-                oncommand="gTable2Clip.doCommand('cmd_selectTableColumn');"
+                oncommand="gTable2Clip.selectTableColumn();"
                 hidden="true"/>
 
     <menuitem id="toolsMenu-t2c:Settings"

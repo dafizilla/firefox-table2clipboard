@@ -88,18 +88,24 @@ var gTable2Clip = {
 
     onPopupShowingContextMenu : function(event) {
         if (event.target == this) {
-            var thiz = gTable2Clip;
+            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
+            var isOnTable = gTable2Clip._tableUnderCursor != null;
+            var hasCellsSelected = gTable2Clip.isCommandEnabled('cmd_copyT2C');
 
-            thiz.showMenuItem(document.getElementById("context-t2c:Copy"),
-                              thiz.isCommandEnabled('cmd_copyT2C'));
-            thiz.showMenuItem(document.getElementById("context-t2c:SelectTable"),
-                              thiz.isCommandEnabled('cmd_selectTableT2C'));
-            thiz.showMenuItem(document.getElementById("context-t2c:CopyWholeTable"),
-                              thiz.isCommandEnabled('cmd_copyWholeTable'));
-            thiz.showMenuItem(document.getElementById("context-t2c:SelectTableRow"),
-                              thiz.isCommandEnabled('cmd_selectTableRow'));
-            thiz.showMenuItem(document.getElementById("context-t2c:SelectTableColumn"),
-                              thiz.isCommandEnabled('cmd_selectTableColumn'));
+            gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
+            gTable2Clip.showMenuItem("context-t2c:SelectTable", isOnTable);
+            gTable2Clip.showMenuItem("context-t2c:CopyWholeTable", isOnTable);
+            gTable2Clip.showMenuItem("context-t2c:SelectTableRow", isOnTable);
+            gTable2Clip.showMenuItem("context-t2c:SelectTableColumn", isOnTable);
+
+            // hide separators based on their sibling nodes
+            var sepBeginPrev = document.getElementById("context-t2c:SepBegin").previousSibling;
+            var sepEndNext = document.getElementById("context-t2c:SepEnd").nextSibling;
+            var hasMenuBeforeBeginSep = sepBeginPrev && sepBeginPrev.localName != "menuseparator";
+            var hasMenuAfterEndSep = sepEndNext && sepEndNext.localName != "menuseparator";
+            var shouldShow = hasCellsSelected || isOnTable;
+            gTable2Clip.showMenuItem("context-t2c:SepBegin", hasMenuBeforeBeginSep && shouldShow);
+            gTable2Clip.showMenuItem("context-t2c:SepEnd", hasMenuAfterEndSep && shouldShow);
         }
         return true;
     },
@@ -118,6 +124,9 @@ var gTable2Clip = {
     },
 
     showMenuItem : function(menuItem, show) {
+        if (menuItem.constructor === String) {
+            menuItem = document.getElementById(menuItem);
+        }
         if (show) {
             menuItem.removeAttribute("hidden");
         } else {
@@ -226,6 +235,8 @@ var gTable2Clip = {
     },
 
     selectTable : function(table) {
+        table = typeof(table) == "undefined" || table == null
+            ? gTable2Clip._tableUnderCursor : table;
         if (table) {
             var focusedWindow = document.commandDispatcher.focusedWindow;
             var sel = focusedWindow.getSelection();
@@ -234,6 +245,8 @@ var gTable2Clip = {
     },
 
     copyWholeTable : function(table) {
+        table = typeof(table) == "undefined" || table == null
+            ? gTable2Clip._tableUnderCursor : table;
         try {
             var arr = table2clipboard.tableInfo.getTableInfoFromTable(table);
             gTable2Clip.copyToClipboard(arr);
@@ -259,14 +272,6 @@ var gTable2Clip = {
         }
         if (command == "cmd_copyT2C") {
             gTable2Clip.copyTableSelection();
-        } else if (command == "cmd_selectTableT2C") {
-            gTable2Clip.selectTable(gTable2Clip._tableUnderCursor);
-        } else if (command == "cmd_copyWholeTable") {
-            gTable2Clip.copyWholeTable(gTable2Clip._tableUnderCursor);
-        } else if (command == "cmd_selectTableRow") {
-            gTable2Clip.selectTableRow();
-        } else if (command == "cmd_selectTableColumn") {
-            gTable2Clip.selectTableColumn();
         }
     },
 
@@ -278,18 +283,6 @@ var gTable2Clip = {
                 return gTable2Clip.isContentSelection(sel)
                          && gTable2Clip.isTableSelection(sel.focusNode);
             }
-        } else if (command == "cmd_selectTableT2C") {
-            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
-            return gTable2Clip._tableUnderCursor != null;
-        } else if (command == "cmd_copyWholeTable") {
-            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
-            return gTable2Clip._tableUnderCursor != null;
-        } else if (command == "cmd_selectTableRow") {
-            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
-            return gTable2Clip._tableUnderCursor != null;
-        } else if (command == "cmd_selectTableColumn") {
-            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
-            return gTable2Clip._tableUnderCursor != null;
         }
         return false;
     },
@@ -312,50 +305,8 @@ var gTable2Clip = {
     },
 
     selectTableColumn : function() {
-        var node = document.popupNode;
-        // TODO Must be optimized
-        var cell = table2clipboard.tableInfo.getAncestorByTagName(node, "td")
-                    || table2clipboard.tableInfo.getAncestorByTagName(node, "th");
-        var table = table2clipboard.tableInfo.findTableFromNode(node);
-        var cells = [];
-        var rows = table.rows;
-
-        var cellRowIndex;
-        var cellPos;
-
-        for (var r = 0; r < rows.length && !cellRowIndex; r++) {
-            var row = rows[r];
-            var currCells = row.cells;
-            var pos = 0; 
-
-            for (var c = 0; c < currCells.length; c++) {
-                var currCell = currCells[c];
-                pos += currCell.colSpan;
-                
-                if (currCell == cell) {
-                    cellRowIndex = r;
-                    cellPos = pos;
-                    break;
-                }
-            }
-        }
-
-        for (var r = 0; r < rows.length; r++) {
-            var row = rows[r];
-            var currCells = row.cells;
-            var pos = 0;
-
-            for (var c = 0; c < currCells.length; c++) {
-                var currCell = currCells[c];
-                pos += currCell.colSpan;
-                
-                if (pos >= cellPos) {
-                    cells.push(currCell);
-                    break;
-                }
-            }
-        }
         var sel = document.commandDispatcher.focusedWindow.getSelection();
+        var cells = table2clipboard.tableInfo.getTableColumnsByNode(document.popupNode);
         table2clipboard.tableInfo.selectCells(sel, cells);
     },
 

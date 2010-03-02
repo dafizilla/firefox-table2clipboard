@@ -248,7 +248,7 @@ if (typeof table2clipboard.tableInfo == "undefined") {
         }
         return nodeList;
     }
-    
+
     /**
      * Select cells
      * @param sel the selection object
@@ -264,5 +264,54 @@ if (typeof table2clipboard.tableInfo == "undefined") {
 
             sel.addRange(range);
         }
+    }
+
+    /**
+     * Get columns (vertical cells) starting from a node
+     * @param node the starting node from witch to find the TD element
+     * @returns {array} the cell columns relative to passed node
+     */
+    this.getTableColumnsByNode = function(node) {
+        // TODO Must be optimized
+        var cell = table2clipboard.tableInfo.getAncestorByTagName(node, "td")
+                    || table2clipboard.tableInfo.getAncestorByTagName(node, "th");
+        var table = table2clipboard.tableInfo.findTableFromNode(node);
+        var rows = table.rows;
+        var cellPos;
+
+        for (var r = 0; r < rows.length && !cellPos; r++) {
+            var row = rows[r];
+            var currCells = row.cells;
+            var pos = 1;
+
+            for (var c = 0; c < currCells.length; c++) {
+                var currCell = currCells[c];
+
+                if (currCell == cell) {
+                    cellPos = pos;
+                    break;
+                }
+                pos += currCell.colSpan;
+            }
+        }
+
+        var cells = [];
+
+        for (var r = 0; r < rows.length; r++) {
+            var row = rows[r];
+            var currCells = row.cells;
+            var pos = 0;
+
+            for (var c = 0; c < currCells.length; c++) {
+                var currCell = currCells[c];
+                pos += currCell.colSpan;
+
+                if (pos >= cellPos) {
+                    cells.push(currCell);
+                    break;
+                }
+            }
+        }
+        return cells;
     }
 }).apply(table2clipboard.tableInfo);
