@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Çizelgele">
 <!ENTITY rowSeparator.label "Satır ayracı olarak kullanılacak dize">
 <!ENTITY settings.title "Table2Clipboard ayarları">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Table2Clipboard'a git">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Hazırlayan">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

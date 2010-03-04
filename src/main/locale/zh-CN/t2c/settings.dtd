@@ -5,7 +5,5 @@
 <!ENTITY menu.special.tab "表格">
 <!ENTITY rowSeparator.label "用于行分割条的字符串">
 <!ENTITY settings.title "Table2Clipboard 选项">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "前往 Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "作者：">

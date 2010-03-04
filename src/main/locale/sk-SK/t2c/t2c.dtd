@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Kopírovať vybrané bunky">
 <!ENTITY cmd.ctx-selecttable.label "Vybrať tabuľku">
 <!ENTITY cmd.ctx-copy-whole-table.label "Kopírovať celú tabuľku">
+<!ENTITY cmd.ctx-selecttablerow.label "Označiť riadok">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Označiť stĺpec">
 <!ENTITY editMenu-t2c-copy.accesskey "t">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">

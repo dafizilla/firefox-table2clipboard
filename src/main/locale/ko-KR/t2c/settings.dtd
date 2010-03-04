@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "도표">
 <!ENTITY rowSeparator.label "행 구분자 사용 문자열">
 <!ENTITY settings.title "Table2Clipboard 설정">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Table2Clipboard로 가기">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "작성:">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

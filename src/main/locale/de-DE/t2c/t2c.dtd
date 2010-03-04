@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Tabellenauswahl kopieren">
 <!ENTITY cmd.ctx-selecttable.label "Gesamte Tabelle markieren">
 <!ENTITY cmd.ctx-copy-whole-table.label "Gesamte Tabelle kopieren">
+<!ENTITY cmd.ctx-selecttablerow.label "Zeile markieren">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Spalte markieren">
 <!ENTITY editMenu-t2c-copy.accesskey "T">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard - Einstellungen">

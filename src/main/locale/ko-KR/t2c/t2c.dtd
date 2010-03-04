@@ -2,9 +2,11 @@
 <!ENTITY cmd.editMenu-copyselection.label "선택된 셀 복사">
 <!ENTITY cmd.ctx-selecttable.label "표 선택">
 <!ENTITY cmd.ctx-copy-whole-table.label "표 전체 복사">
+<!ENTITY cmd.ctx-selecttablerow.label "행 선택">
+<!ENTITY cmd.ctx-selecttablecolumn.label "열 선택">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
 <!ENTITY table2Clip.tool.menu.accesskey "2">
-<!ENTITY editMenu-t2c-copyalltables.accesskey "">
-<!ENTITY t2c.copyalltables.commandkey "">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "b">
+<!ENTITY t2c.copyalltables.commandkey "b">

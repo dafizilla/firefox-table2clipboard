@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "表にする">
 <!ENTITY rowSeparator.label "行の区切りとして用いる文字列">
 <!ENTITY settings.title "Table2Clipboard 設定">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Table2Clipboard に移動">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "著者">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

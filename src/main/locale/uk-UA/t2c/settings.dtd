@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Табуляція">
 <!ENTITY rowSeparator.label "Послідовність символів, що використовується як роздільник рядків">
 <!ENTITY settings.title "Налаштування Table2Clipboard">
-<!ENTITY site.label "avide Ficano">
 <!ENTITY table2Clip.home.tooltip "Перехід на сторінку Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Автор:">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

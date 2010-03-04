@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Скопіювати вибрані комірки">
 <!ENTITY cmd.ctx-selecttable.label "Вибрати таблицю">
 <!ENTITY cmd.ctx-copy-whole-table.label "Скопіювати таблицю повністю">
+<!ENTITY cmd.ctx-selecttablerow.label "Вибрати рядок">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Вибрати стовпчик">
 <!ENTITY editMenu-t2c-copy.accesskey "п">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">

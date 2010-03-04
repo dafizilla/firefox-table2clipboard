@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Скопировать выделенные ячейки">
 <!ENTITY cmd.ctx-selecttable.label "Выделить таблицу">
 <!ENTITY cmd.ctx-copy-whole-table.label "Скопировать таблицу целиком">
+<!ENTITY cmd.ctx-selecttablerow.label "Выделить cnhjre">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Выделить колонку">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">

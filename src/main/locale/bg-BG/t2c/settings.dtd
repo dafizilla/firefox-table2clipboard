@@ -5,7 +5,5 @@
 <!ENTITY menu.special.tab "Табулатор">
 <!ENTITY rowSeparator.label "Низ, който да се използва за разделител на редовете">
 <!ENTITY settings.title "Настройки на Table2Clipboard">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Към Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Автор">

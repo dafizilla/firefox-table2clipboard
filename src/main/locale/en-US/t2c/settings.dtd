@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Tabulation">
 <!ENTITY rowSeparator.label "String to use as rows separator">
 <!ENTITY settings.title "Table2Clipboard settings">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Go to Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Written by">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

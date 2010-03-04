@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Tabulator">
 <!ENTITY rowSeparator.label "Znaki używane jako separator wierszy">
 <!ENTITY settings.title "Table2Clipboard – ustawienia">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Przejdź do Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Autor">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

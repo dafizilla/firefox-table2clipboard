@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Табулација">
 <!ENTITY rowSeparator.label "Низа за користење како разделувач на редовите">
 <!ENTITY settings.title "Table2Clipboard поставувања">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Оди до Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Напишано од">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Tabulátor">
 <!ENTITY rowSeparator.label "Reťazec, ktorý použiť ako oddeľovač riadkov">
 <!ENTITY settings.title "Table2Clipboard – Nastavenie">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Prejsť na Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Vytvoril">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

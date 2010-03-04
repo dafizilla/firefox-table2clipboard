@@ -5,9 +5,7 @@
 <!ENTITY menu.special.tab "Tabulation">
 <!ENTITY rowSeparator.label "Chaîne de caractères à utiliser comme séparateur de lignes">
 <!ENTITY settings.title "Paramètres de Table2Clipboard">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "Aller à Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "Créée par">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">

@@ -2,6 +2,8 @@
 <!ENTITY cmd.editMenu-copyselection.label "Копирај ги избраните ќелии">
 <!ENTITY cmd.ctx-selecttable.label "Изберете табела">
 <!ENTITY cmd.ctx-copy-whole-table.label "Коприрај ја табела">
+<!ENTITY cmd.ctx-selecttablerow.label "Изберете ред">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Изберете колона">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "c">
 <!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">

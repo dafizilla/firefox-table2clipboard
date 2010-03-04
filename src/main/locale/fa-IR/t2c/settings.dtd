@@ -5,7 +5,5 @@
 <!ENTITY menu.special.tab "جدول بندی">
 <!ENTITY rowSeparator.label "رشته جدا کننده ردیف ها">
 <!ENTITY settings.title "تنظیمات Table2Clipboard">
-<!ENTITY site.label "Davide Ficano">
 <!ENTITY table2Clip.home.tooltip "رفتن به Table2Clipboard">
-<!ENTITY table2Clip.url "http://dafizilla.sourceforge.net/table2clip">
 <!ENTITY writtenBy.label "نویسنده :">

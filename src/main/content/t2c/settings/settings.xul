@@ -3,7 +3,12 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://t2c/skin/settings.css" type="text/css"?>
 
-<!DOCTYPE dialog SYSTEM "chrome://t2c/locale/settings.dtd" >
+<!DOCTYPE dialog SYSTEM "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" [
+  <!ENTITY % settingsDTD SYSTEM "chrome://t2c/locale/settings.dtd">
+  <!ENTITY % appInfoDTD SYSTEM "chrome://t2c/content/appInfo.dtd">
+  %settingsDTD;
+  %appInfoDTD;
+]>
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="t2cSettingsDialog"
