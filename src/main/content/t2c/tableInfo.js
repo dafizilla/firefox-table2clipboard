@@ -255,6 +255,15 @@ if (typeof table2clipboard.tableInfo == "undefined") {
      * @param {array} cells cells to select
      */
     this.selectCells = function(sel, cells) {
+        if (sel.rangeCount == 1 && sel.getRangeAt(0).startContainer.nodeType == 3) {
+            // the selection contains a TEXT_NODE equals to 'null' when user
+            // 1. select some column
+            // 2. click on some area to clear current selection
+            // 3. select again some column
+            // This workaround simply removes the range
+            sel.removeAllRanges();
+        }
+
         for (var i = 0; i < cells.length; i++) {
             var cell = cells[i];
 
