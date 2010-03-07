@@ -35,31 +35,26 @@
          command="cmd_copyT2CAllTable"
          modifiers="accel,shift"/>
 
-    <menuitem id="context-t2c:Copy"
-                label="&cmd.ctx-copyselection.label;"
-                accesskey="&editMenu-t2c-copy.accesskey;"
-                command="cmd_copyT2C"
-                hidden="true"/>
-
-    <menuitem id="context-t2c:CopyWholeTable"
-                label="&cmd.ctx-copy-whole-table.label;"
-                oncommand="gTable2Clip.copyWholeTable();"
-                hidden="true"/>
-
-    <menuitem id="context-t2c:SelectTable"
-                label="&cmd.ctx-selecttable.label;"
-                oncommand="gTable2Clip.selectTable();"
-                hidden="true"/>
-
-    <menuitem id="context-t2c:SelectTableRow"
-                label="&cmd.ctx-selecttablerow.label;"
-                oncommand="gTable2Clip.selectTableRow();"
-                hidden="true"/>
-
-    <menuitem id="context-t2c:SelectTableColumn"
-                label="&cmd.ctx-selecttablecolumn.label;"
-                oncommand="gTable2Clip.selectTableColumn();"
-                hidden="true"/>
+    <menu id="context-t2c:contextMenu" label="Table2Clipboard" accesskey="2">
+        <menupopup id="context-t2c:contextMenupopup">
+            <menuitem id="context-t2c:Copy"
+                        label="&cmd.ctx-copyselection.label;"
+                        accesskey="&editMenu-t2c-copy.accesskey;"
+                        command="cmd_copyT2C"/>
+            <menuitem id="context-t2c:CopyWholeTable"
+                        label="&cmd.ctx-copy-whole-table.label;"
+                        oncommand="gTable2Clip.copyWholeTable();"/>
+            <menuitem id="context-t2c:SelectTable"
+                        label="&cmd.ctx-selecttable.label;"
+                        oncommand="gTable2Clip.selectTable();"/>
+            <menuitem id="context-t2c:SelectTableRow"
+                        label="&cmd.ctx-selecttablerow.label;"
+                        oncommand="gTable2Clip.selectTableRow();"/>
+            <menuitem id="context-t2c:SelectTableColumn"
+                        label="&cmd.ctx-selecttablecolumn.label;"
+                        oncommand="gTable2Clip.selectTableColumn();"/>
+        </menupopup>
+    </menu>
 
     <menuitem id="toolsMenu-t2c:Settings"
             label="&table2Clip.tool.menu.label;"

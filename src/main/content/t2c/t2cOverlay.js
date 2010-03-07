@@ -39,7 +39,7 @@ var gTable2Clip = {
     addListeners : function() {
         var thiz = gTable2Clip;
 
-        var menuItem = document.getElementById("context-t2c:Copy");
+        var menuItem = document.getElementById("context-t2c:contextMenu");
         if (menuItem) {
             var n = menuItem.parentNode;
 
@@ -65,7 +65,7 @@ var gTable2Clip = {
     removeListeners : function() {
         var thiz = gTable2Clip;
 
-        var menuItem = document.getElementById("context-t2c:Copy");
+        var menuItem = document.getElementById("context-t2c:contextMenu");
         if (menuItem) {
             var n = menuItem.parentNode;
 
@@ -88,24 +88,21 @@ var gTable2Clip = {
 
     onPopupShowingContextMenu : function(event) {
         if (event.target == this) {
-            gTable2Clip._tableUnderCursor = gTable2Clip.getTableUnderCursor();
+            gTable2Clip._tableUnderCursor = table2clipboard.tableInfo
+                .findTableFromNode(document.popupNode);
             var isOnTable = gTable2Clip._tableUnderCursor != null;
             var hasCellsSelected = gTable2Clip.isCommandEnabled('cmd_copyT2C');
-
-            gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
-            gTable2Clip.showMenuItem("context-t2c:SelectTable", isOnTable);
-            gTable2Clip.showMenuItem("context-t2c:CopyWholeTable", isOnTable);
-            gTable2Clip.showMenuItem("context-t2c:SelectTableRow", isOnTable);
-            gTable2Clip.showMenuItem("context-t2c:SelectTableColumn", isOnTable);
-
-            // hide separators based on their sibling nodes
-            var sepBeginPrev = document.getElementById("context-t2c:SepBegin").previousSibling;
-            var sepEndNext = document.getElementById("context-t2c:SepEnd").nextSibling;
-            var hasMenuBeforeBeginSep = sepBeginPrev && sepBeginPrev.localName != "menuseparator";
-            var hasMenuAfterEndSep = sepEndNext && sepEndNext.localName != "menuseparator";
             var shouldShow = hasCellsSelected || isOnTable;
-            gTable2Clip.showMenuItem("context-t2c:SepBegin", hasMenuBeforeBeginSep && shouldShow);
-            gTable2Clip.showMenuItem("context-t2c:SepEnd", hasMenuAfterEndSep && shouldShow);
+
+            gTable2Clip.showMenuItem("context-t2c:contextMenu", shouldShow);
+
+            if (shouldShow) {
+                gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
+                gTable2Clip.showMenuItem("context-t2c:SelectTable", isOnTable);
+                gTable2Clip.showMenuItem("context-t2c:CopyWholeTable", isOnTable);
+                gTable2Clip.showMenuItem("context-t2c:SelectTableRow", isOnTable);
+                gTable2Clip.showMenuItem("context-t2c:SelectTableColumn", isOnTable);
+            }
         }
         return true;
     },
@@ -152,7 +149,7 @@ var gTable2Clip = {
             }
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
-            table2clipboard.common.log("T2C copyTableSelection: " + err);
+            table2clipboard.common.logException(err, "T2C copyTableSelection: ");
         }
     },
 
@@ -251,17 +248,8 @@ var gTable2Clip = {
             var arr = table2clipboard.tableInfo.getTableInfoFromTable(table);
             gTable2Clip.copyToClipboard(arr);
         } catch (err) {
-            table2clipboard.common.log("T2C copyWholeTable: " + err);
+            table2clipboard.common.logException(err, "T2C copyWholeTable: ");
         }
-    },
-
-    getTableUnderCursor : function() {
-        if (!(gContextMenu && gContextMenu.target)) {
-            return null;
-        }
-        var nodeUnderCursor = gContextMenu.target;
-
-        return table2clipboard.tableInfo.findTableFromNode(nodeUnderCursor);
     },
 
     /** nsIController implementation **/

@@ -166,4 +166,18 @@ this.trim = function(str) {
     }
     return retStr;
 }
+
+this.logException = function(ex, msg) {
+    var exMsg = ex;
+
+    if ("fileName" in ex) {
+        exMsg = ex.fileName + "(" + ex.lineNumber + ") : "
+            + ex.name + " - " + ex.message + "\n\n"
+            + ex.stack;
+    }
+    if (msg) {
+        exMsg = msg + "\n" + exMsg;
+    }
+    this.log(exMsg);
+}
 }).apply(table2clipboard.common);
