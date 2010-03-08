@@ -88,8 +88,8 @@ var gTable2Clip = {
 
     onPopupShowingContextMenu : function(event) {
         if (event.target == this) {
-            gTable2Clip._tableUnderCursor = table2clipboard.tableInfo
-                .findTableFromNode(document.popupNode);
+            var node = document.popupNode;
+            gTable2Clip._tableUnderCursor = table2clipboard.tableInfo.findTableFromNode(node);
             var isOnTable = gTable2Clip._tableUnderCursor != null;
             var hasCellsSelected = gTable2Clip.isCommandEnabled('cmd_copyT2C');
             var shouldShow = hasCellsSelected || isOnTable;
@@ -97,11 +97,13 @@ var gTable2Clip = {
             gTable2Clip.showMenuItem("context-t2c:contextMenu", shouldShow);
 
             if (shouldShow) {
+                var isOnCell = table2clipboard.tableInfo.getCellNode(node) != null;
+
                 gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
                 gTable2Clip.showMenuItem("context-t2c:SelectTable", isOnTable);
                 gTable2Clip.showMenuItem("context-t2c:CopyWholeTable", isOnTable);
                 gTable2Clip.showMenuItem("context-t2c:SelectTableRow", isOnTable);
-                gTable2Clip.showMenuItem("context-t2c:SelectTableColumn", isOnTable);
+                gTable2Clip.showMenuItem("context-t2c:SelectTableColumn", isOnTable && isOnCell);
             }
         }
         return true;

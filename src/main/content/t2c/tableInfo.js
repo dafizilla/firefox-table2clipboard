@@ -281,10 +281,8 @@ if (typeof table2clipboard.tableInfo == "undefined") {
      * @returns {array} the cell columns relative to passed node
      */
     this.getTableColumnsByNode = function(node) {
-        // TODO Must be optimized
-        var cell = table2clipboard.tableInfo.getAncestorByTagName(node, "td")
-                    || table2clipboard.tableInfo.getAncestorByTagName(node, "th");
-        var table = table2clipboard.tableInfo.findTableFromNode(node);
+        var cell = this.getCellNode(node);
+        var table = this.findTableFromNode(node);
         var rows = table.rows;
         var cellPos;
 
@@ -322,5 +320,16 @@ if (typeof table2clipboard.tableInfo == "undefined") {
             }
         }
         return cells;
+    }
+
+    /**
+     * Get the cell starting from node
+     * @node the node from which to begin the search
+     * @returns the cell node found, null otherwise
+     */
+    this.getCellNode = function(node) {
+        // TODO Must be optimized
+        return this.getAncestorByTagName(node, "td")
+                || this.getAncestorByTagName(node, "th");
     }
 }).apply(table2clipboard.tableInfo);
