@@ -44,15 +44,16 @@
             <menuitem id="context-t2c:CopyWholeTable"
                         label="&cmd.ctx-copy-whole-table.label;"
                         oncommand="gTable2Clip.copyWholeTable();"/>
-            <menuitem id="context-t2c:SelectTable"
-                        label="&cmd.ctx-selecttable.label;"
-                        oncommand="gTable2Clip.selectTable();"/>
+            <menuseparator id="context-t2c:CopySep" />
             <menuitem id="context-t2c:SelectTableRow"
                         label="&cmd.ctx-selecttablerow.label;"
                         oncommand="gTable2Clip.selectTableRow();"/>
             <menuitem id="context-t2c:SelectTableColumn"
                         label="&cmd.ctx-selecttablecolumn.label;"
                         oncommand="gTable2Clip.selectTableColumn();"/>
+            <menuitem id="context-t2c:SelectTable"
+                        label="&cmd.ctx-selecttable.label;"
+                        oncommand="gTable2Clip.selectTable();"/>
         </menupopup>
     </menu>
 
