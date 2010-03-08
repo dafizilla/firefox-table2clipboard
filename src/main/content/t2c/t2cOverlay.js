@@ -97,6 +97,8 @@ var gTable2Clip = {
             gTable2Clip.showMenuItem("context-t2c:contextMenu", shouldShow);
 
             if (shouldShow) {
+                // we disable SelectColumn menuitem when user clicks on TR or TBODY
+                // because the cell isn't determinated (should be found from mouse coordinated)
                 var isOnCell = table2clipboard.tableInfo.getCellNode(node) != null;
 
                 gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
