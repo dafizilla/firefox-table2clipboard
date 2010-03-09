@@ -8,15 +8,16 @@
 
     <script type="text/javascript"
             src="mini_common.js"></script>
-    <script type="text/javascript" src="tableInfo.js"></script>
     <script type="text/javascript"
             src="mini_cssUtils.js"></script>
+    <script type="text/javascript"
+            src="../../src/main/content/t2c/tableInfo.js"></script>
     <script type="text/javascript"
             src="../../src/main/content/t2c/htmlBuilder.js" ></script>
     <script type="text/javascript"
             src="../../src/main/content/t2c/formatters.js" ></script>
     <script type="text/javascript"
-            src="t2c.js"></script>
+            src="instanceof.js"></script>
 
   </head>
 <body onload="onloadPage();">
@@ -68,12 +69,12 @@
     <th scope="col">Month</th>
     <th scope="col">Savings</th>
   </tr>
-  <tr>
-    <td scope="row">1</td>
+  <tr id="tr2-tbl3">
+    <td id="td1-tbl3" scope="row">1</td>
     <td>January <span id="span1_tbl3" style="color:red">a span in red<span id="span2_tbl3" style="color:blue">nested span in blue</span></span></td>
     <td>$100</td>
   </tr>
-  <tr>
+  <tr id="tr3-tbl3">
     <td scope="row">2</td>
     <td>February</td>
     <td>$80</td>
@@ -161,8 +162,10 @@
 <p>selected table: <span id="selectedTable"></span></p>
 
 <form>
-<input type="button" id="copyButton" value="copy"/>
-<textarea id="output" cols="50" rows="20"></textarea>
+  <input type="button" id="copyButton" value="copy"/>
+  <input type="button" id="selectRowButton" value="Select Row"/>
+  <input type="button" id="selectColumnButton" value="Select Column"/>
+  <textarea id="output" cols="50" rows="20"></textarea>
 </script>
 </div>
 </body>

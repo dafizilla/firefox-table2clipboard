@@ -11,35 +11,48 @@ function getAncestorsString(node) {
 }
     
 function onloadPage() {
-  window.addEventListener('mousemove', function(event) {
-    var node = event.target;
-    var s = node.localName + "<br/>"
-            + ((node instanceof HTMLTableElement) ? "HTMLTableElement"
-              : (node instanceof HTMLTableCellElement) ? "HTMLTableCellElement"
-              : (node instanceof HTMLTableRowElement) ? "HTMLTableRowElement"
-              : "");
+    document.getElementById("selectRowButton").addEventListener("click", function(event) {
+        var sel = window.getSelection();
+        var tr = document.getElementById("tr2-tbl3");
+        table2clipboard.tableInfo.selectCells(sel, tr.cells);
+    }, true);
+
+    document.getElementById("selectColumnButton").addEventListener("click", function(event) {
+        var sel = window.getSelection();
+        var cell = document.getElementById("td1-tbl3");
+        var cells = table2clipboard.tableInfo.getTableColumnsByNode(cell);
+        table2clipboard.tableInfo.selectCells(sel, cells);
+    }, true);
+    
+    window.addEventListener('mousemove', function(event) {
+        var node = event.target;
+        var s = node.localName + "<br/>"
+                + getAncestorsString(node);
+                + ((node instanceof HTMLTableElement) ? "HTMLTableElement"
+                  : (node instanceof HTMLTableCellElement) ? "HTMLTableCellElement"
+                  : (node instanceof HTMLTableRowElement) ? "HTMLTableRowElement"
+                  : "");
             
-    document.getElementById("elementInfo").innerHTML = s;
+        document.getElementById("elementInfo").innerHTML = s;
 
-    var safeId = function(node) {
-        return node && node.id;
-    }
+        var safeId = function(node) {
+            return node && node.id;
+        }
     
-    var findTableFromNode = t2c.findTableFromNode(node);
-    var findTableFromNodeLocalName = table2clipboard.tableInfo.findTableFromNode(node);
-    var xpath = findParentTableXPATH(node);
-    var ancestor = table2clipboard.tableInfo.getAncestorByTagName(node, "table");
+        var findTableFromNode = t2c.findTableFromNode(node);
+        var findTableFromNodeLocalName = table2clipboard.tableInfo.findTableFromNode(node);
+        var xpath = findParentTableXPATH(node);
+        var ancestor = table2clipboard.tableInfo.getAncestorByTagName(node, "table");
     
-    document.getElementById("isTableSelection1").innerHTML = t2c.isTableSelection(node);
-    document.getElementById("isTableSelection2").innerHTML = t2cPureHTML.isTableSelection(node);
-    document.getElementById("tableFromNode1").innerHTML = safeId(findTableFromNode) + " xpath " + safeId(xpath);
-    document.getElementById("tableFromNode2").innerHTML = safeId(findTableFromNodeLocalName) + " ancestor " + safeId(ancestor);
-  }, true);
+        document.getElementById("isTableSelection1").innerHTML = t2c.isTableSelection(node);
+        document.getElementById("isTableSelection2").innerHTML = t2cPureHTML.isTableSelection(node);
+        document.getElementById("tableFromNode1").innerHTML = safeId(findTableFromNode) + " xpath " + safeId(xpath);
+        document.getElementById("tableFromNode2").innerHTML = safeId(findTableFromNodeLocalName) + " ancestor " + safeId(ancestor);
+    }, true);
   
-  document.getElementById("copyButton").addEventListener("click", function(event) {
-    t2c.copyWholeTable(clickedTable);
-  }, true);
-
+    document.getElementById("copyButton").addEventListener("click", function(event) {
+        t2c.copyWholeTable(clickedTable);
+    }, true);
 
     window.addEventListener('mousedown', function(event) {
       var node = event.target;
@@ -156,7 +169,7 @@ var t2c = {
             copyLinks : true,//gTable2Clip.prefs.getBool("copyLinks"),
             copyImages : true,//gTable2Clip.prefs.getBool("copyImages"),
             copyFormElements : true};//gTable2Clip.prefs.getBool("copyFormElements")};
-    },
+    }
 };
 
 var t2cPureHTML = {
