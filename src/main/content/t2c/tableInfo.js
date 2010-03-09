@@ -255,12 +255,14 @@ if (typeof table2clipboard.tableInfo == "undefined") {
      * @param {array} cells cells to select
      */
     this.selectCells = function(sel, cells) {
-        if (sel.rangeCount == 1 && sel.getRangeAt(0).startContainer.nodeType == 3) {
-            // the selection contains a TEXT_NODE equals to 'null' when user
+        if (sel.isCollapsed) {
+            // the browsers when collapse the selection should create a dummy
+            // range object that causes problem to this method, to be sure that
+            // only our ranges are present we simply remove any existing one.
+            // On Gecko the selection contains a TEXT_NODE equals to 'null' when user
             // 1. select some column
-            // 2. click on some area to clear current selection
+            // 2. click on some area to remove current selection
             // 3. select again some column
-            // This workaround simply removes the range
             sel.removeAllRanges();
         }
 
