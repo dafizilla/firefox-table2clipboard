@@ -1,0 +1,12 @@
+<!ENTITY cmd.ctx-copyselection.label "Копирај изабране ћелије">
+<!ENTITY cmd.editMenu-copyselection.label "Копирај изабране ћелије">
+<!ENTITY cmd.ctx-selecttable.label "Изабери табелу">
+<!ENTITY cmd.ctx-copy-whole-table.label "Копирај целу табелу">
+<!ENTITY cmd.ctx-selecttablerow.label "Изабери сада">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Изабери колону">
+<!ENTITY editMenu-t2c-copy.accesskey "к">
+<!ENTITY t2c.commandkey "н">
+<!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
+<!ENTITY table2Clip.tool.menu.accesskey "2">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "с">
+<!ENTITY t2c.copyalltables.commandkey "ч">

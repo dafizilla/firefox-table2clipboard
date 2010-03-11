@@ -1,0 +1,17 @@
+<!ENTITY appendRowSep.label "Додај одвајач на крају">
+<!ENTITY colSeparator.label "Вредност која треба да се користи као одвајач колона">
+<!ENTITY menu.special.label "Посебно">
+<!ENTITY menu.special.newline "Нова линија">
+<!ENTITY menu.special.tab "Табулатор">
+<!ENTITY rowSeparator.label "Вредност која треба да се користи као одвајач редова">
+<!ENTITY settings.title "Подешавања Table2Clipboard">
+<!ENTITY table2Clip.home.tooltip "Иди на Table2Clipboard">
+<!ENTITY writtenBy.label "Аутор">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Опције „Специјалног лепљења”">
+<!ENTITY copy.links.label "Копирај везе">
+<!ENTITY copy.styles.label "Копирај стилове (боје, ивице итд.)">
+<!ENTITY copy.images.label "Копирај слике">
+<!ENTITY copy.form.elements.label "Копирај делове образаца (поља за унос текста, дугмад итд.)">
+<!ENTITY styles.warning.label "Копирање стилова је тренутно подржано само у Microsoft-овим производима">

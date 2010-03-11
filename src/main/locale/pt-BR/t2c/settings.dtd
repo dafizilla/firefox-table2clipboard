@@ -1,9 +1,9 @@
 <!ENTITY appendRowSep.label "Separador de apêndices no final">
-<!ENTITY colSeparator.label "String a ser usada como separador de colunas">
+<!ENTITY colSeparator.label "Separador de colunas a ser usado">
 <!ENTITY menu.special.label "Especial">
 <!ENTITY menu.special.newline "Nova quebra de linha">
 <!ENTITY menu.special.tab "Tabulação">
-<!ENTITY rowSeparator.label "String a ser usada como separador de linhas">
+<!ENTITY rowSeparator.label "Separador de linhas a ser usado">
 <!ENTITY settings.title "Configurações do Table2Clipboard">
 <!ENTITY table2Clip.home.tooltip "Ir para Table2Clipboard">
 <!ENTITY writtenBy.label "Criado por">
