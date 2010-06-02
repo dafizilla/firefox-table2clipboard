@@ -3,3 +3,4 @@ pref("extensions.dafizilla.table2clip.copyStyles", true);
 pref("extensions.dafizilla.table2clip.copyLinks", true);
 pref("extensions.dafizilla.table2clip.copyImages", true);
 pref("extensions.dafizilla.table2clip.copyFormElements", true);
+pref("extensions.dafizilla.table2clip.attributeFiltersPattern", "");
