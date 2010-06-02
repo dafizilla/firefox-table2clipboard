@@ -49,9 +49,11 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
 
 (function() {
     /**
-     * This map contains the HTML attributes representing styles (eg colors, fonts)
+     * The attributes filters representing styles (eg colors, fonts)
+     * to exclude from output when copyStyle is false
      */
-    this.stylesAttributesMap = {'style' : 1, 'bgcolor' : 1, 'border' : 1};
+    this.stylesAttributesFilter = table2clipboard.builders.html
+                    .createAttributeFilters("*.-style *.-bgcolor *.-border");
 
     /**
      * This map contains the HTML tags representing styles (eg colors, fonts)
@@ -88,14 +90,14 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
  *   (eg <a> and </a>) (default == false) used when #content handles tag
  *   skipChildren - do not output children nodes (ie stop recursive traversal
  *   for children)
- *   skipAttributes - do not output node attributes, ignored if skipTagName is true
+ *   attributes - attributes array to add, ignored if skipTagName is true
  */
 function OutputNodeInfo() {
     this.content = "";
     this.skipTagName = false;
     this.skipNode = false;
     this.skipChildren = false;
-    this.skipAttributes = false;
+    this.attributes = null;
 }
 
 this.OutputNodeInfo = OutputNodeInfo;
@@ -139,23 +141,14 @@ this.handlers = {
                 .createInstance(Components.interfaces.nsIURL);
             uri.spec = window.content.document.location;
 
-            var output = new HtmlOutput(t2cBuilder.isCanonical);
-            output.print(' ');
-            output.print('href');
-            output.print('="');
-
-            output.normalizeAndPrint(uri.resolve(href), true);
-            output.print('"');
-
-            nodeInfo.content = output.getOutputText();
-            nodeInfo.skipAttributes = true;
+            nodeInfo.attributes = [{nodeName: 'href', nodeValue: uri.resolve(href)}];
         } else {
             var output = new HtmlOutput(t2cBuilder.isCanonical);
             output.print(table2clipboard.common.getTextNodeContent(node));
 
             nodeInfo.content = output.getOutputText();
             nodeInfo.skipTagName = true;
-            nodeInfo.skipAttributes = true;
+            nodeInfo.attributes = null;
             nodeInfo.skipChildren = true;
         }
 
@@ -175,7 +168,7 @@ this.handlers = {
         var nodeInfo = new OutputNodeInfo();
         nodeInfo.content = output.getOutputText();
         nodeInfo.skipTagName = true;
-        nodeInfo.skipAttributes = true;
+        nodeInfo.attributes = null;
         nodeInfo.skipChildren = true;
 
         return nodeInfo;
@@ -186,7 +179,7 @@ this.handlers = {
         nodeInfo.content = "";
         nodeInfo.skipNode = false;
         nodeInfo.skipTagName = false;
-        nodeInfo.skipAttributes = false;
+        nodeInfo.attributes = node.attributes;
         nodeInfo.skipChildren = false;
 
         if (!t2cBuilder.options.copyImages) {
@@ -203,7 +196,7 @@ this.handlers = {
         nodeInfo.content = "";
         nodeInfo.skipNode = false;
         nodeInfo.skipTagName = false;
-        nodeInfo.skipAttributes = false;
+        nodeInfo.attributes = node.attributes;
         nodeInfo.skipChildren = false;
         nodeInfo.skipTagName = !t2cBuilder.options.copyStyles;
 
@@ -219,9 +212,11 @@ this.handlers = {
 
             nodeInfo.content = output.getOutputText();
             nodeInfo.skipTagName = true;
-            nodeInfo.skipAttributes = true;
+            nodeInfo.attributes = null;
             nodeInfo.skipChildren = true;
             nodeInfo.skipNode = false;
+        } else {
+            nodeInfo.attributes = node.attributes;
         }
         return nodeInfo;
     }
@@ -254,13 +249,10 @@ HtmlOutput.prototype = {
         return this.htmlText;
     },
 
-    printNodeAttributes : function(node, excludedAttrs) {
-        var attrs = node.attributes;
+    printNodeAttributes : function(attrs) {
         for (var i = 0; i < attrs.length; i++) {
             var attr = attrs[i];
-            if (excludedAttrs && excludedAttrs[attr.nodeName]) {
-                continue;
-            }
+
             this.print(' ');
             this.print(attr.nodeName);
             this.print('="');
@@ -293,13 +285,18 @@ Builder.prototype = {
         if (handler) {
             return handler(this, node);
         }
+        this.defaultNodeInfo.attributes = node.attributes;
         return this.defaultNodeInfo;
     },
 
     build : function(node, stylesMap) {
         this._stylesMap = stylesMap;
-        this._excludeStylesAttr = this.options.copyStyles
-            ? null : table2clipboard.builders.html.stylesAttributesMap;
+        this._attributeFilters = table2clipboard.builders.html
+                .createAttributeFilters(this.options.attributeFiltersPattern);
+        if (!this._attributeFilters && !this.options.copyStyles) {
+            this._attributeFilters = table2clipboard.builders.html.stylesAttributesFilter;
+        }
+
         this._internalBuild(node);
         this._stylesMap = null;
     },
@@ -336,8 +333,13 @@ Builder.prototype = {
 
                 if (!skipTagName) {
                     // attributes are printed only if the tag name is printed, too
-                    if (!nodeInfo.skipAttributes) {
-                        this.htmlOutput.printNodeAttributes(node, this._excludeStylesAttr);
+                    if (nodeInfo.attributes && nodeInfo.attributes.length) {
+                        if (this._attributeFilters) {
+                            var newAttrs = table2clipboard.builders.html.applyAttributeFilters(this._attributeFilters, node);
+                            this.htmlOutput.printNodeAttributes(newAttrs);
+                        } else {
+                            this.htmlOutput.printNodeAttributes(nodeInfo.attributes);
+                        }
                     }
                     this.htmlOutput.print('>');
                 }

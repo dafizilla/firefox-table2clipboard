@@ -203,7 +203,8 @@ var gTable2Clip = {
         return {copyStyles : gTable2Clip.prefs.getBool("copyStyles"),
             copyLinks : gTable2Clip.prefs.getBool("copyLinks"),
             copyImages : gTable2Clip.prefs.getBool("copyImages"),
-            copyFormElements : gTable2Clip.prefs.getBool("copyFormElements")};
+            copyFormElements : gTable2Clip.prefs.getBool("copyFormElements"),
+            attributeFiltersPattern: gTable2Clip.prefs.getString("attributeFiltersPattern")};
     },
 
     // From browser.js

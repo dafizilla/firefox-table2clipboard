@@ -10,6 +10,8 @@
     <script type="application/x-javascript"
             src="chrome://t2c/content/cssUtils.js"/>
     <script type="application/x-javascript"
+            src="chrome://t2c/content/htmlFilter.js" />
+    <script type="application/x-javascript"
             src="chrome://t2c/content/htmlBuilder.js" />
     <script type="application/x-javascript"
             src="chrome://t2c/content/formatters.js" />

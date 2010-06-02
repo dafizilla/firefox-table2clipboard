@@ -77,6 +77,20 @@
                 <label value="&styles.warning.label;" />
             </vbox>
         </groupbox>
+        <groupbox orient="horizontal" flex="1">
+            <caption label="&html.attribute.filters.label;"/>
+            <vbox flex="1">
+                <label value="&html.attribute.filters.patterns.label;" control="attributeFilters"/>
+                <textbox id="attributeFiltersPattern" multiline="true" flex="1"/>
+                <hbox align="right">
+                  <label value="&html.attribute.filters.doc.label;"
+                         id="filterDocLink"
+                         class="link"
+                         url="http://sourceforge.net/apps/mediawiki/dafizilla/index.php?title=T2c:attrsfilters"
+                         onclick="gTable2ClipSettings.openUrl(event);"/>
+                </hbox>
+            </vbox>
+        </groupbox>
       </tabpanel>
     </tabpanels>
     </tabbox>

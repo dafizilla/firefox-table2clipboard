@@ -54,24 +54,25 @@ var htmlBuildersNS = table2clipboard.builders.html;
 
 this.format = function(tableInfo, options) {
     var stylesMap;
-    var excludeStylesMap;
 
     if (options.copyStyles) {
         stylesMap = [];
-        excludeStylesMap = null;
     } else {
         stylesMap = null;
-        excludeStylesMap = htmlBuildersNS.stylesAttributesMap;
     }
 
+    var attributeFilters = htmlBuildersNS.createAttributeFilters(options.attributeFiltersPattern);
+    if (!attributeFilters && !options.copyStyles) {
+        attributeFilters = htmlBuildersNS.stylesAttributesFilter;
+    }
     var strTable = "";
     // check if tableInfo is an array
     if (Object.prototype.toString.apply(tableInfo) === '[object Array]') {
         for (var i in tableInfo) {
-            strTable += createHTMLTable(tableInfo[i], options, stylesMap, excludeStylesMap);
+            strTable += createHTMLTable(tableInfo[i], options, stylesMap, attributeFilters);
         }
     } else {
-        strTable += createHTMLTable(tableInfo, options, stylesMap, excludeStylesMap);
+        strTable += createHTMLTable(tableInfo, options, stylesMap, attributeFilters);
     }
 
     var strStyles = "";
@@ -95,19 +96,25 @@ this.format = function(tableInfo, options) {
     return str;
 }
 
-function getNodeAttrs(node, excludeStylesMap) {
+function getNodeAttrs(node, attributeFilters) {
     if (node) {
         var attrs = new htmlBuildersNS.HtmlOutput(false);
-        attrs.printNodeAttributes(node, excludeStylesMap);
+
+        if (attributeFilters) {
+            var newAttrs = htmlBuildersNS.applyAttributeFilters(attributeFilters, node);
+            attrs.printNodeAttributes(newAttrs);
+        } else {
+            attrs.printNodeAttributes(node.attributes);
+        }
 
         return attrs.getOutputText();
     }
     return "";
 }
 
-function createHTMLTable(tableInfo, options, stylesMap, excludeStylesMap) {
+function createHTMLTable(tableInfo, options, stylesMap, attributeFilters) {
     var strTable = "";
-    strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode, excludeStylesMap) + ">\n";
+    strTable += "<TABLE " + getNodeAttrs(tableInfo.tableNode, attributeFilters) + ">\n";
     strTable += "<TBODY>\n";
 
     if (stylesMap) {
@@ -118,7 +125,7 @@ function createHTMLTable(tableInfo, options, stylesMap, excludeStylesMap) {
         var row = rows[i];
         var cells = row.cells;
 
-        strTable += "<TR " + getNodeAttrs(row.rowNode, excludeStylesMap) + ">\n";
+        strTable += "<TR " + getNodeAttrs(row.rowNode, attributeFilters) + ">\n";
         if (stylesMap) {
             table2clipboard.css.utils.addStyles(row.rowNode, stylesMap);
         }
