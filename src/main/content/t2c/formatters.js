@@ -101,7 +101,9 @@ function getNodeAttrs(node, attributeFilters) {
         var attrs = new htmlBuildersNS.HtmlOutput(false);
 
         if (attributeFilters) {
-            var newAttrs = htmlBuildersNS.applyAttributeFilters(attributeFilters, node);
+            var newAttrs = htmlBuildersNS.applyAttributeFilters(attributeFilters,
+                                            node.localName,
+                                            node.attributes);
             attrs.printNodeAttributes(newAttrs);
         } else {
             attrs.printNodeAttributes(node.attributes);

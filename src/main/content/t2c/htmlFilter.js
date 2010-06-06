@@ -36,19 +36,21 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
     }
 
     /**
-     * Apply the specified filters to the passed node and returns an array with
-     * matched attributes, array contains {nodeName, nodeValue} objects
+     * Apply the specified filters to the passed attributes and returns an array
+     * with the matched ones, array contains {nodeName, nodeValue} objects
      * @param filters the filters map
-     * @param node the node to inspect
+     * @param nodeName the node name
+     * @param attributes the attributes array to filter, array contains
+     * {nodeName, nodeValue} objects
      * @returns array containing matching attributes
      */
-    this.applyAttributeFilters = function(filters, node) {
+    this.applyAttributeFilters = function(filters, nodeName, attributes) {
         var newAttrs = [];
 
         if (filters) {
             var starFilter = filters['*'];
             var starAttrsMap = starFilter ? starFilter.attrsMap : null;
-            var tagFilter = filters[node.localName.toLowerCase()];
+            var tagFilter = filters[nodeName.toLowerCase()];
             var attrsMap;
 
             if (tagFilter) {
@@ -59,7 +61,7 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
             }
 
             if (starAttrsMap || attrsMap) {
-                var attrs = node.attributes;
+                var attrs = attributes;
 
                 for (var i = 0; i < attrs.length; i++) {
                     var attr = attrs[i];
@@ -82,7 +84,7 @@ if (typeof(table2clipboard.builders.html) == "undefined") {
                 }
             }
         } else {
-            newAttrs = node.attributes;
+            newAttrs = attributes;
         }
         return newAttrs;
     }

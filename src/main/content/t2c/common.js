@@ -180,4 +180,13 @@ this.logException = function(ex, msg) {
     }
     this.log(exMsg);
 }
+
+this.makeAbsoluteUrl = function(base, relative) {
+    var uri = Components
+        .classes["@mozilla.org/network/standard-url;1"]
+        .createInstance(Components.interfaces.nsIURL);
+    uri.spec = base;
+
+    return uri.resolve(relative);
+}
 }).apply(table2clipboard.common);

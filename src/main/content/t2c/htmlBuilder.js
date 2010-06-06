@@ -135,13 +135,11 @@ this.handlers = {
         var nodeInfo = new OutputNodeInfo();
 
         if (t2cBuilder.options.copyLinks) {
-            var href = node.getAttribute('href');
-            var uri = Components
-                .classes["@mozilla.org/network/standard-url;1"]
-                .createInstance(Components.interfaces.nsIURL);
-            uri.spec = window.content.document.location;
+            var hrefUrl = table2clipboard.common.makeAbsoluteUrl(
+                        window.content.document.location,
+                        node.getAttribute('href'));
 
-            nodeInfo.attributes = [{nodeName: 'href', nodeValue: uri.resolve(href)}];
+            nodeInfo.attributes = [{nodeName: 'href', nodeValue: hrefUrl}];
         } else {
             var output = new HtmlOutput(t2cBuilder.isCanonical);
             output.print(table2clipboard.common.getTextNodeContent(node));
@@ -178,13 +176,31 @@ this.handlers = {
         var nodeInfo = new OutputNodeInfo();
         nodeInfo.content = "";
         nodeInfo.skipNode = false;
-        nodeInfo.skipTagName = false;
-        nodeInfo.attributes = node.attributes;
         nodeInfo.skipChildren = false;
 
-        if (!t2cBuilder.options.copyImages) {
+        if (t2cBuilder.options.copyImages) {
+            var attrs = [];
+
+            for (var i = 0; i < node.attributes.length; i++) {
+                var attr = node.attributes[i];
+
+                if (attr.nodeName == 'src') {
+                    var srcUrl = table2clipboard.common.makeAbsoluteUrl(
+                                window.content.document.location,
+                                attr.nodeValue);
+
+                    attrs.push({nodeName: 'src', nodeValue: srcUrl});
+                } else {
+                    attrs.push({nodeName: attr.nodeName, nodeValue: attr.nodeValue});
+                }
+            }
+            nodeInfo.attributes = attrs;
+            nodeInfo.skipTagName = false;
+        } else {
+            nodeInfo.attributes = null;
             nodeInfo.skipTagName = true;
         }
+
         return nodeInfo;
     },
 
@@ -335,7 +351,10 @@ Builder.prototype = {
                     // attributes are printed only if the tag name is printed, too
                     if (nodeInfo.attributes && nodeInfo.attributes.length) {
                         if (this._attributeFilters) {
-                            var newAttrs = table2clipboard.builders.html.applyAttributeFilters(this._attributeFilters, node);
+                            var newAttrs = table2clipboard.builders.html.applyAttributeFilters(
+                                                this._attributeFilters,
+                                                node.localName,
+                                                nodeInfo.attributes);
                             this.htmlOutput.printNodeAttributes(newAttrs);
                         } else {
                             this.htmlOutput.printNodeAttributes(nodeInfo.attributes);
