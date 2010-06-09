@@ -221,31 +221,27 @@ if (typeof table2clipboard.tableInfo == "undefined") {
      * @returns {Array} dom nodes
      */
     this.getRootTables = function(doc, rootNode) {
+        var nodeList = [];
+
         var treeWalker = doc.createTreeWalker(
             rootNode,
             NodeFilter.SHOW_ELEMENT,
-            { acceptNode: function(node) {
+            function(node) {
                 if (node.localName.toLowerCase() == "table") {
-                    var parentNode = node.parentNode;
-                    // skip nested tables
-                    while (parentNode) {
-                        if (parentNode.localName
-                            && parentNode.localName.toLowerCase() == "table") {
-                            return NodeFilter.FILTER_REJECT;
-                        }
-                        parentNode = parentNode.parentNode;
-                    }
-                    return NodeFilter.FILTER_ACCEPT;
+                    // table node must be added to array but its children must
+                    // be rejected so nested tables (if present) will be skipped.
+                    // we fill the array here instead of on the traversal loop
+                    nodeList.push(node);
+                    return NodeFilter.FILTER_REJECT;
                 }
                 return NodeFilter.FILTER_SKIP;
-                }
             },
             false);
-        var nodeList = [];
 
         while (treeWalker.nextNode()) {
-            nodeList.push(treeWalker.currentNode);
+            // empty loop
         }
+
         return nodeList;
     }
 
