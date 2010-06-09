@@ -9,3 +9,12 @@
 <!ENTITY writtenBy.label "Skrevet af">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Kopier indstillinger for 'Indsæt speciel'">
+<!ENTITY copy.links.label "Kopier links">
+<!ENTITY copy.styles.label "Kopier styles (farver, kanter, ...)">
+<!ENTITY copy.images.label "Kopier billeder">
+<!ENTITY copy.form.elements.label "Kopier formularelementer (tekstfelter, knapper, ...)">
+<!ENTITY styles.warning.label "Kopiering af style-elementer understøttes i øjeblikket kun af Microsoft-produkter">
+<!ENTITY html.attribute.filters.label "HTML attribut-filtre">
+<!ENTITY html.attribute.filters.patterns.label "Mønstre-liste (et pr. linje)">
+<!ENTITY html.attribute.filters.doc.label "Gå til dokumentation">

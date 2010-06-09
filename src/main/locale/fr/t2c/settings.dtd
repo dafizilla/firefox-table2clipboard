@@ -9,9 +9,12 @@
 <!ENTITY writtenBy.label "Créée par">
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">
-<!ENTITY copy.options.label "Options de la copie pour le 'coller spécial'">
+<!ENTITY copy.options.label "Options de la copie pour le 'collage spécial'">
 <!ENTITY copy.links.label "Copier les liens">
 <!ENTITY copy.styles.label "Copier les styles (couleurs, bordures, ....)">
 <!ENTITY copy.images.label "Copier les images">
 <!ENTITY copy.form.elements.label "Copier les éléments du formulaire (champs de saisie, boutons, etc.)">
 <!ENTITY styles.warning.label "Pour le moment, seuls les produits Microsoft supportent la copie des styles">
+<!ENTITY html.attribute.filters.label "Filtres des attributs HTML">
+<!ENTITY html.attribute.filters.patterns.label "Liste des types de filtres (un par ligne)">
+<!ENTITY html.attribute.filters.doc.label "Consulter la documentation">

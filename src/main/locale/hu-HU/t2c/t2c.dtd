@@ -1,0 +1,12 @@
+<!ENTITY cmd.ctx-copyselection.label "Kiválasztott cellák másolása">
+<!ENTITY cmd.editMenu-copyselection.label "Kiválasztott cellák másolása">
+<!ENTITY cmd.ctx-selecttable.label "Tábla kiválasztása">
+<!ENTITY cmd.ctx-copy-whole-table.label "Teljes tábla másolása">
+<!ENTITY cmd.ctx-selecttablerow.label "Sor kiválasztása">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Oszlop kiválasztása">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">
+<!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
+<!ENTITY table2Clip.tool.menu.accesskey "2">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "b">
+<!ENTITY t2c.copyalltables.commandkey "b">

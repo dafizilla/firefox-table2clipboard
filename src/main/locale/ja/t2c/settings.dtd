@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "画像をコピー">
 <!ENTITY copy.form.elements.label "要素からコピー (入力欄やボタンなど)">
 <!ENTITY styles.warning.label "スタイルのコピーは今のところマイクロソフト製品でのみ対応">
+<!ENTITY html.attribute.filters.label "HTML 属性フィルタ">
+<!ENTITY html.attribute.filters.patterns.label "パターンリスト (行毎)">
+<!ENTITY html.attribute.filters.doc.label "説明文へ移動">

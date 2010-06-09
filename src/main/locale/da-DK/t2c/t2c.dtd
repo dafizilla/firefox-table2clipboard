@@ -2,7 +2,11 @@
 <!ENTITY cmd.editMenu-copyselection.label "Vælg valgte celler">
 <!ENTITY cmd.ctx-selecttable.label "Vælg tabel">
 <!ENTITY cmd.ctx-copy-whole-table.label "Kopier hel tabel">
+<!ENTITY cmd.ctx-selecttablerow.label "Vælg række">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Vælg kolonne">
 <!ENTITY editMenu-t2c-copy.accesskey "e">
 <!ENTITY t2c.commandkey "e">
 <!ENTITY table2Clip.tool.menu.label "Tabel2Udklipsholder...">
 <!ENTITY table2Clip.tool.menu.accesskey "2">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "b">
+<!ENTITY t2c.copyalltables.commandkey "b">

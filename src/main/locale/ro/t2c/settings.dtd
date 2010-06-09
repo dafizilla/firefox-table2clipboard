@@ -1,0 +1,20 @@
+<!ENTITY appendRowSep.label "Adaugă separator la sfârşit">
+<!ENTITY colSeparator.label "Şir separator de coloană">
+<!ENTITY menu.special.label "Special">
+<!ENTITY menu.special.newline "Linie nouă">
+<!ENTITY menu.special.tab "Tabulator">
+<!ENTITY rowSeparator.label "Şir separator de linie">
+<!ENTITY settings.title "Opţiuni Table2Clipboard">
+<!ENTITY table2Clip.home.tooltip "Pagina gazdă Table2Clipboard">
+<!ENTITY writtenBy.label "Realizată de">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Opţiuni de copiere pentru &quot;Lipire specială&quot;">
+<!ENTITY copy.links.label "Copiere legături">
+<!ENTITY copy.styles.label "Copiere stiluri (culori, chenare, ...)">
+<!ENTITY copy.images.label "Copiere imagini">
+<!ENTITY copy.form.elements.label "Copiere din alte elemente (câmpuri text, butoane, ...)">
+<!ENTITY styles.warning.label "Momentan copierea stilurilor este suportată numai pentru produsele Microsoft">
+<!ENTITY html.attribute.filters.label "Filtre de atribute HTML">
+<!ENTITY html.attribute.filters.patterns.label "Listă şabloane (unul pe linie)">
+<!ENTITY html.attribute.filters.doc.label "Documentaţie">

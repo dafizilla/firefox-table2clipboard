@@ -1,0 +1,20 @@
+<!ENTITY appendRowSep.label "Elválasztót tegyen a végére">
+<!ENTITY colSeparator.label "String oszlopok elválasztására">
+<!ENTITY menu.special.label "Speciális">
+<!ENTITY menu.special.newline "Sortörés">
+<!ENTITY menu.special.tab "Táblázatrendszer">
+<!ENTITY rowSeparator.label "String sorok elválasztására">
+<!ENTITY settings.title "Table2Clipboard beállítások">
+<!ENTITY table2Clip.home.tooltip "Menjen a Table2Clipboard-ra">
+<!ENTITY writtenBy.label "Írta">
+<!ENTITY csv.label "CSV">
+<!ENTITY html.label "HTML">
+<!ENTITY copy.options.label "Beállítások másolása a 'Speciális Másolás'-ba">
+<!ENTITY copy.links.label "Linkek másolása">
+<!ENTITY copy.styles.label "Stílusok másolása (színek, szegélyel, ...)">
+<!ENTITY copy.images.label "Képek másolása">
+<!ENTITY copy.form.elements.label "Szövegformázások másolása (szövegdobozok, gombok, ...)">
+<!ENTITY styles.warning.label "A stílusok másolása egyelőre csal Microsoft termékeknél támogatott.">
+<!ENTITY html.attribute.filters.label "HTML Tulajdonság Filterek">
+<!ENTITY html.attribute.filters.patterns.label "Minta lista (egy db soronként)">
+<!ENTITY html.attribute.filters.doc.label "Dokumentációhoz">

@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "Kopírovať obrázky">
 <!ENTITY copy.form.elements.label "Kopírovať prvky formulárov (textové polia, tlačidlá...)">
 <!ENTITY styles.warning.label "Kopírovanie štýlov je momentálne podporované len v produktoch Microsoftu.">
+<!ENTITY html.attribute.filters.label "Filtre atribútov HTML">
+<!ENTITY html.attribute.filters.patterns.label "Zoznam vzoriek (jedna na riadok)">
+<!ENTITY html.attribute.filters.doc.label "Prejsť na dokumentáciu">

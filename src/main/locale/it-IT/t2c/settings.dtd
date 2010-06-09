@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "Copia le immagini">
 <!ENTITY copy.form.elements.label "Copia gli elementi delle form (campi di testo, pulsanti, ...)">
 <!ENTITY styles.warning.label "La copia degli stili attualmente e' supportata solo sui prodotti Microsoft">
+<!ENTITY html.attribute.filters.label "Filtri Attributi HTML">
+<!ENTITY html.attribute.filters.patterns.label "Lista Pattern (uno per linea)">
+<!ENTITY html.attribute.filters.doc.label "Vai alla documentazione">

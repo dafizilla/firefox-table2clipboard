@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "이미지 복사">
 <!ENTITY copy.form.elements.label "폼 요소(입력 문자 상자, 단추,...) 복사">
 <!ENTITY styles.warning.label "현재 스타일 복사는 Microsoft 제품에서만 지원합니다.">
+<!ENTITY html.attribute.filters.label "HTML 속성 필터">
+<!ENTITY html.attribute.filters.patterns.label "패턴 목록(한 줄에 하나)">
+<!ENTITY html.attribute.filters.doc.label "문서로 이동">

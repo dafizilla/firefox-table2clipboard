@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "Afbeeldingen kopiëren">
 <!ENTITY copy.form.elements.label "Elementen van formulier (tekstvelden, knoppen, etc) kopiëren">
 <!ENTITY styles.warning.label "Kopiëren van stijlen wordt momenteel alleen ondersteund voor producten van Microsoft">
+<!ENTITY html.attribute.filters.label "Filters voor HTML-attributen">
+<!ENTITY html.attribute.filters.patterns.label "Lijst met patronen (1 per regel)">
+<!ENTITY html.attribute.filters.doc.label "Naar de documentatie">

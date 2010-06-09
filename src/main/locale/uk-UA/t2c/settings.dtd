@@ -15,3 +15,6 @@
 <!ENTITY copy.images.label "Копіювати зображення">
 <!ENTITY copy.form.elements.label "Копіювати елементи форм (поля вводу, кнопки тощо)">
 <!ENTITY styles.warning.label "Копіювання стилів наразі підтримується тільки у продуктах Microsoft">
+<!ENTITY html.attribute.filters.label "Фільтр атрибутів HTML">
+<!ENTITY html.attribute.filters.patterns.label "Список шаблонів (один на рядок)">
+<!ENTITY html.attribute.filters.doc.label "Довідка">

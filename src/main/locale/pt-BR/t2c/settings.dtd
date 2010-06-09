@@ -10,8 +10,11 @@
 <!ENTITY csv.label "CSV">
 <!ENTITY html.label "HTML">
 <!ENTITY copy.options.label "Copiar Opções para &quot;Colar Especial&quot;">
-<!ENTITY copy.links.label "Copiar Links">
+<!ENTITY copy.links.label "Copiar Enlaces">
 <!ENTITY copy.styles.label "Copiar estilos (cores, bordas etc.)">
 <!ENTITY copy.images.label "Copiar imagens">
 <!ENTITY copy.form.elements.label "Copiar elementos do formulário (caixas de entrada de texto, botões, ...)">
 <!ENTITY styles.warning.label "A cópia de estilos neste momento é apenas compatível com produtos Microsoft">
+<!ENTITY html.attribute.filters.label "Filtros de Atributos Html">
+<!ENTITY html.attribute.filters.patterns.label "Lista de padrões (um por linha)">
+<!ENTITY html.attribute.filters.doc.label "Ir para Documentação">

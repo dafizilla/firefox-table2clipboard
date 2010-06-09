@@ -1,0 +1,12 @@
+<!ENTITY cmd.ctx-copyselection.label "Copiază celulele selectate">
+<!ENTITY cmd.editMenu-copyselection.label "Copiază celulele selectate">
+<!ENTITY cmd.ctx-selecttable.label "Selectează tabelul">
+<!ENTITY cmd.ctx-copy-whole-table.label "Copiază întregul tabel">
+<!ENTITY cmd.ctx-selecttablerow.label "Selectează linia">
+<!ENTITY cmd.ctx-selecttablecolumn.label "Selectează coloana">
+<!ENTITY editMenu-t2c-copy.accesskey "e">
+<!ENTITY t2c.commandkey "c">
+<!ENTITY table2Clip.tool.menu.label "Table2Clipboard...">
+<!ENTITY table2Clip.tool.menu.accesskey "2">
+<!ENTITY editMenu-t2c-copyalltables.accesskey "t">
+<!ENTITY t2c.copyalltables.commandkey "t">
