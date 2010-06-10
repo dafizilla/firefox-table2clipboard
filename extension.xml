@@ -1,5 +1,5 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "1.4">
+<!ENTITY extension.version "1.5">
 ]>
 
 <extension name="t2c">
@@ -39,10 +39,10 @@
     <locales>
         <locale pos="1" code="en-US" />
         <locale pos="2" code="it-IT" />
-        <locale pos="3" code="de-DE" />
+        <locale pos="3" code="de" />
         <locale pos="4" code="es-ES" />
         <locale pos="5" code="fr" />
-        <!--<locale pos="6" code="nl-NL" />-->
+        <locale pos="6" code="nl" />
         <!--<locale pos="7" code="pl-PL" />-->
         <!--<locale pos="8" code="tr-TR" />-->
         <locale pos="9" code="ru-RU" />
@@ -50,16 +50,18 @@
         <locale pos="11" code="sk-SK" />
         <locale pos="12" code="pt-BR" />
         <!--<locale pos="13" code="bg-BG" />-->
-        <!--<locale pos="14" code="da-DK" />-->
+        <locale pos="14" code="da-DK" />
         <!--<locale pos="15" code="fa-IR" />-->
         <!--<locale pos="16" code="nb-NO" />-->
         <locale pos="17" code="ja" />
         <!--<locale pos="18" code="sv-SE" />-->
         <locale pos="19" code="uk-UA" />
         <locale pos="20" code="ko-KR" />
-        <locale pos="21" code="mk-MK" />
+        <!--<locale pos="21" code="mk-MK" />-->
         <!--<locale pos="22" code="zh-TW" />-->
-        <locale pos="23" code="sr-RS" />
+        <locale pos="23" code="sr" />
+        <locale pos="24" code="hu-HU" />
+        <locale pos="25" code="ro" />
     </locales>
 
     <styles>
