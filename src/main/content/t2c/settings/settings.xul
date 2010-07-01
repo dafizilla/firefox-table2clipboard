@@ -12,6 +12,7 @@
 
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="t2cSettingsDialog"
+        windowtype="t2c:settings"
         minwidth="400"
         onload="return gTable2ClipSettings.onLoad();"
         ondialogaccept="return gTable2ClipSettings.onAccept();"

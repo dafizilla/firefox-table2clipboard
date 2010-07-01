@@ -304,9 +304,9 @@ var gTable2Clip = {
     },
 
     onOpenSettings : function(event) {
-        window.openDialog("chrome://t2c/content/settings/settings.xul",
-                          "_blank",
-                          "chrome,modal,resizable=yes,dependent=yes");
+        toOpenWindowByType("t2c:settings",
+                           "chrome://t2c/content/settings/settings.xul",
+                           "chrome,resizable=yes,dependent=yes");
     }
 }
 
