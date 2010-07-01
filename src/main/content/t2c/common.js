@@ -23,6 +23,8 @@ this.isOSWin = function() {
     return top.window.navigator.platform.indexOf("Win") >= 0;
 }
 
+this.newLine = table2clipboard.common.isOSWin() ? "\r\n" : "\n";
+
 this.getLocalizedMessage = function(msg) {
     return locale.GetStringFromName(msg);
 }
@@ -134,6 +136,10 @@ this.getTextNodeContent = function(node) {
             if (style.getPropertyValue("display") == "none") {
                 continue;
             }
+            // preserve newlines
+            if (nl[i].localName.toUpperCase() == "BR") {
+                str += table2clipboard.common.newLine;
+            }
         }
         if (nl[i].nodeType == Node.TEXT_NODE) {
             str += nl[i].nodeValue;
@@ -161,7 +167,7 @@ this.trim = function(str) {
         retStr = retStr.replace(re, "");
 
         // remove inner tabs
-        var re = /[\t\n\r]+/g;
+        var re = /\t+/g;
         retStr = retStr.replace(re, "");
     }
     return retStr;

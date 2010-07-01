@@ -158,7 +158,7 @@ function createHTMLTable(tableInfo, options, stylesMap, attributeFilters) {
 table2clipboard.formatters.csv = {};
 
 (function() {
-var reLineBreak = /[\n\r]/g;
+var reLineBreak = /[\n\r]/;
 var reDuplicateQuote = /\"/g; // "
 
 // str must be surronded with quotes if contains new lines
