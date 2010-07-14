@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Bug 3022674: linewraps (&lt;br&gt;) in table are eliminated with csv export</title>
+    </head>
+<body>
+<table>
+    <tr>
+        <td>A1</td>
+        <td>B1</td>
+        <td>C1</td>
+        <td>D1</td>
+        <td>E1</td>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+        <pre>
+   some text with mutiple-line,
+   each line starts some
+   spaces for indenting
+        </pre>
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+</tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    <tr>
+        <td>
+Line 1<br/>Line 2<br/>Line 3
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            Cell Multi lines with "Quotes"
+inside it
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>        
+</table>
+</body>
+</html>
