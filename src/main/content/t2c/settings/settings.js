@@ -28,8 +28,6 @@ var gTable2ClipSettings = {
             this.prefs.setString("attributeFiltersPattern", this.oAttributeFiltersPattern.value);
 
             this.prefs.savePrefs();
-            table2clipboard.common.getObserverService()
-                .notifyObservers(null, "t2clip:update-config", "");
         } catch (err) {
             alert("gTable2ClipSettings.onAccept: " + err);
         }

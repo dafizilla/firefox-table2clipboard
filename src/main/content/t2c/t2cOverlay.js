@@ -8,44 +8,24 @@ var gTable2Clip = {
     _tableUnderCursor : null,
 
     onLoad : function() {
-        var thiz = gTable2Clip;
-
-        thiz.addListeners();
-
-        var obs = table2clipboard.common.getObserverService();
-        obs.addObserver(thiz, "t2clip:update-config", false);
-        obs.notifyObservers(null, "t2clip:update-config", "");
+        this.addListeners();
+        this.prefs = new Table2ClipPrefs();
 
         table2clipboard.builders.html.registerAllHandlers();
     },
 
     onUnLoad : function() {
-        var thiz = gTable2Clip;
-
-        var obs = table2clipboard.common.getObserverService();
-        obs.removeObserver(thiz, "t2clip:update-config");
-        thiz.removeListeners();
-    },
-
-    observe : function(subject, topic, state) {
-        var thiz = gTable2Clip;
-
-        if (topic == "t2clip:update-config") {
-            thiz.prefs = new Table2ClipPrefs();
-            thiz.format = thiz.prefs.getClipFormat();
-        }
+        this.removeListeners();
     },
 
     addListeners : function() {
-        var thiz = gTable2Clip;
-
         var menuItem = document.getElementById("context-t2c:contextMenu");
         if (menuItem) {
             var n = menuItem.parentNode;
 
             if (n) {
                 n.addEventListener("popupshowing",
-                                   thiz.onPopupShowingContextMenu, false);
+                                   this.onPopupShowingContextMenu, false);
             }
         }
 
@@ -57,21 +37,19 @@ var gTable2Clip = {
 
             if (n) {
                 n.addEventListener("popupshowing",
-                                   thiz.onPopupShowingEdit, false);
+                                   this.onPopupShowingEdit, false);
             }
         }
     },
 
     removeListeners : function() {
-        var thiz = gTable2Clip;
-
         var menuItem = document.getElementById("context-t2c:contextMenu");
         if (menuItem) {
             var n = menuItem.parentNode;
 
             if (n) {
                 n.removeEventListener("popupshowing",
-                                   thiz.onPopupShowingContextMenu, false);
+                                   this.onPopupShowingContextMenu, false);
             }
         }
 
@@ -81,7 +59,7 @@ var gTable2Clip = {
 
             if (n) {
                 n.removeEventListener("popupshowing",
-                                   thiz.onPopupShowingEdit, false);
+                                   this.onPopupShowingEdit, false);
             }
         }
     },
@@ -136,22 +114,21 @@ var gTable2Clip = {
     },
 
     goUpdateSelectMenuItems : function() {
-        var thiz = gTable2Clip;
-        goSetCommandEnabled("cmd_copyT2C", thiz.isCommandEnabled('cmd_copyT2C'));
+        goSetCommandEnabled("cmd_copyT2C", this.isCommandEnabled('cmd_copyT2C'));
     },
 
     copyTableSelection : function(event) {
         try {
             var arr;
 
-            if (gTable2Clip._selectedTable) {
-                arr = table2clipboard.tableInfo.getTableInfoFromTable(gTable2Clip._selectedTable);
+            if (this._selectedTable) {
+                arr = table2clipboard.tableInfo.getTableInfoFromTable(this._selectedTable);
             } else {
                 var sel = document.commandDispatcher.focusedWindow.getSelection();
                 // if it isn't called from context menu _tableUnderCursor is null
-                arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, gTable2Clip._tableUnderCursor);
+                arr = table2clipboard.tableInfo.getTableInfoFromSelection(sel, this._tableUnderCursor);
             }
-            gTable2Clip.copyToClipboard(arr);
+            this.copyToClipboard(arr);
         } catch (err) {
             table2clipboard.common.logException(err, "T2C copyTableSelection: ");
         }
@@ -165,13 +142,13 @@ var gTable2Clip = {
         for (var i in tables) {
             tableInfos.push(table2clipboard.tableInfo.getTableInfoFromTable(tables[i]));
         }
-        gTable2Clip.copyToClipboard(tableInfos);
+        this.copyToClipboard(tableInfos);
     },
 
     copyToClipboard : function(tableInfo) {
         with (table2clipboard.formatters) {
-            var textHtml = html.format(tableInfo, gTable2Clip.getHtmlOptions());
-            var textCSV = csv.format(tableInfo, gTable2Clip.format);
+            var textHtml = html.format(tableInfo, this.getHtmlOptions());
+            var textCSV = csv.format(tableInfo, this.prefs.getClipFormat());
         }
 
         var xferable = Components.classes["@mozilla.org/widget/transferable;1"]
@@ -200,11 +177,11 @@ var gTable2Clip = {
      * @returns the object {copyStyles, copyLinks, copyImages, copyFormElements}
      */
     getHtmlOptions : function() {
-        return {copyStyles : gTable2Clip.prefs.getBool("copyStyles"),
-            copyLinks : gTable2Clip.prefs.getBool("copyLinks"),
-            copyImages : gTable2Clip.prefs.getBool("copyImages"),
-            copyFormElements : gTable2Clip.prefs.getBool("copyFormElements"),
-            attributeFiltersPattern: gTable2Clip.prefs.getString("attributeFiltersPattern")};
+        return {copyStyles : this.prefs.getBool("copyStyles"),
+            copyLinks : this.prefs.getBool("copyLinks"),
+            copyImages : this.prefs.getBool("copyImages"),
+            copyFormElements : this.prefs.getBool("copyFormElements"),
+            attributeFiltersPattern: this.prefs.getString("attributeFiltersPattern")};
     },
 
     // From browser.js
@@ -214,7 +191,7 @@ var gTable2Clip = {
     },
 
     isTableSelection : function(node) {
-        gTable2Clip._selectedTable = null;
+        this._selectedTable = null;
         var nodeName = node.localName && node.localName.toLowerCase();
 
         if (nodeName == "tr" || nodeName == "th") {
@@ -222,13 +199,13 @@ var gTable2Clip = {
         }
 
         if (nodeName == "table") {
-            gTable2Clip._selectedTable = node;
+            this._selectedTable = node;
             return true;
         }
         var nl = node.childNodes;
         for (var i = 0; i < nl.length; i++) {
             if (node.localName.toLowerCase() == "table") {
-                gTable2Clip._selectedTable = nl[i];
+                this._selectedTable = nl[i];
                 return true;
             }
         }
@@ -238,7 +215,7 @@ var gTable2Clip = {
 
     selectTable : function(table) {
         table = typeof(table) == "undefined" || table == null
-            ? gTable2Clip._tableUnderCursor : table;
+            ? this._tableUnderCursor : table;
         if (table) {
             var focusedWindow = document.commandDispatcher.focusedWindow;
             var sel = focusedWindow.getSelection();
@@ -248,10 +225,10 @@ var gTable2Clip = {
 
     copyWholeTable : function(table) {
         table = typeof(table) == "undefined" || table == null
-            ? gTable2Clip._tableUnderCursor : table;
+            ? this._tableUnderCursor : table;
         try {
             var arr = table2clipboard.tableInfo.getTableInfoFromTable(table);
-            gTable2Clip.copyToClipboard(arr);
+            this.copyToClipboard(arr);
         } catch (err) {
             table2clipboard.common.logException(err, "T2C copyWholeTable: ");
         }
@@ -260,11 +237,11 @@ var gTable2Clip = {
     /** nsIController implementation **/
 
     doCommand : function(command) {
-        if (!gTable2Clip.isCommandEnabled(command)) {
+        if (!this.isCommandEnabled(command)) {
             return;
         }
         if (command == "cmd_copyT2C") {
-            gTable2Clip.copyTableSelection();
+            this.copyTableSelection();
         }
     },
 
@@ -273,8 +250,8 @@ var gTable2Clip = {
             var focusedWindow = document.commandDispatcher.focusedWindow;
             if (focusedWindow) {
                 var sel = focusedWindow.getSelection();
-                return gTable2Clip.isContentSelection(sel)
-                         && gTable2Clip.isTableSelection(sel.focusNode);
+                return this.isContentSelection(sel)
+                         && this.isTableSelection(sel.focusNode);
             }
         }
         return false;
@@ -310,5 +287,5 @@ var gTable2Clip = {
     }
 }
 
-window.addEventListener("load", gTable2Clip.onLoad, false);
-window.addEventListener("unload", gTable2Clip.onUnLoad, false);
+window.addEventListener("load", function(event) {gTable2Clip.onLoad(event);}, false);
+window.addEventListener("unload", function(event) {gTable2Clip.onUnLoad(event);}, false);
