@@ -1,5 +1,5 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "1.5">
+<!ENTITY extension.version "1.5.1">
 ]>
 
 <extension name="t2c">
@@ -81,7 +81,7 @@
             <description>Firefox</description>
             <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
             <minVersion>2.0</minVersion>
-            <maxVersion>3.7a3pre</maxVersion>
+            <maxVersion>4.0b2pre</maxVersion>
         </application>
 
         <application>
@@ -92,17 +92,10 @@
         </application>
         
         <application>
-            <description>Flock</description>
-            <id>{a463f10c-3994-11da-9945-000d60ca027b}</id>
-            <minVersion>1.0+</minVersion>
-            <maxVersion>3.0.*</maxVersion>
-        </application>
-
-        <application>
             <description>SeaMonkey</description>
             <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id>
             <minVersion>2.0</minVersion>
-            <maxVersion>2.1a1pre</maxVersion>
+            <maxVersion>2.1a3</maxVersion>
         </application>
 
         <application>
