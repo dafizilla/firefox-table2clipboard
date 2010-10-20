@@ -1,0 +1,9 @@
+[ ] copyTableSelection
+[ ] copyAllTables
+[ ] copyWholeTable
+[x] selectTable
+[!] selectTableRow
+[ ] selectTableColumn
+
+x = full implementable
+! = partially implementable
