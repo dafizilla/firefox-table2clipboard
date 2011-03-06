@@ -69,8 +69,8 @@ var gTable2Clip = {
             var node = document.popupNode;
             gTable2Clip._tableUnderCursor = table2clipboard.tableInfo.findTableFromNode(node);
             var isOnTable = gTable2Clip._tableUnderCursor != null;
-            var hasCellsSelected = gTable2Clip.isCommandEnabled('cmd_copyT2C');
-            var shouldShow = hasCellsSelected || isOnTable;
+            var hasSelectedCells = gTable2Clip.hasSelectedCells();
+            var shouldShow = hasSelectedCells || isOnTable;
 
             gTable2Clip.showMenuItem("context-t2c:contextMenu", shouldShow);
 
@@ -79,7 +79,7 @@ var gTable2Clip = {
                 // because the cell isn't determinated (should be found from mouse coordinated)
                 var isOnCell = table2clipboard.tableInfo.getCellNode(node) != null;
 
-                gTable2Clip.showMenuItem("context-t2c:Copy", hasCellsSelected);
+                gTable2Clip.showMenuItem("context-t2c:Copy", hasSelectedCells);
                 gTable2Clip.showMenuItem("context-t2c:SelectTable", isOnTable);
                 gTable2Clip.showMenuItem("context-t2c:CopyWholeTable", isOnTable);
                 gTable2Clip.showMenuItem("context-t2c:SelectTableRow", isOnTable);
@@ -100,21 +100,21 @@ var gTable2Clip = {
             menuitem.setAttribute("label", label);
         }
         gTable2Clip.showMenuItem(menuitem, tables.length > 0);
+        gTable2Clip.showMenuItem(document.getElementById("editMenu-t2c:Copy"),
+                                 gTable2Clip.hasSelectedCells(),
+                                 "disabled")
     },
 
-    showMenuItem : function(menuItem, show) {
+    showMenuItem : function(menuItem, show, showAttr) {
+        showAttr = typeof(showAttr) == "undefined" ? "hidden" : showAttr;
         if (menuItem.constructor === String) {
             menuItem = document.getElementById(menuItem);
         }
         if (show) {
-            menuItem.removeAttribute("hidden");
+            menuItem.removeAttribute(showAttr);
         } else {
-            menuItem.setAttribute("hidden", "true");
+            menuItem.setAttribute(showAttr, "true");
         }
-    },
-
-    goUpdateSelectMenuItems : function() {
-        goSetCommandEnabled("cmd_copyT2C", this.isCommandEnabled('cmd_copyT2C'));
     },
 
     copyTableSelection : function(event) {
@@ -234,34 +234,20 @@ var gTable2Clip = {
         }
     },
 
-    /** nsIController implementation **/
-
-    doCommand : function(command) {
-        if (!this.isCommandEnabled(command)) {
-            return;
-        }
-        if (command == "cmd_copyT2C") {
+    copySelectedCells : function() {
+        if (this.hasSelectedCells()) {
             this.copyTableSelection();
         }
     },
 
-    isCommandEnabled : function(command) {
-        if (command == "cmd_copyT2C") {
-            var focusedWindow = document.commandDispatcher.focusedWindow;
-            if (focusedWindow) {
-                var sel = focusedWindow.getSelection();
-                return this.isContentSelection(sel)
-                         && this.isTableSelection(sel.focusNode);
-            }
+    hasSelectedCells : function() {
+        var focusedWindow = document.commandDispatcher.focusedWindow;
+        if (focusedWindow) {
+            var sel = focusedWindow.getSelection();
+            return this.isContentSelection(sel)
+                     && this.isTableSelection(sel.focusNode);
         }
         return false;
-    },
-
-    onEvent : function(eventName) {
-    },
-
-    supportsCommand : function(command) {
-        return command == "cmd_copyT2C";
     },
 
     selectTableRow : function() {

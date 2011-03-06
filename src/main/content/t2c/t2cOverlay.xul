@@ -7,33 +7,6 @@
 <overlay id="t2cOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <!-- Command set Firefox-->
-    <commandset id="mainCommandSet"
-                commandupdater="true"
-                events="focus,select"
-                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
-        <command id="cmd_copyT2C"/>
-        <command id="cmd_copyT2CAllTable"/>
-    </commandset>
-
-    <!-- Command set Thunderbird-->
-    <commandset id="mailCommands"
-                commandupdater="true"
-                events="focus,select"
-                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
-        <command id="cmd_copyT2C"/>
-        <command id="cmd_copyT2CAllTable"/>
-    </commandset>
-
-    <!-- Command set Mozilla-->
-    <commandset id="commands"
-                commandupdater="true"
-                events="focus,select"
-                oncommandupdate="gTable2Clip.goUpdateSelectMenuItems();">
-        <command id="cmd_copyT2C"/>
-        <command id="cmd_copyT2CAllTable"/>
-    </commandset>
-
     <!-- Context Menu Firefox, Mozilla, NS8, Flock -->
     <popup id="contentAreaContextMenu">
         <menu id="context-t2c:contextMenu" insertafter="context-selectall"/>
@@ -55,7 +28,7 @@
                     label="&cmd.editMenu-copyselection.label;"
                     accesskey="&editMenu-t2c-copy.accesskey;"
                     key="key_t2c"
-                    command="cmd_copyT2C"
+                    oncommand="gTable2Clip.copySelectedCells();"
                     position="6">
         </menuitem>
         <menuitem   id="editMenu-t2c:CopyAllTables"
@@ -72,7 +45,7 @@
                     label="&cmd.editMenu-copyselection.label;"
                     accesskey="&editMenu-t2c-copy.accesskey;"
                     key="key_t2c"
-                    command="cmd_copyT2C"
+                    oncommand="gTable2Clip.copySelectedCells();"
                     insertafter="menu_copy">
         </menuitem>
         <menuitem   id="editMenu-t2c:CopyAllTables"
