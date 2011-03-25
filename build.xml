@@ -75,6 +75,9 @@
         <copy todir="${replacement.output.dir}/defaults" failonerror="false" overwrite="true">
             <fileset dir="${src.dir}/defaults" />
         </copy>
+        <copy todir="${replacement.output.dir}/modules" failonerror="false" overwrite="true">
+            <fileset dir="${src.dir}/modules" />
+        </copy>
     </target>
 
     <target name="apply-install-js" unless="exclude.installjs">
