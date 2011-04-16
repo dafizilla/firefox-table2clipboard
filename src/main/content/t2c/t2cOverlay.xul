@@ -34,7 +34,7 @@
         <menuitem   id="editMenu-t2c:CopyAllTables"
                     accesskey="&editMenu-t2c-copyalltables.accesskey;"
                     key="key_t2c_copyalltables"
-                    command="cmd_copyT2CAllTable"
+                    oncommand="gTable2Clip.copyAllTables();"
                     position="6">
         </menuitem>
     </menupopup>
@@ -51,7 +51,7 @@
         <menuitem   id="editMenu-t2c:CopyAllTables"
                     accesskey="&editMenu-t2c-copyalltables.accesskey;"
                     key="key_t2c_copyalltables"
-                    command="cmd_copyT2CAllTable"
+                    oncommand="gTable2Clip.copyAllTables();"
                     insertafter="menu_copy">
         </menuitem>
     </menupopup>

@@ -20,17 +20,14 @@
     <script type="application/x-javascript"
             src="chrome://t2c/content/t2cOverlay.js" />
 
-    <command id="cmd_copyT2CAllTable"
-             oncommand="gTable2Clip.copyAllTables();"/>
-
     <key id="key_t2c"
          key="&t2c.commandkey;"
          oncommand="gTable2Clip.copySelectedCells();"
          modifiers="accel,shift"/>
 
     <key id="key_t2c_copyalltables"
-         key="&t2c.copyalltables.commandkey;"
-         command="cmd_copyT2CAllTable"
+         keycode="VK_F2"
+         oncommand="gTable2Clip.copyAllTables();"
          modifiers="accel,shift"/>
 
     <menu id="context-t2c:contextMenu" label="Table2Clipboard" accesskey="2">
