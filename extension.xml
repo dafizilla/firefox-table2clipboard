@@ -1,5 +1,5 @@
 <!DOCTYPE extension [
-<!ENTITY extension.version "1.5.2">
+<!ENTITY extension.version "1.5.3">
 ]>
 
 <extension name="t2c">
