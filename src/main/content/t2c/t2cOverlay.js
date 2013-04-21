@@ -153,6 +153,9 @@ var gTable2Clip = {
 
         var xferable = Components.classes["@mozilla.org/widget/transferable;1"]
                         .createInstance(Components.interfaces.nsITransferable);
+        
+        // Needed on fx 16.x
+        if ("init" in xferable) xferable.init(null);
 
         xferable.addDataFlavor("text/html");
         var htmlstring = Components.classes["@mozilla.org/supports-string;1"]
